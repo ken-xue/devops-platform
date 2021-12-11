@@ -13,7 +13,7 @@
 
 ## Introduction
 
-> cicd-platform 是一款企业级持续可交付平台。采用前后端分离开发模式([前端地址]())
+> cicd-platform 是一款企业级持续可交付平台。采用前后端分离开发模式([前端地址](https://github.com/ken-xue/cicd-platform-vue))
 
 ## Architecture
 
