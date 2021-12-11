@@ -1,0 +1,28 @@
+package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command;
+
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.assembler.${className}2DTOAssembler;
+import io.kenxue.cicd.domain.domain.${moduleName}.${className};
+import io.kenxue.cicd.coreclient.dto.common.response.Response;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}UpdateCmd;
+import io.kenxue.cicd.domain.repository.${moduleName}.${className}Repository;
+import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Component
+public class ${className}UpdateCmdExe {
+
+    @Resource
+    private ${className}Repository ${classname}Repository;
+    @Resource
+    private ${className}2DTOAssembler ${classname}2DTOAssembler;
+
+    public Response execute(${className}UpdateCmd cmd) {
+        ${className} ${classname} = ${classname}2DTOAssembler.toDomain(cmd.get${className}DTO());
+        ${classname}Repository.update(${classname});
+        return Response.success();
+    }
+}

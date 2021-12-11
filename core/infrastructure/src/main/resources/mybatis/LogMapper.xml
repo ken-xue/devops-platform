@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.mapper.LogMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.LogDO" id="logMap">
+            <result property="username" column="username"/>
+            <result property="operation" column="operation"/>
+            <result property="method" column="method"/>
+            <result property="params" column="params"/>
+            <result property="executeTime" column="execute_time"/>
+            <result property="ip" column="ip"/>
+            <result property="occurTime" column="occur_time"/>
+    </resultMap>
+</mapper>

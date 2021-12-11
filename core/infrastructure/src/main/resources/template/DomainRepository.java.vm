@@ -1,0 +1,19 @@
+package io.kenxue.cicd.domain.repository.${moduleName};
+
+import io.kenxue.cicd.coreclient.dto.common.page.Page;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}ListQry;
+.${moduleName}.${allLowName}.${className}PageQry;
+import io.kenxue.cicd.domain.domain.${moduleName}.${className};
+import java.util.List;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Repository {
+    void create(${className} ${classname});
+    void update(${className} ${classname});
+    ${className} getById(Long id);
+    List<${className}> list(${className}ListQry ${classname}ListQry);
+    Page<${className}> page(${className}PageQry qry);
+}

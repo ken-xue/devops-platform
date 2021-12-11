@@ -1,0 +1,39 @@
+package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.assembler;
+
+import Assembler;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}DTO;
+import io.kenxue.cicd.domain.domain.${moduleName}.${className};
+import org.springframework.stereotype.Component;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Component
+public class ${className}2DTOAssembler implements Assembler<${className}DTO, ${className}> {
+
+    @Override
+    public ${className}DTO toDTO(${className} ${classname}) {
+        return ${className}2DTOMapStruct.INSTANCE.toDTO(${classname});
+    }
+
+    @Override
+    public ${className} toDomain(${className}DTO ${classname}DTO) {
+        return ${className}2DTOMapStruct.INSTANCE.toDomain(${classname}DTO);
+    }
+
+    @Override
+    public List<${className}DTO> toDTOList(List<${className}> ${classname}List) {
+        return ${className}2DTOMapStruct.INSTANCE.toDTOList(${classname}List);
+    }
+
+    @Override
+    public List<${className}> toDomainList(List<${className}DTO> ${classname}DTOList) {
+        return ${className}2DTOMapStruct.INSTANCE.toDomainList(${classname}DTOList);
+    }
+
+    @Override
+    public Page<${className}DTO> toDTOPage(Page<${className}> page){
+        return new Page<>(page.getCurrent(), page.getSize(), page.getTotal(), ${className}2DTOMapStruct.INSTANCE.toDTOList(page.getRecords()));
+    }
+}

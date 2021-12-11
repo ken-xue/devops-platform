@@ -1,0 +1,20 @@
+package io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName};
+
+import io.kenxue.cicd.coreclient.dto.common.command.CommonCommand;
+import lombok.Data;
+import lombok.experimental.Accessors;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@Accessors(chain = true)
+public class ${className}ListQry extends CommonCommand {
+#foreach ($column in $columns)
+    /**
+     * ${column.comments}
+     */
+    private $column.attrType $column.attrname;
+#end
+}

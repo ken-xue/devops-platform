@@ -1,0 +1,29 @@
+package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.assembler;
+
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}DTO;
+import io.kenxue.cicd.domain.domain.${moduleName}.${className};
+import org.mapstruct.Mapper;
+import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+import java.util.List;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface ${className}2DTOMapStruct {
+
+    ${className}2DTOMapStruct INSTANCE = Mappers.getMapper(${className}2DTOMapStruct.class);
+
+    @Mappings({})
+    ${className}DTO toDTO(${className} ${classname});
+
+    @Mappings({})
+    ${className} toDomain(${className}DTO ${classname}DTO);
+
+    List<${className}DTO> toDTOList(List<${className}> ${className}List);
+
+    List<${className}> toDomainList(List<${className}DTO> ${className}DTOList);
+}

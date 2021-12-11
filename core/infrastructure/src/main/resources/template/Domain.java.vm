@@ -1,0 +1,21 @@
+package io.kenxue.cicd.domain.domain.${moduleName};
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ${className} extends CommonEntity {
+#foreach ($column in $columns)
+    /**
+     * ${column.comments}
+     */
+    private $column.attrType $column.attrname;
+#end
+}

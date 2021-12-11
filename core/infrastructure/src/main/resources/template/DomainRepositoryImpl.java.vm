@@ -1,0 +1,56 @@
+package io.kenxue.cicd.infrastructure.repositoryimpl.${moduleName};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}ListQry;
+.${moduleName}.${allLowName}.${className}PageQry;
+import io.kenxue.cicd.domain.domain.${moduleName}.${className};
+import io.kenxue.cicd.domain.repository.${moduleName}.${className}Repository;
+    ${moduleName}.database.convertor.${className}2DOConvector;
+    ${moduleName}.database.dataobject.${className}DO;
+    ${moduleName}.database.mapper.${className}Mapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.kenxue.cicd.coreclient.dto.common.page.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Slf4j
+@Component
+public class ${className}RepositoryImpl implements ${className}Repository {
+
+    @Resource
+    private ${className}Mapper ${classname}Mapper;
+    @Resource
+    private ${className}2DOConvector ${classname}2DOConvector;
+
+    public void create(${className} ${classname}){
+            ${classname}Mapper.insert(${classname}2DOConvector.toDO(${classname}));
+    }
+
+    public void update(${className} ${classname}){
+            ${classname}Mapper.updateById(${classname}2DOConvector.toDO(${classname}));
+    }
+
+    public ${className} getById(Long id){
+        return ${classname}2DOConvector.toDomain(${classname}Mapper.selectById(id));
+    }
+
+    @Override
+    public List<${className}> list(${className}ListQry ${classname}ListQry) {
+        return ${classname}2DOConvector.toDomainList(${classname}Mapper.selectList(new QueryWrapper<>()));
+    }
+
+    @Override
+    public Page<${className}> page(${className}PageQry qry) {
+        QueryWrapper<${className}DO> qw = new QueryWrapper<>();
+        IPage doPage = ${classname}Mapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
+        return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),${classname}2DOConvector.toDomainList(doPage.getRecords()));
+    }
+}

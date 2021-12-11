@@ -1,0 +1,18 @@
+package io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName};
+
+import lombok.Data;
+import javax.validation.constraints.NotNull;
+import lombok.experimental.Accessors;
+import io.kenxue.cicd.coreclient.dto.common.command.CommonCommand;
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@Accessors(chain = true)
+public class ${className}UpdateCmd extends CommonCommand {
+
+    @NotNull
+    private ${className}DTO ${classname}DTO;
+}

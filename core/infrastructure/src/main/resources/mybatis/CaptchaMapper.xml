@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.mapper.CaptchaMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.CaptchaDO" id="captchaMap">
+            <result property="uuid" column="uuid"/>
+            <result property="expireTime" column="expire_time"/>
+            <result property="code" column="code"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,63 @@
+package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.service;
+
+    ${moduleName}.${className}AppService;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.*;
+.${moduleName}.${allLowName}.command.${className}AddCmdExe;
+.${moduleName}.${allLowName}.command.${className}DeleteCmdExe;
+.${moduleName}.${allLowName}.command.${className}UpdateCmdExe;
+.${moduleName}.${allLowName}.command.query.${className}GetQryExe;
+.${moduleName}.${allLowName}.command.query.${className}ListQryExe;
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.query.${className}PageQryExe;
+import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
+import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
+import io.kenxue.cicd.coreclient.dto.common.response.Response;
+import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * ${comments}
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${className}AppAppServiceImpl implements ${className}AppService {
+    @Resource
+    private ${className}AddCmdExe ${classname}AddCmdExe;
+    @Resource
+    private ${className}UpdateCmdExe ${classname}UpdateCmdExe;
+    @Resource
+    private ${className}GetQryExe ${classname}GetQryExe;
+    @Resource
+    private ${className}ListQryExe ${classname}ListQryExe;
+    @Resource
+    private ${className}PageQryExe ${classname}PageQryExe;
+    @Resource
+    private ${className}DeleteCmdExe ${classname}DeleteCmdExe;
+
+    public Response add(${className}AddCmd ${classname}AddCmd) {
+        return  ${classname}AddCmdExe.execute(${classname}AddCmd);
+    }
+
+    public Response update(${className}UpdateCmd cmd) {
+        return ${classname}UpdateCmdExe.execute(cmd);
+    }
+
+    public SingleResponse<${className}DTO> getById(${className}GetQry qry) {
+        return ${classname}GetQryExe.execute(qry);
+    }
+
+    public MultiResponse<${className}DTO> list(${className}ListQry qry) {
+        return ${classname}ListQryExe.execute(qry);
+    }
+
+    public Response delete(${className}DeleteCmd ${classname}DeleteCmd) {
+        return ${classname}DeleteCmdExe.execute(${classname}DeleteCmd);
+    }
+
+    public PageResponse<${className}DTO> page(${className}PageQry ${classname}PageQry) {
+        return ${classname}PageQryExe.execute(${classname}PageQry);
+    }
+
+}
