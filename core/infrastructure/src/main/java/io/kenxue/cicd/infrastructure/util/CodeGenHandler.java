@@ -10,6 +10,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+
 import javax.annotation.Resource;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -28,15 +30,19 @@ public class CodeGenHandler {
     private CodeGeneratorMapper codeGeneratorMapper;
 
     public void execute(Configuration configuration) {
-        //2.查询表结构
-        Map<String, String> table = codeGeneratorMapper.queryTable(configuration.getString("tableName"));
-        //3.查询列信息
-        List<Map<String, String>> columns = codeGeneratorMapper.queryColumns(configuration.getString("tableName"));
-        //4.排除字段
-        List<String> exclude = Arrays.asList(configuration.getStringArray("exclude"));
-        columns.removeIf(map -> exclude.contains(map.get("columnName")));
-        //5.生成文件
-        generatorCode(table, columns, configuration);
+        String[] tableNames = configuration.getString("tableName").split(",");
+        Arrays.stream(tableNames).forEach(v-> {
+            Assert.notNull(v,"tableName must not null");
+            //2.查询表结构
+            Map<String, String> table = codeGeneratorMapper.queryTable(v);
+            //3.查询列信息
+            List<Map<String, String>> columns = codeGeneratorMapper.queryColumns(configuration.getString("tableName"));
+            //4.排除字段
+            List<String> exclude = Arrays.asList(configuration.getStringArray("exclude"));
+            columns.removeIf(map -> exclude.contains(map.get("columnName")));
+            //5.生成文件
+            generatorCode(table, columns, configuration);
+        });
     }
 
 

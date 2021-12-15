@@ -26,6 +26,7 @@
         <arthas.version>3.4.8</arthas.version>
         <commons.lang3.version>3.1</commons.lang3.version>
         <springfox.swagger>2.7.0</springfox.swagger>
+        <k8s.client.java.version>10.0.0</k8s.client.java.version>
     </properties>
 
     <dependencyManagement>
@@ -115,6 +116,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.kubernetes</groupId>
+                <artifactId>client-java</artifactId>
+                <version>${k8s.client.java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

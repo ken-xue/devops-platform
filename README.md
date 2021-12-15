@@ -1,11 +1,14 @@
 # cicd-platform
 
 <p align="center">
-  <a href="https://gitee.com/mikeygitee/cicd-platform/blob/master/LICENSE">
+  <a href="https://github.com/ken-xue/cicd-platform/blob/master/LICENSE">
     <img src="https://img.shields.io/static/v1?label=license&message=MIT&color=green">
   </a>
-  <a href="https://gitee.com/mikeygitee/cicd-platform/blob/master/LICENSE">
+  <a href="https://github.com/ken-xue/cicd-platform/blob/master/LICENSE">
     <img src="https://img.shields.io/static/v1?label=JDK&message=1.8&color=red">
+  </a>
+  <a href="https://kubernetes.io">
+    <img src="https://img.shields.io/static/v1?label=kubernetes&message=1.2x&color=blue">
   </a>
 </p>
 
@@ -17,11 +20,12 @@
 
 ## Architecture
 
+TODO
 
 ## QuickStart
 
 ```bash
-git clone https://gitee.com/mikeygithub/cicd-platform.git
+git clone https://github.com/ken-xue/cicd-platform.git
 cd cicd-platform
 mvn install
 ```
@@ -32,6 +36,8 @@ mvn install
 ## License
 
 MIT see [LICENSE](./LICENSE).
+
+## Image
 
 # TODO
 
