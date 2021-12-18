@@ -129,12 +129,13 @@
         </dependency>
         <dependency>
             <groupId>io.kenxue.cicd</groupId>
-            <artifactId>acl-impl-incident-default</artifactId>
+            <artifactId>acl-impl-event-default</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>cicd-platform</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

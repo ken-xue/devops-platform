@@ -38,7 +38,3 @@ mvn install
 MIT see [LICENSE](./LICENSE).
 
 ## Image
-
-# TODO
-
-- 设计文档

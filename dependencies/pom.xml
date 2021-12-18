@@ -27,6 +27,7 @@
         <commons.lang3.version>3.1</commons.lang3.version>
         <springfox.swagger>2.7.0</springfox.swagger>
         <k8s.client.java.version>10.0.0</k8s.client.java.version>
+        <jsch.version>0.1.55</jsch.version>
     </properties>
 
     <dependencyManagement>
@@ -122,6 +123,14 @@
                 <artifactId>client-java</artifactId>
                 <version>${k8s.client.java.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+            <!-- see https://github.com/is/jsch/blob/master/examples -->
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${jsch.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
