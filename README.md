@@ -25,10 +25,9 @@ TODO
 ## QuickStart
 
 ```bash
-git clone https://github.com/ken-xue/cicd-platform.git
-cd cicd-platform
-mvn install
+curl -sSL https://github.com/ken-xue/cicd-platform/blob/main/install/install.sh | sh
 ```
+
 ## Document
 
 - [Detail Design Document](https://www.yuque.com/docs/share/2a5531ff-f74d-48a5-922a-226c52abd755)

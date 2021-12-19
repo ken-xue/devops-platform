@@ -116,6 +116,10 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>com.offbytwo.jenkins</groupId>
+            <artifactId>jenkins-client</artifactId>
+        </dependency>
         <!--缺省组件-->
         <dependency>
             <groupId>io.kenxue.cicd</groupId>
