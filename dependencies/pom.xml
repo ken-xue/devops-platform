@@ -28,6 +28,7 @@
         <springfox.swagger>2.7.0</springfox.swagger>
         <k8s.client.java.version>10.0.0</k8s.client.java.version>
         <jsch.version>0.1.55</jsch.version>
+        <jenkins.client.version>0.3.8</jenkins.client.version>
     </properties>
 
     <dependencyManagement>
@@ -130,6 +131,19 @@
                 <artifactId>jsch</artifactId>
                 <version>${jsch.version}</version>
             </dependency>
+
+            <!-- see https://github.com/jenkinsci/java-client-api -->
+            <dependency>
+                <groupId>com.offbytwo.jenkins</groupId>
+                <artifactId>jenkins-client</artifactId>
+                <version>${jenkins.client.version}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--&lt;!&ndash;                NOT YET FINALIZED NOR RELEASED !!!&ndash;&gt;-->
+<!--                <groupId>org.jenkins-ci.lib</groupId>-->
+<!--                <artifactId>java-client-api</artifactId>-->
+<!--                <version>0.4.0</version>-->
+<!--            </dependency>-->
 
         </dependencies>
     </dependencyManagement>
