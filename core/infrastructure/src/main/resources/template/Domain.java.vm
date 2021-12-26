@@ -1,5 +1,6 @@
 package io.kenxue.cicd.domain.domain.${moduleName};
 
+import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

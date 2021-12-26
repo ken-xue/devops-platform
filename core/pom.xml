@@ -18,6 +18,7 @@
         <module>core-client</module>
         <module>domain</module>
         <module>infrastructure</module>
+        <module>share-dataobject</module>
     </modules>
     <properties>
         <revision>0.0.1-SNAPSHOT</revision>

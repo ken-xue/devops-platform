@@ -3,6 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.${moduleName}.database.conv
 import io.kenxue.cicd.domain.domain.${moduleName}.${className};
 import io.kenxue.cicd.infrastructure.repositoryimpl.${moduleName}.database.dataobject.${className}DO;
 import org.springframework.stereotype.Component;
+import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;
 import java.util.List;
 /**
  * ${comments}

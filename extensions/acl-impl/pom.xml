@@ -14,6 +14,7 @@
         <module>acl-impl-authorize-default</module>
         <module>acl-impl-database-default</module>
         <module>acl-impl-event-default</module>
+        <module>acl-impl-cached-default</module>
     </modules>
 
     <modelVersion>4.0.0</modelVersion>

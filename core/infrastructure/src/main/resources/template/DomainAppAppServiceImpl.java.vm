@@ -1,12 +1,12 @@
 package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.service;
 
-    ${moduleName}.${className}AppService;
+import io.kenxue.cicd.coreclient.api.${moduleName}.${className}AppService;
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.*;
-.${moduleName}.${allLowName}.command.${className}AddCmdExe;
-.${moduleName}.${allLowName}.command.${className}DeleteCmdExe;
-.${moduleName}.${allLowName}.command.${className}UpdateCmdExe;
-.${moduleName}.${allLowName}.command.query.${className}GetQryExe;
-.${moduleName}.${allLowName}.command.query.${className}ListQryExe;
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.${className}AddCmdExe;
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.${className}DeleteCmdExe;
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.${className}UpdateCmdExe;
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.query.${className}GetQryExe;
+import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.query.${className}ListQryExe;
 import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command.query.${className}PageQryExe;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;

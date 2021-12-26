@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.comma
 
 import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.assembler.${className}2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
-.${moduleName}.${allLowName}.${className}DTO;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}DTO;
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}ListQry;
 import io.kenxue.cicd.domain.domain.${moduleName}.${className};
 import io.kenxue.cicd.domain.repository.${moduleName}.${className}Repository;

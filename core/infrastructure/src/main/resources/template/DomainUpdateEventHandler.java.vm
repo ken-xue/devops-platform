@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.handler;
 
-import EventHandler;
-import EventHandlerI;
+import io.kenxue.cicd.application.common.event.EventHandler;
+import io.kenxue.cicd.application.common.event.EventHandlerI;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.event.${className}UpdateEvent;
 import lombok.extern.slf4j.Slf4j;

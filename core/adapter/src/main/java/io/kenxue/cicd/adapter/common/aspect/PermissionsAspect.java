@@ -1,6 +1,6 @@
 package io.kenxue.cicd.adapter.common.aspect;
 
-import io.kenxue.cicd.acl.impl.authorize.AuthorizeService;
+import io.kenxue.cicd.acl.authorize.AuthorizeService;
 import io.kenxue.cicd.adapter.common.annotation.Permissions;
 import io.kenxue.cicd.coreclient.exception.BizException;
 import lombok.extern.slf4j.Slf4j;

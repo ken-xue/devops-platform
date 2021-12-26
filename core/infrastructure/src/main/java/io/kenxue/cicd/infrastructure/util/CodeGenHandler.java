@@ -30,13 +30,13 @@ public class CodeGenHandler {
     private CodeGeneratorMapper codeGeneratorMapper;
 
     public void execute(Configuration configuration) {
-        String[] tableNames = configuration.getString("tableName").split(",");
+        String[] tableNames = configuration.getStringArray("tableName");
         Arrays.stream(tableNames).forEach(v-> {
             Assert.notNull(v,"tableName must not null");
             //2.查询表结构
             Map<String, String> table = codeGeneratorMapper.queryTable(v);
             //3.查询列信息
-            List<Map<String, String>> columns = codeGeneratorMapper.queryColumns(configuration.getString("tableName"));
+            List<Map<String, String>> columns = codeGeneratorMapper.queryColumns(v);
             //4.排除字段
             List<String> exclude = Arrays.asList(configuration.getStringArray("exclude"));
             columns.removeIf(map -> exclude.contains(map.get("columnName")));

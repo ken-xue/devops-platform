@@ -25,7 +25,7 @@ TODO
 ## QuickStart
 
 ```bash
-curl -sSL https://github.com/ken-xue/cicd-platform/blob/main/install/install.sh | sh
+curl -sSL https://raw.githubusercontent.com/ken-xue/cicd-platform/main/install/install.sh | sh
 ```
 
 ## Document

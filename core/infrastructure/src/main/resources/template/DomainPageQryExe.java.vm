@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.comma
 
 import io.kenxue.cicd.application.application.${moduleName}.${allLowName}.assembler.${className}2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}DTO;
-.${moduleName}.${allLowName}.${className}PageQry;
+import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}PageQry;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.domain.repository.${moduleName}.${className}Repository;
 import org.springframework.stereotype.Component;

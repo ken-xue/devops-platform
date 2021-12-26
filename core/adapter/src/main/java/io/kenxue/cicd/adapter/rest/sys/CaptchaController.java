@@ -1,7 +1,7 @@
 package io.kenxue.cicd.adapter.rest.sys;
 
-import io.kenxue.cicd.acl.impl.authorize.AuthorizeService;
-import io.kenxue.cicd.acl.impl.authorize.dto.CaptchaGetDTO;
+import io.kenxue.cicd.acl.authorize.AuthorizeService;
+import io.kenxue.cicd.acl.authorize.dto.CaptchaGetDTO;
 import io.kenxue.cicd.adapter.rest.common.BasicController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
