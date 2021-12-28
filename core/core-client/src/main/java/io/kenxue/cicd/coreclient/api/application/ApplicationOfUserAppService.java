@@ -8,7 +8,7 @@ import io.kenxue.cicd.coreclient.dto.application.applicationofuser.*;
 /**
  * 应用关联用户
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 public interface ApplicationOfUserAppService {
     Response add(ApplicationOfUserAddCmd cmd);

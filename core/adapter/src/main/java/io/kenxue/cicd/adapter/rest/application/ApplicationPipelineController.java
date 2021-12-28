@@ -17,7 +17,7 @@ import javax.validation.Valid;
 /**
  * 流水线
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 @RestController
 @Api(tags = "流水线模块",description = "包含用户新增/列表/删除")
@@ -27,42 +27,42 @@ public class ApplicationPipelineController extends BasicController {
     private ApplicationPipelineAppService applicationPipelineAppService;
 
     @PostMapping("/add")
-    @Permissions("application:applicationPipeline:add")
+    @Permissions("application:applicationpipeline:add")
     @ApiOperation(value = "添加",httpMethod = "POST")
     public Response add(@RequestBody @Valid ApplicationPipelineAddCmd applicationPipelineAddCmd) {
         return applicationPipelineAppService.add(applicationPipelineAddCmd);
     }
 
     @DeleteMapping("/delete")
-    @Permissions("application:applicationPipeline:delete")
+    @Permissions("application:applicationpipeline:delete")
     @ApiOperation(value = "删除",httpMethod = "DELETE")
     public Response delete(@RequestBody @Valid ApplicationPipelineDeleteCmd applicationPipelineDeleteCmd){
         return applicationPipelineAppService.delete(applicationPipelineDeleteCmd);
     }
 
     @GetMapping("/page")
-    @Permissions("application:applicationPipeline:page")
+    @Permissions("application:applicationpipeline:page")
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response page(@ModelAttribute @Valid ApplicationPipelinePageQry applicationPipelinePageQry){
         return applicationPipelineAppService.page(applicationPipelinePageQry);
     }
 
     @GetMapping("/list")
-    @Permissions("application:applicationPipeline:list")
+    @Permissions("application:applicationpipeline:list")
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response list(@ModelAttribute @Valid ApplicationPipelineListQry applicationPipelineListQry){
         return applicationPipelineAppService.list(applicationPipelineListQry);
     }
 
     @GetMapping("/info")
-    @Permissions("application:applicationPipeline:info")
+    @Permissions("application:applicationpipeline:info")
     @ApiOperation(value = "详情",httpMethod = "GET")
     public Response info(@ModelAttribute @Valid ApplicationPipelineGetQry applicationPipelineGetQry){
         return applicationPipelineAppService.getById(applicationPipelineGetQry);
     }
 
     @PutMapping("/update")
-    @Permissions("application:applicationPipeline:update")
+    @Permissions("application:applicationpipeline:update")
     @ApiOperation(value = "更新",httpMethod = "PUT")
     public Response update(@RequestBody ApplicationPipelineUpdateCmd applicationPipelineUpdateCmd){
         return applicationPipelineAppService.update(applicationPipelineUpdateCmd);

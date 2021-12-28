@@ -7,10 +7,11 @@ import io.kenxue.cicd.domain.domain.application.ApplicationPipeline;
 import io.kenxue.cicd.coreclient.dto.application.applicationpipeline.ApplicationPipelineAddCmd;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
+import io.kenxue.cicd.coreclient.context.UserThreadContext;
 /**
  * 流水线
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 @Component
 public class ApplicationPipelineAddCmdExe {
@@ -22,6 +23,7 @@ public class ApplicationPipelineAddCmdExe {
 
     public Response execute(ApplicationPipelineAddCmd cmd) {
         ApplicationPipeline applicationPipeline = applicationPipeline2DTOAssembler.toDomain(cmd.getApplicationPipelineDTO());
+        applicationPipeline.create(UserThreadContext.get());
         applicationPipelineRepository.create(applicationPipeline);
         return Response.success();
     }

@@ -15,7 +15,6 @@
 
     <modules>
         <module>acl-impl</module>
-        <module>acl-impl/acl-impl-cached-default</module>
     </modules>
 
     <dependencyManagement>

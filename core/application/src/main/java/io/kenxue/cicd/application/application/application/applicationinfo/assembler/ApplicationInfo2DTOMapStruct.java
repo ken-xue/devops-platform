@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 应用
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ApplicationInfo2DTOMapStruct {

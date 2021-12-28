@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 应用关联用户
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 @Mapper
 public interface ApplicationOfUserMapper extends BaseMapper<ApplicationOfUserDO> {

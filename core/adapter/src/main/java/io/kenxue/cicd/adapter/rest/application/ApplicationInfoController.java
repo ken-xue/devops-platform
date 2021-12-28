@@ -17,52 +17,52 @@ import javax.validation.Valid;
 /**
  * 应用
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 @RestController
 @Api(tags = "应用模块",description = "包含用户新增/列表/删除")
-@RequestMapping("application/applicationinfo")
+@RequestMapping("app/info")
 public class ApplicationInfoController extends BasicController {
     @Resource
     private ApplicationInfoAppService applicationInfoAppService;
 
     @PostMapping("/add")
-    @Permissions("application:applicationInfo:add")
+    @Permissions("application:applicationinfo:add")
     @ApiOperation(value = "添加",httpMethod = "POST")
     public Response add(@RequestBody @Valid ApplicationInfoAddCmd applicationInfoAddCmd) {
         return applicationInfoAppService.add(applicationInfoAddCmd);
     }
 
     @DeleteMapping("/delete")
-    @Permissions("application:applicationInfo:delete")
+    @Permissions("application:applicationinfo:delete")
     @ApiOperation(value = "删除",httpMethod = "DELETE")
     public Response delete(@RequestBody @Valid ApplicationInfoDeleteCmd applicationInfoDeleteCmd){
         return applicationInfoAppService.delete(applicationInfoDeleteCmd);
     }
 
     @GetMapping("/page")
-    @Permissions("application:applicationInfo:page")
+    @Permissions("application:applicationinfo:page")
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response page(@ModelAttribute @Valid ApplicationInfoPageQry applicationInfoPageQry){
         return applicationInfoAppService.page(applicationInfoPageQry);
     }
 
     @GetMapping("/list")
-    @Permissions("application:applicationInfo:list")
+    @Permissions("application:applicationinfo:list")
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response list(@ModelAttribute @Valid ApplicationInfoListQry applicationInfoListQry){
         return applicationInfoAppService.list(applicationInfoListQry);
     }
 
     @GetMapping("/info")
-    @Permissions("application:applicationInfo:info")
+    @Permissions("application:applicationinfo:info")
     @ApiOperation(value = "详情",httpMethod = "GET")
     public Response info(@ModelAttribute @Valid ApplicationInfoGetQry applicationInfoGetQry){
         return applicationInfoAppService.getById(applicationInfoGetQry);
     }
 
     @PutMapping("/update")
-    @Permissions("application:applicationInfo:update")
+    @Permissions("application:applicationinfo:update")
     @ApiOperation(value = "更新",httpMethod = "PUT")
     public Response update(@RequestBody ApplicationInfoUpdateCmd applicationInfoUpdateCmd){
         return applicationInfoAppService.update(applicationInfoUpdateCmd);

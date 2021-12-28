@@ -21,6 +21,5 @@
         <module>client</module>
         <module>extensions</module>
         <module>dependencies</module>
-        <module>core/share-dataobject</module>
     </modules>
 </project>

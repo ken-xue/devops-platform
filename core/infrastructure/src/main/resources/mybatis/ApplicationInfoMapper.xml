@@ -6,5 +6,8 @@
     <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.ApplicationInfoDO" id="applicationInfoMap">
             <result property="applicationName" column="application_name"/>
             <result property="applicationType" column="application_type"/>
+            <result property="repository" column="repository"/>
+            <result property="accessKey" column="access_key"/>
+            <result property="accessWay" column="access_way"/>
     </resultMap>
 </mapper>

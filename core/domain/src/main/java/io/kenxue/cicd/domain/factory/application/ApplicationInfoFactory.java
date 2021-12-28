@@ -4,7 +4,7 @@ import io.kenxue.cicd.domain.domain.application.ApplicationInfo;
 /**
  * 应用
  * @author mikey
- * @date 2021-12-26 17:17:54
+ * @date 2021-12-28 22:57:10
  */
 public class ApplicationInfoFactory {
     public static ApplicationInfo getApplicationInfo(){

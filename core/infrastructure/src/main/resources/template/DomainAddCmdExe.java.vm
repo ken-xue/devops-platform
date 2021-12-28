@@ -7,6 +7,7 @@ import io.kenxue.cicd.domain.domain.${moduleName}.${className};
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}AddCmd;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
+import io.kenxue.cicd.coreclient.context.UserThreadContext;
 /**
  * ${comments}
  * @author ${author}
@@ -22,6 +23,7 @@ public class ${className}AddCmdExe {
 
     public Response execute(${className}AddCmd cmd) {
         ${className} ${classname} = ${classname}2DTOAssembler.toDomain(cmd.get${className}DTO());
+        ${classname}.create(UserThreadContext.get());
         ${classname}Repository.create(${classname});
         return Response.success();
     }

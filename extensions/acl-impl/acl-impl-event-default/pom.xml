@@ -28,9 +28,5 @@
             <groupId>io.kenxue.cicd</groupId>
             <artifactId>application</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.kenxue.cicd</groupId>
-            <artifactId>application</artifactId>
-        </dependency>
     </dependencies>
 </project>
