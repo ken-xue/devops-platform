@@ -20,7 +20,7 @@ import javax.validation.Valid;
  * @date ${datetime}
  */
 @RestController
-@Api(tags = "${comments}模块",description = "包含用户新增/列表/删除")
+@Api(tags = "${comments}模块",description = "包含新增/列表/删除")
 @RequestMapping("${moduleName}/${pathName}")
 public class ${className}Controller extends BasicController {
     @Resource
