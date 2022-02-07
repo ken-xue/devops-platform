@@ -5,7 +5,7 @@ INSERT INTO `sys_menu` (`uuid`,`menu_parent_uuid`, `menu_name`, `menu_url`, `men
 -- 按钮
 set @uuidinfo=REPLACE(UUID(), '-', '');
 INSERT INTO `sys_menu` (`uuid`,`menu_parent_uuid`, `menu_name`, `menu_url`, `menu_perms`, `menu_type`, `menu_icon`, `menu_order`,`gmt_create`,`gmt_modified`)
-    VALUES (@uuidinfo,@uuid, '查看', null, '${moduleName}:${pathName}:page,${moduleName}:${pathName}:info', '2', null, '6',now(),now());
+    VALUES (@uuidinfo,@uuid, '查看', null, '${moduleName}:${pathName}:page,${moduleName}:${pathName}:info,${moduleName}:${pathName}:list', '2', null, '6',now(),now());
 
 set @uuidadd=REPLACE(UUID(), '-', '');
 INSERT INTO `sys_menu` (`uuid`,`menu_parent_uuid`, `menu_name`, `menu_url`, `menu_perms`, `menu_type`, `menu_icon`, `menu_order`,`gmt_create`,`gmt_modified`)

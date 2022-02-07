@@ -67,7 +67,7 @@ public class UserController extends BasicController {
         return userAppService.getById(userGetQry);
     }
     /**
-     *
+     *详情
      */
     @GetMapping("/self/info")
     @ApiOperation(value = "详情",httpMethod = "GET")

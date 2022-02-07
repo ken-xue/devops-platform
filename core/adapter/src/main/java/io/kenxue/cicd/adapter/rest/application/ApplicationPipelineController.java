@@ -21,8 +21,9 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "流水线模块",description = "包含用户新增/列表/删除")
-@RequestMapping("application/applicationpipeline")
+@RequestMapping("app/pipeline")
 public class ApplicationPipelineController extends BasicController {
+
     @Resource
     private ApplicationPipelineAppService applicationPipelineAppService;
 

@@ -15,6 +15,7 @@ import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 流水线
@@ -50,6 +51,8 @@ public class ApplicationPipelineRepositoryImpl implements ApplicationPipelineRep
     @Override
     public Page<ApplicationPipeline> page(ApplicationPipelinePageQry qry) {
         QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
+        if (Objects.nonNull(qry)&&Objects.nonNull(qry.getApplicationUuid()))qw.eq("application_uuid",qry.getApplicationUuid());
+        if (Objects.nonNull(qry)&&Objects.nonNull(qry.getPipelineName()))qw.like("pipeline_name",qry.getPipelineName());
         IPage doPage = applicationPipelineMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),applicationPipeline2DOConvector.toDomainList(doPage.getRecords()));
     }

@@ -56,6 +56,8 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public List<Role> list(String roleName) {
-        return role2DOConvector.toDomainList(roleMapper.selectList(new QueryWrapper<RoleDO>().eq("role_name",roleName)));
+        QueryWrapper qw = new QueryWrapper<RoleDO>();
+        if (StringUtils.isNotBlank(roleName))qw.eq("role_name",roleName);
+        return role2DOConvector.toDomainList(roleMapper.selectList(qw));
     }
 }

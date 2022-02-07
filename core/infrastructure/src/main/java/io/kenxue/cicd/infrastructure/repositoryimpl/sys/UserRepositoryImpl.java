@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
         QueryWrapper<UserDO> wp = new QueryWrapper<>();
         wp.eq("deleted",0);//未删除
         if (Objects.nonNull(qry.getUserDTO())&&StringUtils.isNotBlank(qry.getUserDTO().getUserName())) {
-            wp.and(w->w.eq("user_name", qry.getUserDTO().getUserName()).or().eq("user_id", qry.getUserDTO().getUserName()));
+            wp.and(w->w.like("user_name", qry.getUserDTO().getUserName()).or().like("user_id", qry.getUserDTO().getUserName()));
         }
         IPage<UserDO> page = userMapper.selectPage(new PageDTO<>(qry.getPageIndex(),qry.getPageSize()), wp);
         List<User> list = new ArrayList<>(page.getRecords().size());

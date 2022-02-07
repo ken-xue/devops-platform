@@ -15,4 +15,7 @@ public class ApplicationPipelinePageQry extends PageQuery {
 
     private ApplicationPipelineDTO applicationPipelineDTO;
 
+    private String applicationUuid;
+
+    private String pipelineName;
 }
