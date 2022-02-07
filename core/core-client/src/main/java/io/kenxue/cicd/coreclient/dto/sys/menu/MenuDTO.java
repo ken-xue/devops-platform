@@ -53,4 +53,8 @@ public class MenuDTO extends CommonDTO {
      * 是否有之菜单
      */
     private Boolean hasChildren;
+    /**
+     * 是否隐藏
+     */
+    private Boolean hide;
 }

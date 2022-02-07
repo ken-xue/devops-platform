@@ -52,4 +52,8 @@ public class Menu extends CommonEntity {
      *
      */
     private Boolean hasChildren;
+    /**
+     * 是否隐藏
+     */
+    private Boolean hide;
 }

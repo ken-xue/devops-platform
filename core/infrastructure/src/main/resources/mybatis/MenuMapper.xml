@@ -12,5 +12,6 @@
             <result property="menuIcon" column="menu_icon"/>
             <result property="menuOrder" column="menu_order"/>
             <result property="menuRemark" column="menu_remark"/>
+            <result property="hide" column="hide"/>
     </resultMap>
 </mapper>

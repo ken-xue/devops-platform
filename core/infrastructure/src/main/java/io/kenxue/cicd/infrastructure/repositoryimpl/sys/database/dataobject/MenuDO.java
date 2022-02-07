@@ -44,4 +44,8 @@ public class MenuDO extends CommonEntity {
      * 备注
      */
     private String menuRemark;
+    /**
+     * 是否隐藏
+     */
+    private Boolean hide;
 }
