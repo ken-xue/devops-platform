@@ -16,4 +16,5 @@ public interface MachineInfoRepository {
     MachineInfo getById(Long id);
     List<MachineInfo> list(MachineInfoListQry machineInfoListQry);
     Page<MachineInfo> page(MachineInfoPageQry qry);
+    MachineInfo getByUuid(String uuid);
 }

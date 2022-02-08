@@ -53,4 +53,11 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
         IPage doPage = machineInfoMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),machineInfo2DOConvector.toDomainList(doPage.getRecords()));
     }
+
+    @Override
+    public MachineInfo getByUuid(String uuid) {
+        QueryWrapper<MachineInfoDO> qw = new QueryWrapper<>();
+        qw.eq("uuid",uuid);
+        return machineInfo2DOConvector.toDomain(machineInfoMapper.selectOne(qw));
+    }
 }

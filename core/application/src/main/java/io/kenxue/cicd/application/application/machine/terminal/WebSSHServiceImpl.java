@@ -1,20 +1,23 @@
 package io.kenxue.cicd.application.application.machine.terminal;
 
 import com.alibaba.fastjson.JSON;
-//import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.kenxue.cicd.coreclient.api.application.MachineInfoAppService;
+import io.kenxue.cicd.domain.domain.application.MachineInfo;
+import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
@@ -26,14 +29,16 @@ import java.util.concurrent.Executors;
 * @Description: WebSSH业务逻辑实现
 */
 @Service
+@Slf4j
 public class WebSSHServiceImpl implements WebSSHService {
+    
     //存放ssh连接信息的map
     private static Map<String, Object> sshMap = new ConcurrentHashMap<>();
-
-    private Logger logger = LoggerFactory.getLogger(WebSSHServiceImpl.class);
     //线程池
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
+    @Resource
+    private MachineInfoRepository machineInfoRepository;
     /**
      * @Description: 初始化连接
      * @Param: [session]
@@ -41,6 +46,9 @@ public class WebSSHServiceImpl implements WebSSHService {
      */
     @Override
     public void initConnection(WebSocketSession session) {
+        URI uri = session.getUri();
+        String machineUuid = uri.getQuery();
+        MachineInfo machineInfo = machineInfoRepository.getByUuid(machineUuid);
         JSch jSch = new JSch();
         SSHConnectInfo sshConnectInfo = new SSHConnectInfo();
         sshConnectInfo.setJSch(jSch);
@@ -57,14 +65,11 @@ public class WebSSHServiceImpl implements WebSSHService {
      */
     @Override
     public void recvHandle(String buffer, WebSocketSession session) {
-//        ObjectMapper objectMapper = new ObjectMapper();
         WebSSHData webSSHData = null;
         try {
             webSSHData = JSON.parseObject(buffer, WebSSHData.class);
-//            webSSHData = objectMapper.readValue(buffer, WebSSHData.class);
         } catch (Exception e) {
-            logger.error("Json转换异常");
-            logger.error("异常信息:{}", e.getMessage());
+            log.error("Json转换异常:{}", e.getMessage());
             return;
         }
         String userId = String.valueOf(session.getAttributes().get(ConstantPool.USER_UUID_KEY));
@@ -79,8 +84,7 @@ public class WebSSHServiceImpl implements WebSSHService {
                     try {
                         connectToSSH(sshConnectInfo, finalWebSSHData, session);
                     } catch (JSchException | IOException e) {
-                        logger.error("webssh连接异常");
-                        logger.error("异常信息:{}", e.getMessage());
+                        log.error("webssh连接异常:{}", e.getMessage());
                         close(session);
                     }
                 }
@@ -92,13 +96,12 @@ public class WebSSHServiceImpl implements WebSSHService {
                 try {
                     transToSSH(sshConnectInfo.getChannel(), command);
                 } catch (IOException e) {
-                    logger.error("webssh连接异常");
-                    logger.error("异常信息:{}", e.getMessage());
+                    log.error("webssh连接异常:{}", e.getMessage());
                     close(session);
                 }
             }
         } else {
-            logger.error("不支持的操作");
+            log.error("不支持的操作");
             close(session);
         }
     }
