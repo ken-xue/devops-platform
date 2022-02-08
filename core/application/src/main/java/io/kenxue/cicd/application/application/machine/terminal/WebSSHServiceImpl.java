@@ -59,7 +59,6 @@ public class WebSSHServiceImpl implements WebSSHService {
         sshMap.put(uuid, sshConnectInfo);
         //启动线程异步处理
         WebSSHData finalWebSSHData = new WebSSHData();
-        finalWebSSHData.setCommand("date");
         finalWebSSHData.setUsername(machineInfo.getAccessUsername());
         finalWebSSHData.setPassword(machineInfo.getAccessPassword());
         finalWebSSHData.setHost(machineInfo.getIp());
@@ -68,6 +67,11 @@ public class WebSSHServiceImpl implements WebSSHService {
             try {
                 connectToSSH(sshConnectInfo, finalWebSSHData, session);
             } catch (JSchException | IOException e) {
+                try {
+                    session.sendMessage(new TextMessage("连接异常 "+e.getMessage()));
+                } catch (IOException ioException) {
+                    log.error("响应异常:{}",e.getMessage());
+                }
                 log.error("webssh连接异常:{}", e.getMessage());
                 close(session);
             }

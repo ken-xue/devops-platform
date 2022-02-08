@@ -42,11 +42,10 @@ public class MachineTestConnCmdExe {
             session.setConfig(config); // 为Session对象设置properties
             session.setTimeout(5000); // 设置timeout时间
             session.connect(); // 通过Session建立链接
-        } catch (JSchException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.error("连接失败:"+e.getMessage());
         }
-
         return Response.success();
     }
 }
