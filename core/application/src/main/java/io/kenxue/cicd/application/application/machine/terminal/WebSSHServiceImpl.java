@@ -26,12 +26,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
-* @Description: WebSSH业务逻辑实现
-*/
+ * @Description: WebSSH业务逻辑实现
+ */
 @Service
 @Slf4j
 public class WebSSHServiceImpl implements WebSSHService {
-    
+
     //存放ssh连接信息的map
     private static Map<String, Object> sshMap = new ConcurrentHashMap<>();
     //线程池
@@ -39,6 +39,7 @@ public class WebSSHServiceImpl implements WebSSHService {
 
     @Resource
     private MachineInfoRepository machineInfoRepository;
+
     /**
      * @Description: 初始化连接
      * @Param: [session]
@@ -56,6 +57,21 @@ public class WebSSHServiceImpl implements WebSSHService {
         String uuid = String.valueOf(session.getAttributes().get(ConstantPool.USER_UUID_KEY));
         //将这个ssh连接信息放入map中
         sshMap.put(uuid, sshConnectInfo);
+        //启动线程异步处理
+        WebSSHData finalWebSSHData = new WebSSHData();
+        finalWebSSHData.setCommand("date");
+        finalWebSSHData.setUsername(machineInfo.getAccessUsername());
+        finalWebSSHData.setPassword(machineInfo.getAccessPassword());
+        finalWebSSHData.setHost(machineInfo.getIp());
+        finalWebSSHData.setPort(machineInfo.getPort());
+        executorService.execute(() -> {
+            try {
+                connectToSSH(sshConnectInfo, finalWebSSHData, session);
+            } catch (JSchException | IOException e) {
+                log.error("webssh连接异常:{}", e.getMessage());
+                close(session);
+            }
+        });
     }
 
     /**
@@ -65,44 +81,16 @@ public class WebSSHServiceImpl implements WebSSHService {
      */
     @Override
     public void recvHandle(String buffer, WebSocketSession session) {
-        WebSSHData webSSHData = null;
-        try {
-            webSSHData = JSON.parseObject(buffer, WebSSHData.class);
-        } catch (Exception e) {
-            log.error("Json转换异常:{}", e.getMessage());
-            return;
-        }
         String userId = String.valueOf(session.getAttributes().get(ConstantPool.USER_UUID_KEY));
-        if (ConstantPool.WEBSSH_OPERATE_CONNECT.equals(webSSHData.getOperate())) {
-            //找到刚才存储的ssh连接对象
-            SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
-            //启动线程异步处理
-            WebSSHData finalWebSSHData = webSSHData;
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        connectToSSH(sshConnectInfo, finalWebSSHData, session);
-                    } catch (JSchException | IOException e) {
-                        log.error("webssh连接异常:{}", e.getMessage());
-                        close(session);
-                    }
-                }
-            });
-        } else if (ConstantPool.WEBSSH_OPERATE_COMMAND.equals(webSSHData.getOperate())) {
-            String command = webSSHData.getCommand();
-            SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
-            if (sshConnectInfo != null) {
-                try {
-                    transToSSH(sshConnectInfo.getChannel(), command);
-                } catch (IOException e) {
-                    log.error("webssh连接异常:{}", e.getMessage());
-                    close(session);
-                }
+        String command = buffer;
+        SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
+        if (sshConnectInfo != null) {
+            try {
+                transToSSH(sshConnectInfo.getChannel(), command);
+            } catch (IOException e) {
+                log.error("服务器连接异常:{}", e.getMessage());
+                close(session);
             }
-        } else {
-            log.error("不支持的操作");
-            close(session);
         }
     }
 

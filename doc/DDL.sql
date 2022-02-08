@@ -165,7 +165,7 @@ CREATE TABLE `machine_info` (
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   `deleted` char(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='服务器节点';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='服务器节点';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +174,7 @@ CREATE TABLE `machine_info` (
 
 LOCK TABLES `machine_info` WRITE;
 /*!40000 ALTER TABLE `machine_info` DISABLE KEYS */;
-INSERT INTO `machine_info` VALUES (1,'刘架构服务器','116.198.160.39',22,'root','PASSWORD','123456',NULL,'f1944396bf43402aaa501b5856f67379','admin','admin','2022-02-07 14:17:55','2022-02-07 14:17:55','0'),(2,'上海机房-334-20','123.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(3,'杭州机房3-23','13.32.12.3',22,'root','PASSWORD','123456',NULL,'852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0'),(4,'上海机房-334-20','12.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(5,'杭州机房3-23','123.32.12.3',22,'root','PASSWORD','123456',NULL,'852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0'),(6,'上海机房-334-20','123.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(7,'杭州机房3-23','123.32.12.3',22,'root','PASSWORD','123456',NULL,'852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0'),(8,'上海机房-334-20','123.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(10,'杭州机房3-23','123.32.12.3',22,'root','PASSWORD','123456','mikey','852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0');
+INSERT INTO `machine_info` VALUES (1,'刘架构服务器','116.198.160.39',22,'root','PASSWORD','',NULL,'f1944396bf43402aaa501b5856f67379','admin','admin','2022-02-07 14:17:55','2022-02-07 14:17:55','0'),(2,'上海机房-334-20','123.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(3,'杭州机房3-23','13.32.12.3',22,'root','PASSWORD','123456',NULL,'852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0'),(4,'上海机房-334-20','12.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(5,'杭州机房3-23','123.32.12.3',22,'root','PASSWORD','123456',NULL,'852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0'),(6,'上海机房-334-20','123.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(7,'杭州机房3-23','123.32.12.3',22,'root','PASSWORD','123456',NULL,'852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0'),(8,'上海机房-334-20','123.123.123.123',22,'admin','ACCESS_KEY','admin','admin','6751ea8b327d4f0cb26b051005acc4be','admin','admin','2022-02-07 13:32:49','2022-02-07 13:32:49','0'),(10,'杭州机房3-23','123.32.12.3',22,'root','PASSWORD','123456','mikey','852554e6d4c14de58ce4eb98ee80b98f','admin','admin','2022-02-07 13:13:15','2022-02-07 13:13:15','0');
 /*!40000 ALTER TABLE `machine_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,4 +434,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-07 23:47:27
+-- Dump completed on 2022-02-08 18:53:52
