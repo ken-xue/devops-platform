@@ -41,6 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             "/sys/user/add",//注册接口
             "/captcha/get",//注册接口
             "/v2/api-docs",
+            "/terminal",
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",

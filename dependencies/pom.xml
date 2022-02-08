@@ -29,6 +29,8 @@
         <k8s.client.java.version>10.0.0</k8s.client.java.version>
         <jsch.version>0.1.55</jsch.version>
         <jenkins.client.version>0.3.8</jenkins.client.version>
+        <netty.version>4.1.36.Final</netty.version>
+        <spring.websocket.version>5.1.9.RELEASE</spring.websocket.version>
     </properties>
 
     <dependencyManagement>
@@ -144,7 +146,17 @@
 <!--                <artifactId>java-client-api</artifactId>-->
 <!--                <version>0.4.0</version>-->
 <!--            </dependency>-->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-websocket</artifactId>
+                <version>${spring.websocket.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
