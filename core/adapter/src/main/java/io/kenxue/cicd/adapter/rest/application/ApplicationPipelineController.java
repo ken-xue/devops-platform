@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 流水线
  * @author mikey
  * @date 2021-12-28 22:57:10
  */
 @RestController
-@Api(tags = "流水线模块",description = "包含用户新增/列表/删除")
+@Api(tags = "流水线模块",description = "包含新增/列表/删除")
 @RequestMapping("app/pipeline")
 public class ApplicationPipelineController extends BasicController {
 

@@ -20,7 +20,7 @@ import javax.validation.Valid;
  * @date 2021-12-28 22:57:10
  */
 @RestController
-@Api(tags = "应用模块",description = "包含用户新增/列表/删除")
+@Api(tags = "应用模块",description = "包含新增/列表/删除")
 @RequestMapping("app/info")
 public class ApplicationInfoController extends BasicController {
     @Resource

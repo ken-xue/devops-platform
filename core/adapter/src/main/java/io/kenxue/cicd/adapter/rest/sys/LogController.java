@@ -20,7 +20,7 @@ import javax.validation.Valid;
  * @date 2021-11-20 23:04:11
  */
 @RestController
-@Api(tags = "系统日志模块",description = "包含用户新增/列表/删除")
+@Api(tags = "系统日志模块",description = "包含新增/列表/删除")
 @RequestMapping("sys/log")
 public class LogController extends BasicController {
     @Resource

@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * @date 2021-11-17 14:43:50
  */
 @RestController
-@Api(tags = "菜单表模块",description = "包含用户新增/列表/删除")
+@Api(tags = "菜单表模块",description = "包含新增/列表/删除")
 @RequestMapping("sys/menu")
 public class MenuController extends BasicController {
     @Resource

@@ -17,7 +17,7 @@ import javax.validation.Valid;
  * @date 2021-11-17 14:27:15
  */
 @RestController
-@Api(tags = "角色表模块",description = "包含用户新增/列表/删除")
+@Api(tags = "角色表模块",description = "包含新增/列表/删除")
 @RequestMapping("sys/role")
 public class RoleController extends BasicController {
     @Resource

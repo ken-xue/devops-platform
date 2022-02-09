@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 @RestController
-@Api(tags = "用户模块",description = "包含用户注册/列表/删除")
+@Api(tags = "用户模块",description = "包含注册/列表/删除")
 @RequestMapping("sys/user")
 public class UserController extends BasicController {
     @Resource
