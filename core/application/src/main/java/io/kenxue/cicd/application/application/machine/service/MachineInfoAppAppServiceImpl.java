@@ -1,14 +1,11 @@
 package io.kenxue.cicd.application.application.machine.service;
 
-import io.kenxue.cicd.application.application.machine.command.MachineTestConnCmdExe;
-import io.kenxue.cicd.application.application.machine.command.MachineInfoAddCmdExe;
-import io.kenxue.cicd.application.application.machine.command.MachineInfoUpdateCmdExe;
+import io.kenxue.cicd.application.application.machine.command.*;
 import io.kenxue.cicd.application.application.machine.command.query.MachineInfoGetQryExe;
 import io.kenxue.cicd.application.application.machine.command.query.MachineInfoListQryExe;
 import io.kenxue.cicd.application.application.machine.command.query.MachineInfoPageQryExe;
 import io.kenxue.cicd.coreclient.api.application.MachineInfoAppService;
 import io.kenxue.cicd.coreclient.dto.application.machineinfo.*;
-import io.kenxue.cicd.application.application.machine.command.MachineInfoDeleteCmdExe;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
@@ -28,6 +25,8 @@ public class MachineInfoAppAppServiceImpl implements MachineInfoAppService {
     private MachineInfoAddCmdExe machineInfoAddCmdExe;
     @Resource
     private MachineTestConnCmdExe machineTestConnCmdExe;
+    @Resource
+    private MachineAddSecretCmdExe machineAddSecretCmdExe;
     @Resource
     private MachineInfoUpdateCmdExe machineInfoUpdateCmdExe;
     @Resource
@@ -66,6 +65,11 @@ public class MachineInfoAppAppServiceImpl implements MachineInfoAppService {
     @Override
     public Response testConn(MachineInfoAddCmd machineInfoAddCmd) {
         return machineTestConnCmdExe.execute(machineInfoAddCmd);
+    }
+
+    @Override
+    public Response addSecretKey(MachineInfoAddCmd machineInfoAddCmd) {
+        return machineAddSecretCmdExe.execute(machineInfoAddCmd);
     }
 
 }

@@ -24,4 +24,11 @@ public interface MachineInfoAppService {
      * @return
      */
     Response testConn(MachineInfoAddCmd machineInfoAddCmd);
+
+    /**
+     * 添加秘钥
+     * @param machineInfoAddCmd
+     * @return
+     */
+    Response addSecretKey(MachineInfoAddCmd machineInfoAddCmd);
 }
