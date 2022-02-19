@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 public class UserListQry extends CommonCommand {
     private String email;
+    private String username;
 }

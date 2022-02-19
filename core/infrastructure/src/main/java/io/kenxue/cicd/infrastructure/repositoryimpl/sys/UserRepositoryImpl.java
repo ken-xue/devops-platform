@@ -69,7 +69,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> list(UserListQry qry) {
-        return user2DOConvector.toDomainList(userMapper.selectList(new QueryWrapper<>()));
+        QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
+        if(Objects.nonNull(qry.getUsername()))wrapper.eq("user_mame",qry.getUsername());
+        return user2DOConvector.toDomainList(userMapper.selectList(wrapper));
     }
 
     public User getById(Long id){

@@ -25,7 +25,7 @@ public class CodeGenHandlerTest {
     @Test
     public void genTest()throws Exception {
         PropertiesConfiguration configuration = new PropertiesConfiguration("generator.properties");
-        //codeGenHandler.execute(configuration);
+//        codeGenHandler.execute(configuration);
     }
 
     @Test

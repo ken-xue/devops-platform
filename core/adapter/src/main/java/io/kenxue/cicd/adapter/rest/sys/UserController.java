@@ -51,6 +51,17 @@ public class UserController extends BasicController {
     /**
      * 列表
      */
+    @GetMapping("/list")
+    @Permissions("sys:user:list")
+    @ApiOperation(value = "列表",httpMethod = "GET")
+    public Response list(@ModelAttribute UserListQry userListQry){
+        return userAppService.list(userListQry);
+    }
+    /**
+     * 分页
+     * @param userPageQry
+     * @return
+     */
     @GetMapping("/page")
     @Permissions("sys:user:page")
     @ApiOperation(value = "列表",httpMethod = "GET")

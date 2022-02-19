@@ -20,5 +20,7 @@
         <mapper resource="mybatis/LogMapper.xml"></mapper>
         <mapper resource="mybatis/CaptchaMapper.xml"></mapper>
         <mapper resource="mybatis/CodeGeneratorMapper.xml"></mapper>
+        <mapper resource="mybatis/ProjectInfoMapper.xml"></mapper>
+        <mapper resource="mybatis/ProjectOfUserMapper.xml"></mapper>
     </mappers>
 </configuration>

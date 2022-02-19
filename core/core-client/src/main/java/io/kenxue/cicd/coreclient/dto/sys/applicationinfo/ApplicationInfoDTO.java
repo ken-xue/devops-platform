@@ -16,6 +16,10 @@ public class ApplicationInfoDTO extends CommonDTO {
      */
     private String applicationName;
     /**
+     * 项目uuid
+     */
+    private String projectUuid;
+    /**
      * 应用类型
      */
     private String applicationType;

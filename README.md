@@ -37,3 +37,5 @@ curl -sSL https://raw.githubusercontent.com/ken-xue/cicd-platform/main/install/i
 MIT see [LICENSE](./LICENSE).
 
 ## Image
+
+![img.png](doc/img.png)
