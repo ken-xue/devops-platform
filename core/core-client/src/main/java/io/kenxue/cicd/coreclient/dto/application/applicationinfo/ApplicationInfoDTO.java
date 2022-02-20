@@ -12,6 +12,10 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ApplicationInfoDTO extends CommonDTO {
     /**
+     * 所属项目
+     */
+    private String projectUuid;
+    /**
      * 应用名称
      */
     private String applicationName;

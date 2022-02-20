@@ -4,6 +4,9 @@ import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 /**
  * 项目
  * @author mikey
@@ -29,4 +32,8 @@ public class ProjectInfo extends CommonEntity {
      * 描述
      */
     private String projectDesc;
+    /**
+     * 项目成员
+     */
+    private List<String> userMembers;
 }

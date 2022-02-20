@@ -3,6 +3,9 @@ package io.kenxue.cicd.coreclient.dto.project.projectinfo;
 import io.kenxue.cicd.coreclient.dto.common.command.CommonDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.util.List;
+
 /**
  * 项目
  * @author mikey
@@ -27,4 +30,8 @@ public class ProjectInfoDTO extends CommonDTO {
      * 描述
      */
     private String projectDesc;
+    /**
+     * 项目成员
+     */
+    private List<String> userMembers;
 }
