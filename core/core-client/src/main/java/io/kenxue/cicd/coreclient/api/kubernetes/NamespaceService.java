@@ -2,6 +2,7 @@ package io.kenxue.cicd.coreclient.api.kubernetes;
 
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceAddCmd;
+import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceDeleteCmd;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceListQry;
 
 /**
@@ -16,4 +17,6 @@ public interface NamespaceService {
     Response list(NamespaceListQry namespaceListQry);
 
     Response add(NamespaceAddCmd namespaceAddCmd);
+
+    Response delete(NamespaceDeleteCmd namespaceDeleteCmd);
 }

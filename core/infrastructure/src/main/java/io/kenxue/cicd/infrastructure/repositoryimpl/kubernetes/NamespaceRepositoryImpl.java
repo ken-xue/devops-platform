@@ -3,6 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceListQry;
 import io.kenxue.cicd.domain.domain.kubernetes.Namespace;
 import io.kenxue.cicd.domain.repository.kubernetes.NamespaceRepository;
+import io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.version.KubeVersion;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -65,15 +66,26 @@ public class NamespaceRepositoryImpl implements NamespaceRepository {
     @Override
     public void add(String namespaceName) {
         V1Namespace v1Namespace = new V1Namespace();
-        v1Namespace.setApiVersion("v1");
+        v1Namespace.setApiVersion(KubeVersion.VERSION);
         v1Namespace.setKind("Namespace");
         V1ObjectMeta v1ObjectMeta = new V1ObjectMeta();
-        v1ObjectMeta.setName("kenxue-pre-prod");
+        v1ObjectMeta.setName(namespaceName);
         v1Namespace.setMetadata(v1ObjectMeta);
         try {
             V1Namespace namespace = api.createNamespace(v1Namespace, null, null, null);
         }catch (ApiException apiException){
             apiException.printStackTrace();
         }
+    }
+
+    @Override
+    public void delete(String namespaceName){
+        try {
+            V1DeleteOptions body = new V1DeleteOptions();
+            V1Status status = api.deleteNamespace(namespaceName, "", "", 56, true, "", body);
+        }catch (ApiException e){
+
+        }
+
     }
 }

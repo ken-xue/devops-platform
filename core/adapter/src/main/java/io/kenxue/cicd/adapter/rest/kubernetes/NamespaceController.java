@@ -3,6 +3,7 @@ package io.kenxue.cicd.adapter.rest.kubernetes;
 import io.kenxue.cicd.coreclient.api.kubernetes.NamespaceService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceAddCmd;
+import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceDeleteCmd;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceListQry;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,13 @@ public class NamespaceController {
         return namespaceService.list(namespaceListQry);
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public Response add(@RequestBody @Valid NamespaceAddCmd namespaceAddCmd){
         return namespaceService.add(namespaceAddCmd);
+    }
+
+    @DeleteMapping("/delete")
+    public Response delete(@RequestBody @Valid NamespaceDeleteCmd namespaceDeleteCmd){
+        return namespaceService.delete(namespaceDeleteCmd);
     }
 }

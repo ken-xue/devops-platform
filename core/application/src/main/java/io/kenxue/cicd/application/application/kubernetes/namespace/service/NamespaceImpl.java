@@ -1,10 +1,12 @@
 package io.kenxue.cicd.application.application.kubernetes.namespace.service;
 
 import io.kenxue.cicd.application.application.kubernetes.namespace.command.NamespaceAddCmdExe;
+import io.kenxue.cicd.application.application.kubernetes.namespace.command.NamespaceDeleteCmdExe;
 import io.kenxue.cicd.application.application.kubernetes.namespace.command.query.NamespaceListQryExe;
 import io.kenxue.cicd.coreclient.api.kubernetes.NamespaceService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceAddCmd;
+import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceDeleteCmd;
 import io.kenxue.cicd.coreclient.dto.kubernetes.namespace.NamespaceListQry;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class NamespaceImpl implements NamespaceService {
     private NamespaceListQryExe namespaceListQryExe;
     @Resource
     private NamespaceAddCmdExe namespaceAddCmdExe;
+    @Resource
+    private NamespaceDeleteCmdExe namespaceDeleteCmdExe;
 
     @Override
     public Response list(NamespaceListQry namespaceListQry) {
@@ -33,5 +37,10 @@ public class NamespaceImpl implements NamespaceService {
     @Override
     public Response add(NamespaceAddCmd namespaceAddCmd) {
         return namespaceAddCmdExe.add(namespaceAddCmd);
+    }
+
+    @Override
+    public Response delete(NamespaceDeleteCmd namespaceDeleteCmd) {
+        return namespaceDeleteCmdExe.delete(namespaceDeleteCmd);
     }
 }

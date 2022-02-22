@@ -17,4 +17,6 @@ public interface NamespaceRepository {
     List<Namespace> list(NamespaceListQry namespaceListQry);
 
     void add(String namespaceName);
+
+    void delete(String namespaceName);
 }
