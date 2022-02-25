@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.PipelineNodeMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.PipelineNodeDO" id="pipelineNodeMap">
+            <result property="parentUuid" column="parent_uuid"/>
+            <result property="label" column="label"/>
+            <result property="icon" column="icon"/>
+            <result property="nodDescription" column="nod_description"/>
+            <result property="type" column="type"/>
+    </resultMap>
+</mapper>
