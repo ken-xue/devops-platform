@@ -1,8 +1,10 @@
 package io.kenxue.cicd.coreclient.dto.application.applicationpipeline;
 
 import io.kenxue.cicd.coreclient.dto.common.command.CommonDTO;
+import io.kenxue.cicd.sharedataboject.pipeline.Graph;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
 /**
  * 流水线
  * @author mikey
@@ -23,4 +25,8 @@ public class ApplicationPipelineDTO extends CommonDTO {
      * 应用类型
      */
     private String pipelineContext;
+    /**
+     * 画布流程图
+     */
+    private Graph graph;
 }

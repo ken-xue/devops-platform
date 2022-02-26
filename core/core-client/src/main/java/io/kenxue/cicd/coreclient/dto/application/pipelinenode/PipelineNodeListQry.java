@@ -20,13 +20,13 @@ public class PipelineNodeListQry extends CommonCommand {
      */
     private String label;
     /**
-     * 图标
-     */
-    private String icon;
-    /**
      * 描述
      */
     private String nodDescription;
+    /**
+     * 图标
+     */
+    private String icon;
     /**
      * 节点类型：目录 or 节点
      */

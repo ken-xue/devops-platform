@@ -4,14 +4,10 @@ import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 流水线节点类型
  * @author mikey
- * @date 2022-02-26 00:19:20
+ * @date 2022-02-26 11:52:35
  */
 @Data
 @NoArgsConstructor
@@ -26,19 +22,15 @@ public class PipelineNode extends CommonEntity {
      */
     private String label;
     /**
-     * 图标
-     */
-    private String icon;
-    /**
      * 描述
      */
     private String nodDescription;
     /**
+     * 图标
+     */
+    private String icon;
+    /**
      * 节点类型：目录 or 节点
      */
     private Integer type;
-    /**
-     * 子节点
-     */
-    private List<PipelineNode> children = new ArrayList<>();
 }

@@ -6,8 +6,8 @@
     <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.PipelineNodeDO" id="pipelineNodeMap">
             <result property="parentUuid" column="parent_uuid"/>
             <result property="label" column="label"/>
-            <result property="icon" column="icon"/>
             <result property="nodDescription" column="nod_description"/>
+            <result property="icon" column="icon"/>
             <result property="type" column="type"/>
     </resultMap>
 </mapper>
