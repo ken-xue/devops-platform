@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 public class IPUtil {
-    public static String getIpAddr(HttpServletRequest request) {
+    public static String getIpAddress(HttpServletRequest request) {
         String ipAddress;
         try {
             ipAddress = request.getHeader("X-Forwarded-For");
@@ -45,8 +45,8 @@ public class IPUtil {
             ipAddress = request.getRemoteAddr();
             return ipAddress.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ipAddress;
         } catch (Exception e) {
-            log.error("parse ip addr error : {}",e.getMessage());
-            ipAddress = "parse ip addr error";
+            log.error("parse ip address error : {}",e.getMessage());
+            ipAddress = "parse ip address error";
         }
         return ipAddress;
     }

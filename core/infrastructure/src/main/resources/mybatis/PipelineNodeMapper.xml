@@ -5,6 +5,7 @@
 <mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.PipelineNodeMapper">
     <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.PipelineNodeDO" id="pipelineNodeMap">
             <result property="parentUuid" column="parent_uuid"/>
+            <result property="name" column="name"/>
             <result property="label" column="label"/>
             <result property="nodDescription" column="nod_description"/>
             <result property="icon" column="icon"/>

@@ -29,7 +29,9 @@ public class ApplicationPipeline extends CommonEntity {
      * 应用类型
      */
     private String pipelineContext;
-
+    /**
+     * 流程图
+     */
     private Graph graph;
 
     /**

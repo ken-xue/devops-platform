@@ -51,8 +51,10 @@ public class ApplicationPipelineRepositoryImpl implements ApplicationPipelineRep
     @Override
     public Page<ApplicationPipeline> page(ApplicationPipelinePageQry qry) {
         QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
+        qw.eq("deleted",false);
         if (Objects.nonNull(qry)&&Objects.nonNull(qry.getApplicationUuid()))qw.eq("application_uuid",qry.getApplicationUuid());
         if (Objects.nonNull(qry)&&Objects.nonNull(qry.getPipelineName()))qw.like("pipeline_name",qry.getPipelineName());
+        qw.orderBy(true,false,"gmt_create");
         IPage doPage = applicationPipelineMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),applicationPipeline2DOConvector.toDomainList(doPage.getRecords()));
     }

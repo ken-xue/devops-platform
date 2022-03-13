@@ -33,8 +33,6 @@ import java.util.Objects;
 public class LogAspect {
 	@Resource
 	private LogAppService logAppService;
-	@Resource
-	private Log2DOConvector log2DOConvector;
 
 	@Pointcut("@annotation(io.kenxue.cicd.adapter.common.annotation.Log)")
 	public void logPointCut() {}
@@ -69,7 +67,7 @@ public class LogAspect {
 		}
 		//IP地址
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		logDTO.setIp(IPUtil.getIpAddr(request));
+		logDTO.setIp(IPUtil.getIpAddress(request));
 		logDTO.setUsername(UserThreadContext.get());
 		logDTO.setExecuteTime(time);
 		//保存

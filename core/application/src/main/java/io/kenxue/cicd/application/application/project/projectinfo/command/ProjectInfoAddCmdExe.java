@@ -34,6 +34,8 @@ public class ProjectInfoAddCmdExe {
             ProjectOfUser of = ProjectOfUserFactory.getProjectOfUser();
             of.setProjectUuid(projectInfo.getUuid());
             of.setUserUuid(v);
+            of.create(UserThreadContext.get());
+            if(!v.equals(projectInfo.getUserUuid()))
             projectOfUserRepository.create(of);
         });
         return Response.success();

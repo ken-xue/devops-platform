@@ -18,6 +18,10 @@ public class PipelineNode extends CommonEntity {
      */
     private String parentUuid;
     /**
+     * 标识
+     */
+    private String name;
+    /**
      * 标签
      */
     private String label;

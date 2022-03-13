@@ -24,6 +24,10 @@ public class PipelineNodeDTO extends CommonDTO {
      */
     private String label;
     /**
+     * 标识
+     */
+    private String name;
+    /**
      * 描述
      */
     private String nodDescription;

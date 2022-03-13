@@ -32,6 +32,7 @@ class Endpoints {
 @Accessors(chain = true)
 class Nodes {
     private String id;
+    private String name;
     private Points points;
     private Position position;
     private Data data;
@@ -44,6 +45,7 @@ class Nodes {
 @Accessors(chain = true)
 class Data {
     private String value;
+    private String nodeName;
     private String icon;
 }
 
