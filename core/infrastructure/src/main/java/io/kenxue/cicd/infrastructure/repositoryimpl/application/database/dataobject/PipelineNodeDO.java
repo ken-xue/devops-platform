@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2022-02-26 00:19:20
  */
 @Data
-@TableName("application_pipeline_node")
+@TableName("pipeline_node_template")
 public class PipelineNodeDO extends CommonEntity {
     /**
      * 唯一标示做关联

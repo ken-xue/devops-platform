@@ -1,0 +1,1 @@
+package io.kenxue.cicd.sharedataboject.common;

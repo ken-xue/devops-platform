@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2021-12-28 22:57:10
  */
 @Data
-@TableName("application_pipeline")
+@TableName("pipeline")
 public class ApplicationPipelineDO extends CommonEntity {
     /**
      * 应用uuid

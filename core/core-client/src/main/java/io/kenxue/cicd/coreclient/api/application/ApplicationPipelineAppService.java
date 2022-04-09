@@ -5,6 +5,8 @@ import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.application.applicationpipeline.*;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.*;
+
 /**
  * 流水线
  * @author mikey
