@@ -23,6 +23,7 @@ public class ApplicationPipelineAddCmdExe {
 
     public Response execute(ApplicationPipelineAddCmd cmd) {
         ApplicationPipeline applicationPipeline = applicationPipeline2DTOAssembler.toDomain(cmd.getApplicationPipelineDTO());
+        applicationPipeline.validate();
         applicationPipeline.create(UserThreadContext.get());
         //编译流程图
         applicationPipeline.compile();

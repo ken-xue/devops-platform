@@ -38,17 +38,25 @@ public class ApplicationPipeline extends CommonEntity {
      * 编译流程图
      */
     public void compile() {
-        Assert.notNull(graph,"流程图不能为空");
-        pipelineName = graph.getHead();
-        String graphStr = JSONObject.toJSONString(graph);
-        //TODO:验证是否正确
-        this.pipelineContext = graphStr;
+        validate();
+        String context = JSONObject.toJSONString(graph);
+        this.pipelineContext = context;
     }
+
 
     /**
      * 部署流程图
      */
     public void deploy(){
 
+    }
+
+    @Override
+    public void validate() {
+        Assert.notNull(graph,"流程图不能为空");
+        Assert.notNull(graph.getNodes(),"节点不能为空");
+        Assert.notNull(applicationUuid,"应用ID不能为空");
+        Assert.hasLength(pipelineName,"流水线名字不能为空");
+        Assert.isTrue(!graph.validate(),"必须包含开始和结束节点");
     }
 }

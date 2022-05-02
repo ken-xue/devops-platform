@@ -4,15 +4,13 @@ import io.kenxue.cicd.adapter.common.annotation.Permissions;
 import io.kenxue.cicd.adapter.rest.common.BasicController;
 import io.kenxue.cicd.coreclient.api.application.ApplicationPipelineAppService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.coreclient.dto.application.applicationpipeline.*;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.*;
-import org.springframework.web.bind.annotation.*;
+import io.kenxue.cicd.sharedataboject.common.group.Insert;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -32,8 +30,22 @@ public class PipelineController extends BasicController {
     @PostMapping("/add")
     @Permissions("application:applicationpipeline:add")
     @ApiOperation(value = "添加",httpMethod = "POST")
-    public Response add(@RequestBody @Valid ApplicationPipelineAddCmd applicationPipelineAddCmd) {
+    public Response add(@RequestBody @Validated({Insert.class}) ApplicationPipelineAddCmd applicationPipelineAddCmd) {
         return applicationPipelineAppService.add(applicationPipelineAddCmd);
+    }
+
+    @PostMapping("/deploy")
+    @Permissions("application:applicationpipeline:deploy")
+    @ApiOperation(value = "部署",httpMethod = "get")
+    public Response deploy(@RequestBody @Valid ApplicationPipelineDeployCmd applicationPipelineDeployCmd) {
+        return applicationPipelineAppService.deploy(applicationPipelineDeployCmd);
+    }
+
+    @PostMapping("/execute")
+    @Permissions("application:applicationpipeline:execute")
+    @ApiOperation(value = "运行",httpMethod = "get")
+    public Response execute(@RequestBody @Valid ApplicationPipelineExecuteCmd applicationPipelineExecuteCmd) {
+        return applicationPipelineAppService.execute(applicationPipelineExecuteCmd);
     }
 
     @DeleteMapping("/delete")

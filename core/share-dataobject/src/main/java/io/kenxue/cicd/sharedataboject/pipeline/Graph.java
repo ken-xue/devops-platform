@@ -13,6 +13,17 @@ public class Graph{
     private List<Endpoints> endpoints;
     private List<String> edges;
     private String head;
+
+    /**
+     * 必须包含一个开始节点和结束节点
+     * @return
+     */
+    public boolean validate() {
+        return
+                nodes.stream().map(node -> "START".equals(node.getName())).count() == 1
+                        &&
+                nodes.stream().map(node -> "END".equals(node.getName())).count() == 1;
+    }
 }
 
 /**

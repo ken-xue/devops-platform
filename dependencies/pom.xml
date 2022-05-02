@@ -31,10 +31,16 @@
         <jenkins.client.version>0.3.8</jenkins.client.version>
         <netty.version>4.1.36.Final</netty.version>
         <spring.websocket.version>5.1.9.RELEASE</spring.websocket.version>
+        <pipeline.version>1.0.0</pipeline.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+<!--            <dependency>-->
+<!--                <groupId>io.kenxue.pipeline</groupId>-->
+<!--                <artifactId>pipeline</artifactId>-->
+<!--                <version>${pipeline.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

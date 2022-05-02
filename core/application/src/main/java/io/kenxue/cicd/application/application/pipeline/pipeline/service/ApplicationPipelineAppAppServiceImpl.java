@@ -1,13 +1,10 @@
 package io.kenxue.cicd.application.application.pipeline.pipeline.service;
 
-import io.kenxue.cicd.application.application.pipeline.pipeline.command.query.ApplicationPipelineListQryExe;
-import io.kenxue.cicd.coreclient.api.application.ApplicationPipelineAppService;
-import io.kenxue.cicd.coreclient.dto.application.applicationpipeline.*;
-import io.kenxue.cicd.application.application.pipeline.pipeline.command.ApplicationPipelineAddCmdExe;
-import io.kenxue.cicd.application.application.pipeline.pipeline.command.ApplicationPipelineDeleteCmdExe;
-import io.kenxue.cicd.application.application.pipeline.pipeline.command.ApplicationPipelineUpdateCmdExe;
+import io.kenxue.cicd.application.application.pipeline.pipeline.command.*;
 import io.kenxue.cicd.application.application.pipeline.pipeline.command.query.ApplicationPipelineGetQryExe;
+import io.kenxue.cicd.application.application.pipeline.pipeline.command.query.ApplicationPipelineListQryExe;
 import io.kenxue.cicd.application.application.pipeline.pipeline.command.query.ApplicationPipelinePageQryExe;
+import io.kenxue.cicd.coreclient.api.application.ApplicationPipelineAppService;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
@@ -26,6 +23,10 @@ import javax.annotation.Resource;
 public class ApplicationPipelineAppAppServiceImpl implements ApplicationPipelineAppService {
     @Resource
     private ApplicationPipelineAddCmdExe applicationPipelineAddCmdExe;
+    @Resource
+    private ApplicationPipelineExecuteCmdExe applicationPipelineExecuteCmdExe;
+    @Resource
+    private ApplicationPipelineDeployCmdExe applicationPipelineDeployCmdExe;
     @Resource
     private ApplicationPipelineUpdateCmdExe applicationPipelineUpdateCmdExe;
     @Resource
@@ -59,6 +60,16 @@ public class ApplicationPipelineAppAppServiceImpl implements ApplicationPipeline
 
     public PageResponse<ApplicationPipelineDTO> page(ApplicationPipelinePageQry applicationPipelinePageQry) {
         return applicationPipelinePageQryExe.execute(applicationPipelinePageQry);
+    }
+
+    @Override
+    public Response deploy(ApplicationPipelineDeployCmd applicationPipelineDeployCmd) {
+        return applicationPipelineDeployCmdExe.execute(applicationPipelineDeployCmd);
+    }
+
+    @Override
+    public Response execute(ApplicationPipelineExecuteCmd applicationPipelineExecuteCmd) {
+        return applicationPipelineExecuteCmdExe.execute(applicationPipelineExecuteCmd);
     }
 
 }

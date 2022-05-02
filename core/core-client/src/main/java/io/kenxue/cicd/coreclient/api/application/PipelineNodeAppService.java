@@ -4,7 +4,6 @@ import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
-import io.kenxue.cicd.coreclient.dto.application.pipelinenode.*;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipelinenode.*;
 
 /**

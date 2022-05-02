@@ -15,6 +15,6 @@ public abstract class Entity implements Serializable {
     public Entity() {
     }
 
-    public void validate() throws Exception {
+    public void validate() {
     }
 }

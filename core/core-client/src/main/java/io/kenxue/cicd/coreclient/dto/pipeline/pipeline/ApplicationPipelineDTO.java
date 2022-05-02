@@ -1,9 +1,12 @@
 package io.kenxue.cicd.coreclient.dto.pipeline.pipeline;
 
 import io.kenxue.cicd.coreclient.dto.common.command.CommonDTO;
+import io.kenxue.cicd.sharedataboject.common.group.Insert;
 import io.kenxue.cicd.sharedataboject.pipeline.Graph;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 流水线
@@ -16,10 +19,12 @@ public class ApplicationPipelineDTO extends CommonDTO {
     /**
      * 应用uuid
      */
+    @NotNull(message = "应用uuid不能为空",groups = Insert.class)
     private String applicationUuid;
     /**
      * 流水线名称
      */
+    @NotNull(message = "流水线名字不能为空",groups = Insert.class)
     private String pipelineName;
     /**
      * 应用类型
