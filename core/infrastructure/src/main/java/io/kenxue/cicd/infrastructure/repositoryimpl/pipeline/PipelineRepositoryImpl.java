@@ -3,7 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.pipeline;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelineListQry;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelinePageQry;
-import io.kenxue.cicd.domain.domain.application.ApplicationPipeline;
+import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.ApplicationPipeline2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.ApplicationPipelineDO;
@@ -31,25 +31,25 @@ public class PipelineRepositoryImpl implements ApplicationPipelineRepository {
     @Resource
     private ApplicationPipeline2DOConvector applicationPipeline2DOConvector;
 
-    public void create(ApplicationPipeline applicationPipeline){
-            applicationPipelineMapper.insert(applicationPipeline2DOConvector.toDO(applicationPipeline));
+    public void create(Pipeline pipeline){
+            applicationPipelineMapper.insert(applicationPipeline2DOConvector.toDO(pipeline));
     }
 
-    public void update(ApplicationPipeline applicationPipeline){
-            applicationPipelineMapper.updateById(applicationPipeline2DOConvector.toDO(applicationPipeline));
+    public void update(Pipeline pipeline){
+            applicationPipelineMapper.updateById(applicationPipeline2DOConvector.toDO(pipeline));
     }
 
-    public ApplicationPipeline getById(Long id){
-        return applicationPipeline2DOConvector.toDomain(applicationPipelineMapper.selectById(id));
+    public Pipeline getById(Long id){
+        return applicationPipeline2DOConvector.toDomain(applicationPipelineMapper.selectById(id)).deSerializable();
     }
 
     @Override
-    public List<ApplicationPipeline> list(ApplicationPipelineListQry applicationPipelineListQry) {
+    public List<Pipeline> list(ApplicationPipelineListQry applicationPipelineListQry) {
         return applicationPipeline2DOConvector.toDomainList(applicationPipelineMapper.selectList(new QueryWrapper<>()));
     }
 
     @Override
-    public Page<ApplicationPipeline> page(ApplicationPipelinePageQry qry) {
+    public Page<Pipeline> page(ApplicationPipelinePageQry qry) {
         QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
         qw.eq("deleted",false);
         if (Objects.nonNull(qry)&&Objects.nonNull(qry.getApplicationUuid()))qw.eq("application_uuid",qry.getApplicationUuid());
@@ -57,5 +57,14 @@ public class PipelineRepositoryImpl implements ApplicationPipelineRepository {
         qw.orderBy(true,false,"gmt_create");
         IPage doPage = applicationPipelineMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),applicationPipeline2DOConvector.toDomainList(doPage.getRecords()));
+    }
+
+    @Override
+    public Pipeline getByName(String name) {
+        QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
+        qw.eq("pipeline_name", name);
+        Pipeline pipeline = applicationPipeline2DOConvector.toDomain(applicationPipelineMapper.selectOne(qw));
+        pipeline.deSerializable();
+        return pipeline;
     }
 }

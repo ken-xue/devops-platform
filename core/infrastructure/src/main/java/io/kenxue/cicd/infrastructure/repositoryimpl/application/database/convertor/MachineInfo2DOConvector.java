@@ -1,6 +1,6 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor;
 
-import io.kenxue.cicd.domain.domain.application.MachineInfo;
+import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO;
 import org.springframework.stereotype.Component;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;

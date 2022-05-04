@@ -4,7 +4,8 @@ import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
-import io.kenxue.cicd.coreclient.dto.application.machineinfo.*;
+import io.kenxue.cicd.coreclient.dto.machine.*;
+
 /**
  * 服务器节点
  * @author mikey

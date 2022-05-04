@@ -1,6 +1,6 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor;
 
-import io.kenxue.cicd.domain.domain.application.ApplicationPipeline;
+import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.ApplicationPipelineDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
@@ -18,12 +18,12 @@ public interface ApplicationPipeline2DOMapStruct {
     ApplicationPipeline2DOMapStruct INSTANCE = Mappers.getMapper(ApplicationPipeline2DOMapStruct.class);
 
     @Mappings({})
-    ApplicationPipelineDO toDO(ApplicationPipeline applicationPipeline);
+    ApplicationPipelineDO toDO(Pipeline pipeline);
 
     @Mappings({})
-    ApplicationPipeline toDomain(ApplicationPipelineDO applicationPipelineDO);
+    Pipeline toDomain(ApplicationPipelineDO applicationPipelineDO);
 
-    List<ApplicationPipelineDO> toDOList(List<ApplicationPipeline> applicationPipelineList);
+    List<ApplicationPipelineDO> toDOList(List<Pipeline> pipelineList);
 
-    List<ApplicationPipeline> toDomainList(List<ApplicationPipelineDO> applicationPipelineDOList);
+    List<Pipeline> toDomainList(List<ApplicationPipelineDO> applicationPipelineDOList);
 }

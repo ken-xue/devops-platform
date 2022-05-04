@@ -36,11 +36,6 @@
 
     <dependencyManagement>
         <dependencies>
-<!--            <dependency>-->
-<!--                <groupId>io.kenxue.pipeline</groupId>-->
-<!--                <artifactId>pipeline</artifactId>-->
-<!--                <version>${pipeline.version}</version>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

@@ -23,4 +23,8 @@ public class ApplicationPipelineDO extends CommonEntity {
      * 应用类型
      */
     private String pipelineContext;
+    /**
+     * 描述
+     */
+    private String description;
 }

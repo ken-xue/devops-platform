@@ -1,10 +1,10 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.kenxue.cicd.coreclient.dto.application.machineinfo.MachineInfoDTO;
-import io.kenxue.cicd.coreclient.dto.application.machineinfo.MachineInfoListQry;
-import io.kenxue.cicd.coreclient.dto.application.machineinfo.MachineInfoPageQry;
-import io.kenxue.cicd.domain.domain.application.MachineInfo;
+import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDTO;
+import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;
+import io.kenxue.cicd.coreclient.dto.machine.MachineInfoPageQry;
+import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.MachineInfo2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO;

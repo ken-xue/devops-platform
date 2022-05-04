@@ -1,9 +1,9 @@
 package io.kenxue.cicd.domain.repository.application;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
-import io.kenxue.cicd.coreclient.dto.application.machineinfo.MachineInfoListQry;
-import io.kenxue.cicd.coreclient.dto.application.machineinfo.MachineInfoPageQry;
-import io.kenxue.cicd.domain.domain.application.MachineInfo;
+import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;
+import io.kenxue.cicd.coreclient.dto.machine.MachineInfoPageQry;
+import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import java.util.List;
 /**
  * 服务器节点

@@ -1,6 +1,6 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor;
 
-import io.kenxue.cicd.domain.domain.application.PipelineNode;
+import io.kenxue.cicd.domain.domain.pipeline.PipelineNode;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.PipelineNodeDO;
 import org.springframework.stereotype.Component;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;

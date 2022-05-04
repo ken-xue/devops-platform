@@ -7,5 +7,6 @@
             <result property="applicationUuid" column="application_uuid"/>
             <result property="pipelineName" column="pipeline_name"/>
             <result property="pipelineContext" column="pipeline_context"/>
+            <result property="description" column="description"/>
     </resultMap>
 </mapper>

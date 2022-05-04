@@ -3,7 +3,7 @@ package io.kenxue.cicd.domain.repository.application;
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipelinenode.PipelineNodeListQry;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipelinenode.PipelineNodePageQry;
-import io.kenxue.cicd.domain.domain.application.PipelineNode;
+import io.kenxue.cicd.domain.domain.pipeline.PipelineNode;
 import java.util.List;
 /**
  * 流水线节点类型

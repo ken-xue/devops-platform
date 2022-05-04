@@ -1,6 +1,6 @@
 package io.kenxue.cicd.domain.factory.application;
 
-import io.kenxue.cicd.domain.domain.application.PipelineNode;
+import io.kenxue.cicd.domain.domain.pipeline.PipelineNode;
 /**
  * 流水线节点类型
  * @author mikey

@@ -1,6 +1,6 @@
 package io.kenxue.cicd.domain.factory.application;
 
-import io.kenxue.cicd.domain.domain.application.MachineInfo;
+import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 /**
  * 服务器节点
  * @author mikey

@@ -3,7 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.pipeline;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipelinenode.PipelineNodeListQry;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipelinenode.PipelineNodePageQry;
-import io.kenxue.cicd.domain.domain.application.PipelineNode;
+import io.kenxue.cicd.domain.domain.pipeline.PipelineNode;
 import io.kenxue.cicd.domain.repository.application.PipelineNodeRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.PipelineNode2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.PipelineNodeDO;
