@@ -4,6 +4,7 @@ import io.kenxue.cicd.application.pipeline.pipeline.manager.NodeManager;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelineExecuteCmd;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
+import io.kenxue.cicd.domain.domain.pipeline.PipelineNodeInfo;
 import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;
@@ -46,13 +47,9 @@ public class ApplicationPipelineExecuteCmdExe {
 
         Pipeline pipeline = applicationPipelineRepository.getById(cmd.getId());
 
-        ExecuteContext context = new ExecuteContext();
+        ExecuteContext context = buildContext(pipeline);
 
-        // TODO: 2022/5/4  build context
-
-        buildContext(context);
-
-        preExecute(pipeline);
+        prepare(pipeline);
 
         execute(context, start);
 
@@ -61,10 +58,23 @@ public class ApplicationPipelineExecuteCmdExe {
 
     /**
      * 构建上下文
-     * @param context
+     * @param pipeline
      */
-    private void buildContext(ExecuteContext context) {
+    private ExecuteContext buildContext(Pipeline pipeline) {
 
+        ExecuteContext context = new ExecuteContext();
+
+        for(Nodes node:pipeline.getGraph().getNodes()){
+            if (NodeEnum.START.getName().equals(node.getName())||NodeEnum.END.getName().equals(node.getName()))continue;
+            PipelineNodeInfo nodeInfo = pipelineNodeInfoRepository.getByNodeId(node.getId());
+            if (Objects.isNull(nodeInfo)){
+                log.error("node : {},config node info data is null",node);
+            }else {
+                context.setAttributes(node.getName(), nodeInfo);
+            }
+        }
+
+        return context;
     }
 
     private volatile List<String> edges;
@@ -78,7 +88,7 @@ public class ApplicationPipelineExecuteCmdExe {
      * 解析流水线
      * @param pipeline
      */
-    private void preExecute(Pipeline pipeline) {
+    private void prepare(Pipeline pipeline) {
 
         lineMap.clear();
         sourceLineMap.clear();
@@ -124,26 +134,24 @@ public class ApplicationPipelineExecuteCmdExe {
                 //执行结果
                 Result result = new DefaultResult();
                 //变更状态
-                executeNode.getData().setNodeState(NodeExecuteStatus.LOADING.toString().toLowerCase(Locale.ROOT));//进行中
+                executeNode.getData().setNodeState(NodeExecuteStatus.LOADING.getName());//进行中
                 //获取下一个执行的路线
                 List<String> sources = executeNode.getPoints().getSources();
                 //执行
                 Result ret = nodeManager.get(executeNode.getName()).execute(context);
                 result.add(executeNode.getName(), ret);
-                executeNode.getData().setNodeState(NodeExecuteStatus.SUCCESS.toString().toLowerCase(Locale.ROOT));//执行成功
+                executeNode.getData().setNodeState(NodeExecuteStatus.SUCCESS.getName());//执行成功
                 sources.forEach(sce -> {
                     String next = sce.replace("source-", "");
                     List<String> list = lineMap.get(next);
-                    list.forEach(v -> {
-                        executor.submit(() -> {
-                            Nodes node = targetMap.get(v);
-                            execute(context, node);
-                        });
-                    });
+                    list.forEach(v -> executor.submit(() -> {
+                        Nodes node = targetMap.get(v);
+                        execute(context, node);
+                    }));
                 });
             } catch (Exception e) {
-                executeNode.getData().setNodeState(NodeExecuteStatus.FAILED.toString().toLowerCase(Locale.ROOT));//执行失败
-                log.error("cur node : {}", executeNode);
+                executeNode.getData().setNodeState(NodeExecuteStatus.FAILED.getName());//执行失败
+                log.error("execute error , cur node : {}", executeNode);
                 e.printStackTrace();
             }
         }
@@ -159,7 +167,7 @@ public class ApplicationPipelineExecuteCmdExe {
         try {
             log.info("检查是否所有输入节点都已经执行完成:{}", executeNode.getName());
             //executeNode.get
-            if (NodeExecuteStatus.LOADING.toString().toLowerCase(Locale.ROOT).equals(executeNode.getData().getNodeState()))return false;
+            if (NodeExecuteStatus.SUCCESS.getName().equals(executeNode.getData().getNodeState()))return false;
             //判断当前节点的所有前置节点是否已经执行完成
             List<String> targets = executeNode.getPoints().getTargets();
             for (String t : targets) {
@@ -168,10 +176,9 @@ public class ApplicationPipelineExecuteCmdExe {
                 for (String sourceUUID : sourceUUIDList) {
                     Nodes node = sourceMap.get(sourceUUID);
                     log.info("node info:{}", node);
-                    if (Objects.nonNull(node) &&
-                            (Objects.isNull(node.getData().getNodeState()) || StringUtils.isBlank(node.getData().getNodeState()) ||
-                                    NodeExecuteStatus.LOADING.toString().toLowerCase(Locale.ROOT).equals(node.getData().getNodeState()) ||
-                                    NodeExecuteStatus.FAILED.toString().toLowerCase(Locale.ROOT).equals(node.getData().getNodeState()))) {
+                    if (Objects.nonNull(node) && (Objects.isNull(node.getData().getNodeState()) || StringUtils.isBlank(node.getData().getNodeState()) ||
+                                    NodeExecuteStatus.LOADING.getName().equals(node.getData().getNodeState()) ||
+                                    NodeExecuteStatus.FAILED.getName().equals(node.getData().getNodeState()))) {
                         log.info("输入节点:{} 未执行完成，放弃执行当前节点 {}", node, executeNode);
                         return false;
                     }

@@ -5,10 +5,19 @@ package io.kenxue.cicd.sharedataboject.pipeline.enums;
  */
 public enum NodeExecuteStatus {
 
-    LOADING("执行中"),
-    SUCCESS("执行成功"),
-    FAILED("执行失败");
+    LOADING("loading","执行中"),
+    SUCCESS("success","执行成功"),
+    FAILED("failed","执行失败");
+
+    private String name;
     private String desc;
 
-    NodeExecuteStatus(String desc) {}
+    NodeExecuteStatus(String name,String desc) {
+        this.name = name;
+        this.desc = desc;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
