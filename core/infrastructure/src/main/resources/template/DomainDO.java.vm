@@ -3,6 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.${moduleName}.database.data
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.Data;
+import java.util.Date;
 /**
  * ${comments}
  * @author ${author}
