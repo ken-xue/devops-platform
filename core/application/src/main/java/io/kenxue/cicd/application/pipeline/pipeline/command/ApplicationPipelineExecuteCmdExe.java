@@ -80,8 +80,6 @@ public class ApplicationPipelineExecuteCmdExe {
 
         prepare(pipeline);
 
-
-
         execute(context, start);
 
         return Response.success();

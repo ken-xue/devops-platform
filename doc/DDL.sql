@@ -148,6 +148,37 @@ INSERT INTO `machine_info` VALUES (1,'刘架构服务器','116.198.160.39',22,'r
 UNLOCK TABLES;
 
 --
+-- Table structure for table `middleware_jenkins`
+--
+
+DROP TABLE IF EXISTS `middleware_jenkins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `middleware_jenkins` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uuid` varchar(32) DEFAULT NULL COMMENT '唯一标示做关联',
+  `uri` varchar(32) DEFAULT NULL COMMENT 'jenkins uri',
+  `username` varchar(32) DEFAULT NULL COMMENT '访问用户名',
+  `password` varchar(32) DEFAULT NULL COMMENT '访问密码或秘钥',
+  `creator` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `modifier` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `gmt_create` datetime NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime NOT NULL COMMENT '修改时间',
+  `deleted` char(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='基建中间件Jenkins';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `middleware_jenkins`
+--
+
+LOCK TABLES `middleware_jenkins` WRITE;
+/*!40000 ALTER TABLE `middleware_jenkins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `middleware_jenkins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `middleware_kafka`
 --
 
@@ -311,6 +342,7 @@ CREATE TABLE `pipeline_execute_logger` (
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   `deleted` char(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
+  `final_status` varchar(20) DEFAULT NULL COMMENT '最终执行状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='流水线执行记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -343,6 +375,7 @@ CREATE TABLE `pipeline_node_execute_logger` (
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   `deleted` char(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
+  `final_status` varchar(20) DEFAULT NULL COMMENT '最终执行状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='节点执行记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -734,85 +767,6 @@ LOCK TABLES `sys_user_of_role` WRITE;
 INSERT INTO `sys_user_of_role` VALUES (1,'93f101be493d11ecb7c254e1ad134d78','9df9de08354f456c97fae0cdb3df214f','93f101be493d11ecb7c254e1ad134d77','SYS','SYS','2021-11-19 13:52:12','2021-11-19 13:52:13','0'),(4,'dbd90a6a2c824d6284651e609aed8d80','b8c1e673060c437ba0925f119538bdb6','93f101be493d11ecb7c254e1ad134d77','mikey','mikey','2021-12-01 09:46:07','2021-12-01 09:46:07','0'),(5,'5a157d23f39c435faffc36c81758d660','b8c1e673060c437ba0925f119538bdb6','0caadea8ae91427eb3d869df43d0fe41','mikey','mikey','2021-12-01 09:46:07','2021-12-01 09:46:07','0'),(12,'9f35f44349074d05b476257e140978f4','b8c1e673060c437ba0925f119538bdb6','0caadea8ae91427eb3d869df43d0fe41','mikey','mikey','2021-12-02 03:42:46','2021-12-02 03:42:46','0'),(13,'8a9551b14bb347cd9f7112a4928848bb','b8c1e673060c437ba0925f119538bdb6','0caadea8ae91427eb3d869df43d0fe41','mikey','mikey','2021-12-02 03:42:57','2021-12-02 03:42:57','0'),(14,'2b2f93dbdee74266b4db6cf633d2d49a','26220d63bfd345dabb2f114287965313','0caadea8ae91427eb3d869df43d0fe41','mikey','mikey','2021-12-02 03:49:31','2021-12-02 03:49:31','0');
 /*!40000 ALTER TABLE `sys_user_of_role` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tb_sales_bill`
---
-
-DROP TABLE IF EXISTS `tb_sales_bill`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tb_sales_bill` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `sales_user_id` bigint(20) NOT NULL COMMENT '所属销售id',
-  `billing_date` datetime DEFAULT NULL COMMENT '开票时间',
-  `price` double(11,2) DEFAULT NULL COMMENT '开票金额',
-  `payment_date` datetime DEFAULT NULL COMMENT '到账时间',
-  `status` varchar(20) DEFAULT NULL COMMENT '状态:未到账、已到账',
-  `creator` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `modifier` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='财务对账销售表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_sales_bill`
---
-
-LOCK TABLES `tb_sales_bill` WRITE;
-/*!40000 ALTER TABLE `tb_sales_bill` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_sales_bill` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tb_sales_task_plan`
---
-
-DROP TABLE IF EXISTS `tb_sales_task_plan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tb_sales_task_plan` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `sales_user_id` bigint(20) NOT NULL COMMENT '用户id',
-  `finish_billing` double(11,2) DEFAULT '0.00' COMMENT '已开票额度',
-  `finish_payment` double(11,2) DEFAULT '0.00' COMMENT '已回款额度',
-  `customer_consumption` double(11,2) DEFAULT '0.00' COMMENT '客户消费',
-  `planned_quota_year` double(11,2) DEFAULT '0.00' COMMENT '年度任务包:下面1-12月的总和',
-  `planned_quota_finish` double(11,2) DEFAULT '0.00' COMMENT '年度累计业绩',
-  `finish_quota` double(11,2) DEFAULT '0.00' COMMENT '完成额度',
-  `january_plan` double(11,2) DEFAULT '0.00' COMMENT '1月任务计划',
-  `february_plan` double(11,2) DEFAULT '0.00' COMMENT '2月任务计划',
-  `march_plan` double(11,2) DEFAULT '0.00' COMMENT '3月任务计划',
-  `april_plan` double(11,2) DEFAULT '0.00' COMMENT '4月任务计划',
-  `may_plan` double(11,2) DEFAULT '0.00' COMMENT '5月任务计划',
-  `june_plan` double(11,2) DEFAULT '0.00' COMMENT '6月任务计划',
-  `july_plan` double(11,2) DEFAULT '0.00' COMMENT '7月任务计划',
-  `august_plan` double(11,2) DEFAULT '0.00' COMMENT '8月任务计划',
-  `september_plan` double(11,2) DEFAULT '0.00' COMMENT '9月任务计划',
-  `october_plan` double(11,2) DEFAULT '0.00' COMMENT '10月任务计划',
-  `november_plan` double(11,2) DEFAULT '0.00' COMMENT '11月任务计划',
-  `december_plan` double(11,2) DEFAULT '0.00' COMMENT '12月任务计划',
-  `planned_year` int(4) NOT NULL COMMENT '年度',
-  `refresh_time` datetime DEFAULT NULL COMMENT '更新统计时间',
-  `creator` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `modifier` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `no_account` (`sales_user_id`,`planned_year`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='销售销售额度计划';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_sales_task_plan`
---
-
-LOCK TABLES `tb_sales_task_plan` WRITE;
-/*!40000 ALTER TABLE `tb_sales_task_plan` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_sales_task_plan` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -823,4 +777,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-04 16:15:41
+-- Dump completed on 2022-05-05 22:58:58

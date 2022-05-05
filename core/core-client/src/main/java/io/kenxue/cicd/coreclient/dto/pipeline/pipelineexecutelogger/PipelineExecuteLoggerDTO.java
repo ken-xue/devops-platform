@@ -28,4 +28,8 @@ public class PipelineExecuteLoggerDTO extends CommonDTO {
      * 结束时间
      */
     private Date executeEndTime;
+    /**
+     * 最终执行状态
+     */
+    private String finalStatus;
 }

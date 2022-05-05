@@ -28,4 +28,8 @@ public class PipelineExecuteLoggerDO extends CommonEntity {
      * 结束时间
      */
     private Date executeEndTime;
+    /**
+     * 最终执行状态
+     */
+    private String finalStatus;
 }
