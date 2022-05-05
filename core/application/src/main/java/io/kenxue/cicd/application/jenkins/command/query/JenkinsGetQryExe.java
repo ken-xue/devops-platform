@@ -1,6 +1,6 @@
-package io.kenxue.cicd.application.application.jenkins.jenkins.command.query;
+package io.kenxue.cicd.application.jenkins.command.query;
 
-import io.kenxue.cicd.application.application.jenkins.jenkins.assembler.Jenkins2DTOAssembler;
+import io.kenxue.cicd.application.jenkins.assembler.Jenkins2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDTO;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsGetQry;

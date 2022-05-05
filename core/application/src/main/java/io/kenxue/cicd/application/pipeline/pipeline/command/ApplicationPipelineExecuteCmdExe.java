@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -36,13 +37,41 @@ public class ApplicationPipelineExecuteCmdExe {
 
     public static ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 20L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());
 
+    //当前正在执行的实例k=执行记录 uuid，v=pipeline
+    private static volatile ConcurrentHashMap<String, Pipeline> executing = new ConcurrentHashMap<>(2 << 4);
+
+    private volatile List<String> edges;
+
+    private volatile Nodes start;
+
+    private volatile Map<String, List<String>> lineMap = new HashMap<>(2 << 4);
+
+    private volatile Map<String, List<String>> sourceLineMap = new HashMap<>(2 << 4);
+
+    private volatile Map<String, Nodes> targetMap = new HashMap<>(2 << 4);
+
+    private volatile Map<String, Nodes> sourceMap = new HashMap<>(2 << 4);
+
     @Resource
     private ApplicationPipelineRepository applicationPipelineRepository;
     @Resource
     private PipelineNodeInfoRepository pipelineNodeInfoRepository;
     @Resource
     private NodeManager nodeManager;
+//    @Resource
+//    private PipelineExecute
 
+    /**
+     * 两个入口
+     * 1.打开页面点击执行
+     *      1.1 生成执行记录id
+     *      1.2 建立节点实时状态socket推送
+     * 2.点击执行记录
+     *      2.1 执行中（根据执行记录id判断是否正在执行，如果是正在执行建立socket连接）
+     *      2.2 已经执行完成（返回执行记录结果即可，无需建立socket连接）
+     * @param cmd
+     * @return
+     */
     public Response execute(ApplicationPipelineExecuteCmd cmd) {
 
         Pipeline pipeline = applicationPipelineRepository.getById(cmd.getId());
@@ -51,6 +80,8 @@ public class ApplicationPipelineExecuteCmdExe {
 
         prepare(pipeline);
 
+
+
         execute(context, start);
 
         return Response.success();
@@ -58,18 +89,20 @@ public class ApplicationPipelineExecuteCmdExe {
 
     /**
      * 构建上下文
+     *
      * @param pipeline
      */
     private ExecuteContext buildContext(Pipeline pipeline) {
 
         ExecuteContext context = new ExecuteContext();
 
-        for(Nodes node:pipeline.getGraph().getNodes()){
-            if (NodeEnum.START.getName().equals(node.getName())||NodeEnum.END.getName().equals(node.getName()))continue;
+        for (Nodes node : pipeline.getGraph().getNodes()) {
+            if (NodeEnum.START.getName().equals(node.getName()) || NodeEnum.END.getName().equals(node.getName()))
+                continue;
             PipelineNodeInfo nodeInfo = pipelineNodeInfoRepository.getByNodeId(node.getId());
-            if (Objects.isNull(nodeInfo)){
-                log.error("node : {},config node info data is null",node);
-            }else {
+            if (Objects.isNull(nodeInfo)) {
+                log.error("node : {},config node info data is null", node);
+            } else {
                 context.setAttributes(node.getName(), nodeInfo);
             }
         }
@@ -77,15 +110,9 @@ public class ApplicationPipelineExecuteCmdExe {
         return context;
     }
 
-    private volatile List<String> edges;
-    private volatile Nodes start;
-    private volatile Map<String, List<String>> lineMap = new HashMap<>(2 << 4);;
-    private volatile Map<String, List<String>> sourceLineMap = new HashMap<>(2 << 4);;
-    private volatile Map<String, Nodes> targetMap = new HashMap<>(2 << 4);;
-    private volatile Map<String, Nodes> sourceMap = new HashMap<>(2 << 4);;
-
     /**
      * 解析流水线
+     *
      * @param pipeline
      */
     private void prepare(Pipeline pipeline) {
@@ -135,6 +162,8 @@ public class ApplicationPipelineExecuteCmdExe {
                 Result result = new DefaultResult();
                 //变更状态
                 executeNode.getData().setNodeState(NodeExecuteStatus.LOADING.getName());//进行中
+                //TODO:推送节点状态
+
                 //获取下一个执行的路线
                 List<String> sources = executeNode.getPoints().getSources();
                 //执行
@@ -154,6 +183,7 @@ public class ApplicationPipelineExecuteCmdExe {
                 log.error("execute error , cur node : {}", executeNode);
                 e.printStackTrace();
             }
+            //TODO:推送节点状态
         }
     }
 
@@ -167,7 +197,7 @@ public class ApplicationPipelineExecuteCmdExe {
         try {
             log.info("检查是否所有输入节点都已经执行完成:{}", executeNode.getName());
             //executeNode.get
-            if (NodeExecuteStatus.SUCCESS.getName().equals(executeNode.getData().getNodeState()))return false;
+            if (NodeExecuteStatus.SUCCESS.getName().equals(executeNode.getData().getNodeState())) return false;
             //判断当前节点的所有前置节点是否已经执行完成
             List<String> targets = executeNode.getPoints().getTargets();
             for (String t : targets) {
@@ -177,8 +207,8 @@ public class ApplicationPipelineExecuteCmdExe {
                     Nodes node = sourceMap.get(sourceUUID);
                     log.info("node info:{}", node);
                     if (Objects.nonNull(node) && (Objects.isNull(node.getData().getNodeState()) || StringUtils.isBlank(node.getData().getNodeState()) ||
-                                    NodeExecuteStatus.LOADING.getName().equals(node.getData().getNodeState()) ||
-                                    NodeExecuteStatus.FAILED.getName().equals(node.getData().getNodeState()))) {
+                            NodeExecuteStatus.LOADING.getName().equals(node.getData().getNodeState()) ||
+                            NodeExecuteStatus.FAILED.getName().equals(node.getData().getNodeState()))) {
                         log.info("输入节点:{} 未执行完成，放弃执行当前节点 {}", node, executeNode);
                         return false;
                     }

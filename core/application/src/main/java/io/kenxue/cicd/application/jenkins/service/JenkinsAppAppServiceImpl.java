@@ -1,13 +1,13 @@
-package io.kenxue.cicd.application.application.jenkins.jenkins.service;
+package io.kenxue.cicd.application.jenkins.service;
 
+import io.kenxue.cicd.application.jenkins.command.JenkinsAddCmdExe;
+import io.kenxue.cicd.application.jenkins.command.JenkinsDeleteCmdExe;
+import io.kenxue.cicd.application.jenkins.command.JenkinsUpdateCmdExe;
+import io.kenxue.cicd.application.jenkins.command.query.JenkinsGetQryExe;
+import io.kenxue.cicd.application.jenkins.command.query.JenkinsPageQryExe;
 import io.kenxue.cicd.coreclient.api.jenkins.JenkinsAppService;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.*;
-import io.kenxue.cicd.application.application.jenkins.jenkins.command.JenkinsAddCmdExe;
-import io.kenxue.cicd.application.application.jenkins.jenkins.command.JenkinsDeleteCmdExe;
-import io.kenxue.cicd.application.application.jenkins.jenkins.command.JenkinsUpdateCmdExe;
-import io.kenxue.cicd.application.application.jenkins.jenkins.command.query.JenkinsGetQryExe;
-import io.kenxue.cicd.application.application.jenkins.jenkins.command.query.JenkinsListQryExe;
-import io.kenxue.cicd.application.application.jenkins.jenkins.command.query.JenkinsPageQryExe;
+import io.kenxue.cicd.application.jenkins.command.query.JenkinsListQryExe;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;

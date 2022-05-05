@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.jenkins.jenkins.assembler;
+package io.kenxue.cicd.application.jenkins.assembler;
 
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDTO;
 import io.kenxue.cicd.domain.domain.jenkins.Jenkins;

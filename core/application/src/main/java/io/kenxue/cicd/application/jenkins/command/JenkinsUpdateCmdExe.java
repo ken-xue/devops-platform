@@ -1,6 +1,6 @@
-package io.kenxue.cicd.application.application.jenkins.jenkins.command;
+package io.kenxue.cicd.application.jenkins.command;
 
-import io.kenxue.cicd.application.application.jenkins.jenkins.assembler.Jenkins2DTOAssembler;
+import io.kenxue.cicd.application.jenkins.assembler.Jenkins2DTOAssembler;
 import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsUpdateCmd;

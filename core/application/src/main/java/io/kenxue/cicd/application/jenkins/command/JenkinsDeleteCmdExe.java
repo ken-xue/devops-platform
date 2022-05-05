@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.jenkins.jenkins.command;
+package io.kenxue.cicd.application.jenkins.command;
 
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;

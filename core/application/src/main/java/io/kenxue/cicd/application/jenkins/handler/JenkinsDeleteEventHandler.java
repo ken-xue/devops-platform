@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.jenkins.jenkins.handler;
+package io.kenxue.cicd.application.jenkins.handler;
 
 
 import io.kenxue.cicd.application.common.event.EventHandler;
