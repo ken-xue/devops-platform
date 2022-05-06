@@ -16,7 +16,12 @@ public class JavaBuildNode implements Node {
 
     @Override
     public Result execute(ExecuteContext executeContext) {
-        log.info(getName());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.error(getName());
         // 1.连接Jenkins
         // 2.获取任务模板
         // 3.构建任务数据executeContext

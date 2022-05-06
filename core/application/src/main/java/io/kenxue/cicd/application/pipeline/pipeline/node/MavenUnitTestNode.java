@@ -13,7 +13,12 @@ public class MavenUnitTestNode implements Node {
 
     @Override
     public Result execute(ExecuteContext executeContext) {
-        log.info(getName());
+        log.error(getName());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

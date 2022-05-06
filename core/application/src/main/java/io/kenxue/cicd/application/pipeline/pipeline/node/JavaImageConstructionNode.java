@@ -16,7 +16,7 @@ public class JavaImageConstructionNode implements Node {
 
     @Override
     public Result execute(ExecuteContext executeContext) {
-        log.info(getName());
+        log.error(getName());
         Object attributes = executeContext.getAttributes(getName());
         DefaultResult defaultResult = new DefaultResult();
         log.info("attr : {}",attributes.toString());

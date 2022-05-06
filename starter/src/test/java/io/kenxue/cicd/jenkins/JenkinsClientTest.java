@@ -83,7 +83,7 @@ public class JenkinsClientTest {
     // dsl see
     // http://job-dsl.herokuapp.com/
     // https://jenkinsci.github.io/job-dsl-plugin/#path/job
-    @Test
+//    @Test
     public void test() {
         try {
             JenkinsServer jenkins = new JenkinsServer(new URI("http://101.200.54.149:8080"), "admin", "admin-kenxue");

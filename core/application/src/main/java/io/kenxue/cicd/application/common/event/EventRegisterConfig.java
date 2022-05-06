@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 @Component
-@Lazy
 public class EventRegisterConfig {
 
     @Resource

@@ -29,7 +29,7 @@ public class WebSocketConfig implements WebSocketConfigurer{
         //指定处理器和路径
         webSocketHandlerRegistry
                 .addHandler(webSSHWebSocketHandler, "/terminal")
-                .addHandler(pipelineExecuteWebSocketHandler,"/pipeline/execute")
+                .addHandler(pipelineExecuteWebSocketHandler,"/pipeline")
                 .addInterceptors(new WebSocketInterceptor())
                 .setAllowedOrigins("*");
     }

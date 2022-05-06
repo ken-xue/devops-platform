@@ -1,11 +1,18 @@
 package io.kenxue.cicd.application.pipeline.pipeline.command;
 
+import io.kenxue.cicd.application.common.event.EventBusI;
 import io.kenxue.cicd.application.pipeline.pipeline.manager.NodeManager;
+import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
+import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelineExecuteCmd;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
+import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineNodeInfo;
+import io.kenxue.cicd.domain.factory.pipeline.PipelineExecuteLoggerFactory;
 import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
@@ -35,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ApplicationPipelineExecuteCmdExe {
 
-    public static ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 20L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());
+    public static ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 6, 20L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());
 
     //当前正在执行的实例k=执行记录 uuid，v=pipeline
     private static volatile ConcurrentHashMap<String, Pipeline> executing = new ConcurrentHashMap<>(2 << 4);
@@ -52,14 +59,25 @@ public class ApplicationPipelineExecuteCmdExe {
 
     private volatile Map<String, Nodes> sourceMap = new HashMap<>(2 << 4);
 
+    /**
+     * 当前执行的记录
+     */
+    private volatile PipelineExecuteLogger pipelineExecuteLogger;
+
     @Resource
     private ApplicationPipelineRepository applicationPipelineRepository;
+
     @Resource
     private PipelineNodeInfoRepository pipelineNodeInfoRepository;
+
     @Resource
     private NodeManager nodeManager;
-//    @Resource
-//    private PipelineExecute
+
+    @Resource
+    private PipelineExecuteLoggerRepository pipelineExecuteLoggerRepository;
+
+    @Resource
+    private EventBusI eventBusI;
 
     /**
      * 两个入口
@@ -80,9 +98,32 @@ public class ApplicationPipelineExecuteCmdExe {
 
         prepare(pipeline);
 
-        execute(context, start);
+        generateExecutionRecord(pipeline);
 
-        return Response.success();
+        executor.submit(()-> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            execute(context, start);
+        });
+
+        return SingleResponse.of(pipelineExecuteLogger);
+    }
+
+    /**
+     * 生成执行记录
+     * @param pipeline
+     */
+    private PipelineExecuteLogger generateExecutionRecord(Pipeline pipeline) {
+        pipelineExecuteLogger = PipelineExecuteLoggerFactory.getPipelineExecuteLogger();
+        pipelineExecuteLogger.create(UserThreadContext.get());
+        pipelineExecuteLogger.setPipelineUuid(pipeline.getUuid());
+        pipelineExecuteLogger.setExecuteStartTime(new Date());
+        pipelineExecuteLoggerRepository.create(pipelineExecuteLogger);
+        executing.put(pipeline.getUuid(),pipeline);
+        return pipelineExecuteLogger;
     }
 
     /**
@@ -155,12 +196,13 @@ public class ApplicationPipelineExecuteCmdExe {
 
         if (canExecute(executeNode)) {
             try {
-                log.error("执行的节点：{}", executeNode.getName());
+                log.info("执行的节点：{}", executeNode.getName());
                 //执行结果
                 Result result = new DefaultResult();
                 //变更状态
                 executeNode.getData().setNodeState(NodeExecuteStatus.LOADING.getName());//进行中
-                //TODO:推送节点状态
+                //推送节点状态
+                eventBusI.asyncPublish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(),executeNode));
 
                 //获取下一个执行的路线
                 List<String> sources = executeNode.getPoints().getSources();
@@ -181,7 +223,8 @@ public class ApplicationPipelineExecuteCmdExe {
                 log.error("execute error , cur node : {}", executeNode);
                 e.printStackTrace();
             }
-            //TODO:推送节点状态
+            //推送节点状态
+            eventBusI.asyncPublish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(),executeNode));
         }
     }
 
@@ -194,7 +237,6 @@ public class ApplicationPipelineExecuteCmdExe {
     private synchronized boolean canExecute(Nodes executeNode) {
         try {
             log.info("检查是否所有输入节点都已经执行完成:{}", executeNode.getName());
-            //executeNode.get
             if (NodeExecuteStatus.SUCCESS.getName().equals(executeNode.getData().getNodeState())) return false;
             //判断当前节点的所有前置节点是否已经执行完成
             List<String> targets = executeNode.getPoints().getTargets();
@@ -203,7 +245,7 @@ public class ApplicationPipelineExecuteCmdExe {
                 List<String> sourceUUIDList = sourceLineMap.getOrDefault(targetUUID, Collections.emptyList());
                 for (String sourceUUID : sourceUUIDList) {
                     Nodes node = sourceMap.get(sourceUUID);
-                    log.info("node info:{}", node);
+                    //log.info("node info:{}", node);
                     if (Objects.nonNull(node) && (Objects.isNull(node.getData().getNodeState()) || StringUtils.isBlank(node.getData().getNodeState()) ||
                             NodeExecuteStatus.LOADING.getName().equals(node.getData().getNodeState()) ||
                             NodeExecuteStatus.FAILED.getName().equals(node.getData().getNodeState()))) {

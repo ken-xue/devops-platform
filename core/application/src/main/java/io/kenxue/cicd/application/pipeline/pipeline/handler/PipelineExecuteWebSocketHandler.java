@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.pipeline.pipeline.handler;
 
 import io.kenxue.cicd.application.machine.terminal.ConstantPool;
-import io.kenxue.cicd.application.machine.terminal.WebSSHService;
+import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
@@ -10,14 +10,14 @@ import javax.annotation.Resource;
 
 
 /**
-* WebSSH的WebSocket处理器
+* Pipeline的WebSocket处理器
 */
 @Component
 @Slf4j
 public class PipelineExecuteWebSocketHandler implements WebSocketHandler{
 
     @Resource
-    private WebSSHService webSSHService;
+    private PipelineExecuteSocketService pipelineExecuteSocketService;
 
     /**
      * @Description: 用户连接上WebSocket的回调
@@ -25,10 +25,10 @@ public class PipelineExecuteWebSocketHandler implements WebSocketHandler{
      * @return: void
      */
     @Override
-    public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession webSocketSession) {
         log.info("用户:{},连接 Pipeline 执行状态推送 WebSocket", webSocketSession.getAttributes().get(ConstantPool.USER_UUID_KEY));
         //调用初始化连接
-        webSSHService.initConnection(webSocketSession);
+        pipelineExecuteSocketService.initConnection(webSocketSession);
     }
 
     /**
@@ -41,7 +41,7 @@ public class PipelineExecuteWebSocketHandler implements WebSocketHandler{
         if (webSocketMessage instanceof TextMessage) {
             log.info("用户:{},发送命令:{}", webSocketSession.getAttributes().get(ConstantPool.USER_UUID_KEY), webSocketMessage);
             //调用service接收消息
-            webSSHService.recvHandle(((TextMessage) webSocketMessage).getPayload(), webSocketSession);
+            pipelineExecuteSocketService.recvHandle(((TextMessage) webSocketMessage).getPayload(), webSocketSession);
         } else if (webSocketMessage instanceof BinaryMessage) {
             //后期上传文件
         } else if (webSocketMessage instanceof PongMessage) {
@@ -68,9 +68,9 @@ public class PipelineExecuteWebSocketHandler implements WebSocketHandler{
      */
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) {
-        log.info("用户:{}断开webssh连接", webSocketSession.getAttributes().get(ConstantPool.USER_UUID_KEY));
+        log.info("用户:{}断开 pipeline socket 连接", webSocketSession.getAttributes().get(ConstantPool.USER_UUID_KEY));
         //调用service关闭连接
-        webSSHService.close(webSocketSession);
+        pipelineExecuteSocketService.close(webSocketSession);
     }
 
     @Override
