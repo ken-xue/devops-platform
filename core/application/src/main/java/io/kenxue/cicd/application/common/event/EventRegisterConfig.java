@@ -1,20 +1,22 @@
 package io.kenxue.cicd.application.common.event;
+
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-import javax.annotation.PostConstruct;
+import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.Map;
 
-@Component
-public class EventRegisterConfig {
+@Service
+public class EventRegisterConfig implements InitializingBean {
 
     @Resource
     private EventRegister eventRegister;
+    @Resource
+    private ApplicationContext applicationContext;
 
-    @PostConstruct
-    public void register(){
-        ApplicationContext applicationContext =  ApplicationContextHelper.getApplicationContext();
+    @Override
+    public void afterPropertiesSet() {
         Map<String, Object> eventHandlerBeans = applicationContext.getBeansWithAnnotation(EventHandler.class);
         eventHandlerBeans.values().forEach(
                 eventHandler -> eventRegister.doRegistration((EventHandlerI) eventHandler)

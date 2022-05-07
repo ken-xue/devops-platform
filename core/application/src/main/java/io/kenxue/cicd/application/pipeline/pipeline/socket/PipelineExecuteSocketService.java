@@ -1,5 +1,6 @@
 package io.kenxue.cicd.application.pipeline.pipeline.socket;
 
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
@@ -19,7 +20,7 @@ public interface PipelineExecuteSocketService {
     /**
      * @Description: 数据写回前端 for websocket
      */
-    void sendMessage(String key,Object data);
+    void sendMessage(String key, PushNodeExecuteStatusDTO message);
 
     /**
      * @Description: 关闭连接

@@ -4,6 +4,7 @@ import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;
 import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +26,8 @@ public class PipelineRefreshEventHandler implements EventHandlerI<Response, Pipe
 
 //        log.error("Handling Event:{}",event);
 
-        pipelineExecuteSocketService.sendMessage(event.getUuid(),event.getData());
+        pipelineExecuteSocketService.sendMessage(event.getUuid(),
+                PushNodeExecuteStatusDTO.builder().edges(event.getEdges()).nodes(event.getData()).build());
         //加队列执行
 
         return Response.success();

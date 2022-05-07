@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@SpringBootApplication(scanBasePackages = { "io.kenxue.cicd","io.kenxue.pipeline"})
+@SpringBootApplication(scanBasePackages = { "io.kenxue.cicd"})
 @MapperScan("io.kenxue.cicd.infrastructure")
 public class Application {
     @RequestMapping({"/ok", "/ok.htm"})

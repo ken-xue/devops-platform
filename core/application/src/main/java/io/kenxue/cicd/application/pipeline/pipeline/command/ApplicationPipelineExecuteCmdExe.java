@@ -24,6 +24,7 @@ import io.kenxue.cicd.sharedataboject.pipeline.graph.Nodes;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -201,9 +202,16 @@ public class ApplicationPipelineExecuteCmdExe {
                 Result result = new DefaultResult();
                 //变更状态
                 executeNode.getData().setNodeState(NodeExecuteStatus.LOADING.getName());//进行中
-                //推送节点状态
-                eventBusI.asyncPublish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(),executeNode));
-
+                //推送节点状态和所有输入的边
+                Set<String> set = new HashSet<>();
+                if (Objects.nonNull(executeNode.getPoints()))
+                for (String target : executeNode.getPoints().getTargets()){
+                    List<String> list = sourceLineMap.get(target);
+                    if (Objects.nonNull(list)&&!CollectionUtils.isEmpty(list))set.addAll(list);
+                }
+                PipelineNodeRefreshEvent event = PipelineNodeRefreshEvent.builder().data(executeNode).uuid(pipelineExecuteLogger.getUuid()).build();
+                if (Objects.nonNull(set))event.setEdges(new ArrayList<>(set));
+                eventBusI.publish(event);
                 //获取下一个执行的路线
                 List<String> sources = executeNode.getPoints().getSources();
                 //执行
@@ -223,8 +231,13 @@ public class ApplicationPipelineExecuteCmdExe {
                 log.error("execute error , cur node : {}", executeNode);
                 e.printStackTrace();
             }
-            //推送节点状态
-            eventBusI.asyncPublish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(),executeNode));
+            //推送节点状态和所有输出的边
+            Set<String> set = new HashSet<>();
+            List<String> sources = executeNode.getPoints().getSources();
+            if (Objects.nonNull(sources)&&sources.size()>0)set.addAll(lineMap.get(sources.get(0)));
+            PipelineNodeRefreshEvent event = PipelineNodeRefreshEvent.builder().data(executeNode).uuid(pipelineExecuteLogger.getUuid()).build();
+            if (Objects.nonNull(set))event.setEdges(new ArrayList<>(set));
+            eventBusI.publish(event);
         }
     }
 
@@ -259,5 +272,9 @@ public class ApplicationPipelineExecuteCmdExe {
             return false;
         }
         return true;
+    }
+
+    public Pipeline get(String key){
+        return executing.get(key);
     }
 }
