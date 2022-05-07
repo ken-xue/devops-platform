@@ -57,7 +57,7 @@ public class PipelineExecuteSocketServiceImpl implements PipelineExecuteSocketSe
         log.error("推送信息:{},message:{}",webSocketSessions.size(),message);
         for (WebSocketSession conn : webSocketSessions) {
             try {
-                conn.sendMessage(new TextMessage(message.toString().getBytes()));
+                conn.sendMessage(new TextMessage(JSON.toJSONString(message).getBytes()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
