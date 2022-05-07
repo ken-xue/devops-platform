@@ -23,6 +23,7 @@ import io.kenxue.cicd.sharedataboject.pipeline.graph.Graph;
 import io.kenxue.cicd.sharedataboject.pipeline.graph.Nodes;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -41,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class ApplicationPipelineExecuteCmdExe {
+public class ApplicationPipelineExecuteCmdExe implements DisposableBean {
 
     public static ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 6, 20L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());
 
@@ -300,5 +301,12 @@ public class ApplicationPipelineExecuteCmdExe {
 
     public Pipeline get(String key) {
         return executingPipelineMap.get(key);
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        if (!executor.isShutdown()){
+            executor.shutdown();
+        }
     }
 }

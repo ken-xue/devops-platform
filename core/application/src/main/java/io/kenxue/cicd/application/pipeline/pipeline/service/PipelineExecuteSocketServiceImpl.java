@@ -5,6 +5,8 @@ import io.kenxue.cicd.application.pipeline.pipeline.command.ApplicationPipelineE
 import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
+import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeEnum;
+import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeExecuteStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
@@ -23,7 +25,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class PipelineExecuteSocketServiceImpl implements PipelineExecuteSocketService {
 
     //存放ssh连接信息的map
-    private static Map<String, Queue<WebSocketSession>> webSocketConnectionPool = new ConcurrentHashMap<>(2<<4);
+    private static volatile Map<String, Queue<WebSocketSession>> webSocketConnectionPool = new ConcurrentHashMap<>(2 << 4);
 
     @Resource
     private ApplicationPipelineExecuteCmdExe applicationPipelineExecuteCmdExe;
@@ -32,18 +34,18 @@ public class PipelineExecuteSocketServiceImpl implements PipelineExecuteSocketSe
     public void initConnection(WebSocketSession session) {
         URI uri = session.getUri();
         String key = uri.getQuery();
-        try {
-            session.sendMessage(new TextMessage("pong".getBytes()));
-            Pipeline pipeline = applicationPipelineExecuteCmdExe.get(key);
-            session.sendMessage(new TextMessage(JSON.toJSONString(pipeline).getBytes()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            session.sendMessage(new TextMessage("pong".getBytes()));
+//            Pipeline pipeline = applicationPipelineExecuteCmdExe.get(key);
+//            session.sendMessage(new TextMessage(JSON.toJSONString(pipeline).getBytes()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         Queue<WebSocketSession> queue = webSocketConnectionPool.getOrDefault(key, new ConcurrentLinkedQueue<>());
-        log.error("加入连接池 key:{} queue:{}",key,queue);
+        log.error("加入连接池 key:{} queue:{}", key, queue);
         queue.offer(session);
-        webSocketConnectionPool.put(key,queue);
-        session.getAttributes().put("key",key);
+        webSocketConnectionPool.put(key, queue);
+        session.getAttributes().put("key", key);
     }
 
     @Override
@@ -54,19 +56,25 @@ public class PipelineExecuteSocketServiceImpl implements PipelineExecuteSocketSe
     @Override
     public void sendMessage(String key, PushNodeExecuteStatusDTO message) {
         Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
-        log.error("推送信息:{},message:{}",webSocketSessions.size(),message);
+        log.error("推送信息:{},node name:{},node status:{}", webSocketSessions.size(), message.getNodes().getName(),message.getNodes().getData().getNodeState());
         for (WebSocketSession conn : webSocketSessions) {
+            synchronized(conn){
             try {
                 conn.sendMessage(new TextMessage(JSON.toJSONString(message).getBytes()));
+                //如果是END节点执行完成主动关闭socket
+//                if (NodeEnum.END.getName().equals(message.getNodes().getName())
+//                        && NodeExecuteStatus.SUCCESS.getName().equals(message.getNodes().getData().getNodeState()))
+//                    close(conn);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
         }
     }
 
     @Override
     public void close(WebSocketSession session) {
-        log.info("close session:{}",session);
+        log.info("close session:{}", session);
         webSocketConnectionPool.get(session.getAttributes().get("key")).remove(session);
     }
 }
