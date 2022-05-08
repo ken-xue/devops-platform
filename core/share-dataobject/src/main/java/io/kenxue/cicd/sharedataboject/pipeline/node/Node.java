@@ -6,4 +6,5 @@ import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
 public interface Node {
     Result execute(ExecuteContext context);
     String getName();
+    //void validate();
 }

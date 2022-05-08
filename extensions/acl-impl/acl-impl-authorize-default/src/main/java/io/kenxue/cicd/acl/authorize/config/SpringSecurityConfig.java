@@ -43,6 +43,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs",
             "/terminal",
             "/pipeline",
+            "/logger",
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",

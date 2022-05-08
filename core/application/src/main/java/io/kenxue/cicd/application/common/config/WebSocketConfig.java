@@ -2,6 +2,7 @@ package io.kenxue.cicd.application.common.config;
 
 import io.kenxue.cicd.application.machine.terminal.WebSSHWebSocketHandler;
 import io.kenxue.cicd.application.machine.terminal.WebSocketInterceptor;
+import io.kenxue.cicd.application.pipeline.logger.pipeline.handler.PipelineExecuteLoggerWebSocketHandler;
 import io.kenxue.cicd.application.pipeline.pipeline.handler.PipelineExecuteWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,8 @@ public class WebSocketConfig implements WebSocketConfigurer{
     private WebSSHWebSocketHandler webSSHWebSocketHandler;
     @Resource
     private PipelineExecuteWebSocketHandler pipelineExecuteWebSocketHandler;
+    @Resource
+    private PipelineExecuteLoggerWebSocketHandler pipelineExecuteLoggerWebSocketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
@@ -30,6 +33,7 @@ public class WebSocketConfig implements WebSocketConfigurer{
         webSocketHandlerRegistry
                 .addHandler(webSSHWebSocketHandler, "/terminal")
                 .addHandler(pipelineExecuteWebSocketHandler,"/pipeline")
+                .addHandler(pipelineExecuteLoggerWebSocketHandler,"/logger")
                 .addInterceptors(new WebSocketInterceptor())
                 .setAllowedOrigins("*");
     }

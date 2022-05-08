@@ -21,4 +21,9 @@ public class PipelineNodeInfo extends CommonEntity {
      * 节点详细内容
      */
     private String info;
+
+    @Override
+    public void validate() {
+        super.validate();
+    }
 }

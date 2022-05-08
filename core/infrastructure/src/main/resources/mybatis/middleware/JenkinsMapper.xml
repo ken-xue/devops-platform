@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.jenkins.database.mapper.JenkinsMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.jenkins.database.dataobject.JenkinsDO" id="jenkinsMap">
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.mapper.JenkinsMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.dataobject.JenkinsDO" id="jenkinsMap">
             <result property="name" column="name"/>
             <result property="uri" column="uri"/>
             <result property="username" column="username"/>

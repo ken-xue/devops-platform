@@ -2,7 +2,7 @@ package io.kenxue.cicd.adapter.rest.middleware;
 
 import io.kenxue.cicd.adapter.common.annotation.Permissions;
 import io.kenxue.cicd.adapter.rest.common.BasicController;
-import io.kenxue.cicd.coreclient.api.jenkins.JenkinsAppService;
+import io.kenxue.cicd.coreclient.api.middleware.JenkinsAppService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.*;
 import org.springframework.web.bind.annotation.*;

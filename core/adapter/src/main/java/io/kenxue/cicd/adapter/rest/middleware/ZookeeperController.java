@@ -1,6 +1,6 @@
 package io.kenxue.cicd.adapter.rest.middleware;
 
-import io.kenxue.cicd.coreclient.api.basic.ZookeeperAppService;
+import io.kenxue.cicd.coreclient.api.middleware.ZookeeperAppService;
 import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkNodeAddCmd;
 import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZookeeperConnectCmd;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
