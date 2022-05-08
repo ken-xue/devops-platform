@@ -21,17 +21,17 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "流水线执行记录模块",description = "包含新增/列表/删除")
-@RequestMapping("pipeline/pipelineexecutelogger")
+@RequestMapping("pipeline/execute/logger")
 public class PipelineExecuteLoggerController extends BasicController {
     @Resource
     private PipelineExecuteLoggerAppService pipelineExecuteLoggerAppService;
 
-    @PostMapping("/add")
-    @Permissions("pipeline:pipelineexecutelogger:add")
-    @ApiOperation(value = "添加",httpMethod = "POST")
-    public Response add(@RequestBody @Valid PipelineExecuteLoggerAddCmd pipelineExecuteLoggerAddCmd) {
-        return pipelineExecuteLoggerAppService.add(pipelineExecuteLoggerAddCmd);
-    }
+//    @PostMapping("/add")
+//    @Permissions("pipeline:pipelineexecutelogger:add")
+//    @ApiOperation(value = "添加",httpMethod = "POST")
+//    public Response add(@RequestBody @Valid PipelineExecuteLoggerAddCmd pipelineExecuteLoggerAddCmd) {
+//        return pipelineExecuteLoggerAppService.add(pipelineExecuteLoggerAddCmd);
+//    }
 
     @DeleteMapping("/delete")
     @Permissions("pipeline:pipelineexecutelogger:delete")

@@ -38,6 +38,6 @@ MIT see [LICENSE](./LICENSE).
 
 ## Image
 
-![img.png](doc/img.png)
-![img.png](doc/img_1.png)
-![img.png](doc/img_2.png)
+![img.png](doc/image/img.png)
+![img.png](doc/image/img_1.png)
+![img.png](doc/image/img_2.png)

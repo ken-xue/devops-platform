@@ -16,6 +16,10 @@ public class JenkinsDTO extends CommonDTO {
      */
     private String uri;
     /**
+     * 别名
+     */
+    private String name;
+    /**
      * 访问用户名
      */
     private String username;
@@ -23,4 +27,8 @@ public class JenkinsDTO extends CommonDTO {
      * 访问密码或秘钥
      */
     private String password;
+    /**
+     * 备注
+     */
+    private String remark;
 }

@@ -3,7 +3,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.handler;
 import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.ApplicationPipelineCreateEvent;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineCreateEvent;
 import lombok.extern.slf4j.Slf4j;
 /**
  * 流水线
@@ -12,9 +12,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @EventHandler
-public class PipelineCreateEventHandler implements EventHandlerI<Response, ApplicationPipelineCreateEvent> {
+public class PipelineCreateEventHandler implements EventHandlerI<Response, PipelineCreateEvent> {
 
-    public Response execute(ApplicationPipelineCreateEvent event) {
+    public Response execute(PipelineCreateEvent event) {
         log.debug("Handling Event:{}",event);
         return Response.success();
     }

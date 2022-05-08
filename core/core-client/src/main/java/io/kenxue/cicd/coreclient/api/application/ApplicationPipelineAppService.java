@@ -12,24 +12,24 @@ import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.*;
  * @date 2021-12-28 22:57:10
  */
 public interface ApplicationPipelineAppService {
-    Response add(ApplicationPipelineAddCmd cmd);
-    Response update(ApplicationPipelineUpdateCmd cmd);
-    Response delete(ApplicationPipelineDeleteCmd userDeleteCmd);
-    SingleResponse<ApplicationPipelineDTO> getById(ApplicationPipelineGetQry qry);
-    MultiResponse<ApplicationPipelineDTO> list(ApplicationPipelineListQry qry);
-    PageResponse<ApplicationPipelineDTO> page(ApplicationPipelinePageQry userPageQry);
+    Response add(PipelineAddCmd cmd);
+    Response update(PipelineUpdateCmd cmd);
+    Response delete(PipelineDeleteCmd userDeleteCmd);
+    SingleResponse<PipelineDTO> getById(PipelineGetQry qry);
+    MultiResponse<PipelineDTO> list(PipelineListQry qry);
+    PageResponse<PipelineDTO> page(PipelinePageQry userPageQry);
 
     /**
      * 部署流水线
-     * @param applicationPipelineDeployCmd
+     * @param pipelineDeployCmd
      * @return
      */
-    Response deploy(ApplicationPipelineDeployCmd applicationPipelineDeployCmd);
+    Response deploy(PipelineDeployCmd pipelineDeployCmd);
 
     /**
      * 执行流水线
-     * @param applicationPipelineExecuteCmd
+     * @param pipelineExecuteCmd
      * @return
      */
-    Response execute(ApplicationPipelineExecuteCmd applicationPipelineExecuteCmd);
+    Response execute(PipelineExecuteCmd pipelineExecuteCmd);
 }

@@ -4,7 +4,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.handler;
 import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.ApplicationPipelineDeleteEvent;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineDeleteEvent;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,9 +14,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @EventHandler
-public class PipelineDeleteEventHandler implements EventHandlerI<Response, ApplicationPipelineDeleteEvent> {
+public class PipelineDeleteEventHandler implements EventHandlerI<Response, PipelineDeleteEvent> {
     
-    public Response execute(ApplicationPipelineDeleteEvent event) {
+    public Response execute(PipelineDeleteEvent event) {
         log.debug("Handling Event:{}",event);
         return Response.success();
     }

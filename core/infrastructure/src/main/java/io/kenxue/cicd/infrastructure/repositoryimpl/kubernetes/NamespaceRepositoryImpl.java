@@ -33,18 +33,18 @@ public class NamespaceRepositoryImpl implements NamespaceRepository {
      * 先进行测试，后面再抽取到kubernetes授权模块
      */
     static CoreV1Api api;
-    static {
-        String kubeConfigPath = "E:\\learn\\dev-cloud-admin\\admin-core\\infrastructure\\src\\main\\resources\\kube\\config";
-        ApiClient client =
-                null;
-        try {
-            client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfigPath))).build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Configuration.setDefaultApiClient(client);
-        api = new CoreV1Api();
-    }
+//    static {
+//        String kubeConfigPath = "E:\\learn\\dev-cloud-admin\\admin-core\\infrastructure\\src\\main\\resources\\kube\\config";
+//        ApiClient client =
+//                null;
+//        try {
+//            client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfigPath))).build();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Configuration.setDefaultApiClient(client);
+//        api = new CoreV1Api();
+//    }
 
     @Override
     public List<Namespace> list(NamespaceListQry namespaceListQry) {

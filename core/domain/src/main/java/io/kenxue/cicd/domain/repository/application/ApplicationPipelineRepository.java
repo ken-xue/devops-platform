@@ -1,8 +1,8 @@
 package io.kenxue.cicd.domain.repository.application;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelineListQry;
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelinePageQry;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineListQry;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelinePageQry;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 
 import java.util.List;
@@ -15,8 +15,8 @@ public interface ApplicationPipelineRepository {
     void create(Pipeline pipeline);
     void update(Pipeline pipeline);
     Pipeline getById(Long id);
-    List<Pipeline> list(ApplicationPipelineListQry applicationPipelineListQry);
-    Page<Pipeline> page(ApplicationPipelinePageQry qry);
+    List<Pipeline> list(PipelineListQry pipelineListQry);
+    Page<Pipeline> page(PipelinePageQry qry);
 
     /**
      * 通过pipeline name查询
@@ -24,4 +24,6 @@ public interface ApplicationPipelineRepository {
      * @return
      */
     Pipeline getByName(String name);
+
+    Pipeline getByUUID(String uuid);
 }

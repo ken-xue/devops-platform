@@ -15,6 +15,7 @@ import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 基建中间件Jenkins
@@ -50,6 +51,8 @@ public class JenkinsRepositoryImpl implements JenkinsRepository {
     @Override
     public Page<Jenkins> page(JenkinsPageQry qry) {
         QueryWrapper<JenkinsDO> qw = new QueryWrapper<>();
+        qw.eq("deleted",false);
+        if (Objects.nonNull(qry.getJenkinsDTO())&&Objects.nonNull(qry.getJenkinsDTO().getName()))qw.like("name",qry.getJenkinsDTO().getName());
         IPage doPage = jenkinsMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),jenkins2DOConvector.toDomainList(doPage.getRecords()));
     }

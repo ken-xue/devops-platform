@@ -1,8 +1,8 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.pipeline;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelineListQry;
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.ApplicationPipelinePageQry;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineListQry;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelinePageQry;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.ApplicationPipeline2DOConvector;
@@ -44,12 +44,12 @@ public class PipelineRepositoryImpl implements ApplicationPipelineRepository {
     }
 
     @Override
-    public List<Pipeline> list(ApplicationPipelineListQry applicationPipelineListQry) {
+    public List<Pipeline> list(PipelineListQry pipelineListQry) {
         return applicationPipeline2DOConvector.toDomainList(applicationPipelineMapper.selectList(new QueryWrapper<>()));
     }
 
     @Override
-    public Page<Pipeline> page(ApplicationPipelinePageQry qry) {
+    public Page<Pipeline> page(PipelinePageQry qry) {
         QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
         qw.eq("deleted",false);
         if (Objects.nonNull(qry)&&Objects.nonNull(qry.getApplicationUuid()))qw.eq("application_uuid",qry.getApplicationUuid());
@@ -63,6 +63,15 @@ public class PipelineRepositoryImpl implements ApplicationPipelineRepository {
     public Pipeline getByName(String name) {
         QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
         qw.eq("pipeline_name", name);
+        Pipeline pipeline = applicationPipeline2DOConvector.toDomain(applicationPipelineMapper.selectOne(qw));
+        pipeline.deSerializable();
+        return pipeline;
+    }
+
+    @Override
+    public Pipeline getByUUID(String uuid) {
+        QueryWrapper<ApplicationPipelineDO> qw = new QueryWrapper<>();
+        qw.eq("uuid", uuid);
         Pipeline pipeline = applicationPipeline2DOConvector.toDomain(applicationPipelineMapper.selectOne(qw));
         pipeline.deSerializable();
         return pipeline;

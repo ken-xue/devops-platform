@@ -23,4 +23,8 @@ public class ApplicationPipelineDTO extends CommonDTO {
      * 应用类型
      */
     private String pipelineContext;
+    /**
+     * 触发方式
+     */
+    private String trigger;
 }

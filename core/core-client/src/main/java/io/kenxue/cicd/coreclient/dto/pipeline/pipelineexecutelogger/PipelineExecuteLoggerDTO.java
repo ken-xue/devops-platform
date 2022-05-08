@@ -19,7 +19,11 @@ public class PipelineExecuteLoggerDTO extends CommonDTO {
     /**
      * 存储数据正文
      */
-    private String executeContext;
+    private String content;
+    /**
+     * 流水线快照
+     */
+    private String graphContent;
     /**
      * 执行时间
      */

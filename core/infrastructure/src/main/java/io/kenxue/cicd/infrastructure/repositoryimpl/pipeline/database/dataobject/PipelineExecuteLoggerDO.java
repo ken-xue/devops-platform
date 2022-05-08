@@ -19,7 +19,7 @@ public class PipelineExecuteLoggerDO extends CommonEntity {
     /**
      * 存储数据正文
      */
-    private String executeContext;
+    private String content;
     /**
      * 执行时间
      */
@@ -32,4 +32,8 @@ public class PipelineExecuteLoggerDO extends CommonEntity {
      * 最终执行状态
      */
     private String finalStatus;
+    /**
+     * 流水线快照
+     */
+    private String graphContent;
 }

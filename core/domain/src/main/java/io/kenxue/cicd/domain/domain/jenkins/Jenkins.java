@@ -14,6 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Jenkins extends CommonEntity {
     /**
+     * 别名
+     */
+    private String name;
+    /**
      * jenkins uri
      */
     private String uri;
@@ -25,4 +29,8 @@ public class Jenkins extends CommonEntity {
      * 访问密码或秘钥
      */
     private String password;
+    /**
+     * 备注
+     */
+    private String remark;
 }

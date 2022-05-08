@@ -30,56 +30,56 @@ public class PipelineController extends BasicController {
     @PostMapping("/add")
     @Permissions("application:applicationpipeline:add")
     @ApiOperation(value = "添加",httpMethod = "POST")
-    public Response add(@RequestBody @Validated({Insert.class}) ApplicationPipelineAddCmd applicationPipelineAddCmd) {
-        return applicationPipelineAppService.add(applicationPipelineAddCmd);
+    public Response add(@RequestBody @Validated({Insert.class}) PipelineAddCmd pipelineAddCmd) {
+        return applicationPipelineAppService.add(pipelineAddCmd);
     }
 
     @PostMapping("/deploy")
     @Permissions("application:applicationpipeline:deploy")
-    @ApiOperation(value = "部署",httpMethod = "get")
-    public Response deploy(@RequestBody @Valid ApplicationPipelineDeployCmd applicationPipelineDeployCmd) {
-        return applicationPipelineAppService.deploy(applicationPipelineDeployCmd);
+    @ApiOperation(value = "部署",httpMethod = "GET")
+    public Response deploy(@RequestBody @Valid PipelineDeployCmd pipelineDeployCmd) {
+        return applicationPipelineAppService.deploy(pipelineDeployCmd);
     }
 
     @PostMapping("/execute")
     @Permissions("application:applicationpipeline:execute")
-    @ApiOperation(value = "运行",httpMethod = "get")
-    public Response execute(@RequestBody @Valid ApplicationPipelineExecuteCmd applicationPipelineExecuteCmd) {
-        return applicationPipelineAppService.execute(applicationPipelineExecuteCmd);
+    @ApiOperation(value = "运行",httpMethod = "GET")
+    public Response execute(@RequestBody @Valid PipelineExecuteCmd pipelineExecuteCmd) {
+        return applicationPipelineAppService.execute(pipelineExecuteCmd);
     }
 
     @DeleteMapping("/delete")
     @Permissions("application:applicationpipeline:delete")
     @ApiOperation(value = "删除",httpMethod = "DELETE")
-    public Response delete(@RequestBody @Valid ApplicationPipelineDeleteCmd applicationPipelineDeleteCmd){
-        return applicationPipelineAppService.delete(applicationPipelineDeleteCmd);
+    public Response delete(@RequestBody @Valid PipelineDeleteCmd pipelineDeleteCmd){
+        return applicationPipelineAppService.delete(pipelineDeleteCmd);
     }
 
     @GetMapping("/page")
     @Permissions("application:applicationpipeline:page")
     @ApiOperation(value = "列表",httpMethod = "GET")
-    public Response page(@ModelAttribute @Valid ApplicationPipelinePageQry applicationPipelinePageQry){
-        return applicationPipelineAppService.page(applicationPipelinePageQry);
+    public Response page(@ModelAttribute @Valid PipelinePageQry pipelinePageQry){
+        return applicationPipelineAppService.page(pipelinePageQry);
     }
 
     @GetMapping("/list")
     @Permissions("application:applicationpipeline:list")
     @ApiOperation(value = "列表",httpMethod = "GET")
-    public Response list(@ModelAttribute @Valid ApplicationPipelineListQry applicationPipelineListQry){
-        return applicationPipelineAppService.list(applicationPipelineListQry);
+    public Response list(@ModelAttribute @Valid PipelineListQry pipelineListQry){
+        return applicationPipelineAppService.list(pipelineListQry);
     }
 
     @GetMapping("/info")
     @Permissions("application:applicationpipeline:info")
     @ApiOperation(value = "详情",httpMethod = "GET")
-    public Response info(@ModelAttribute @Valid ApplicationPipelineGetQry applicationPipelineGetQry){
-        return applicationPipelineAppService.getById(applicationPipelineGetQry);
+    public Response info(@ModelAttribute @Valid PipelineGetQry pipelineGetQry){
+        return applicationPipelineAppService.getById(pipelineGetQry);
     }
 
     @PutMapping("/update")
     @Permissions("application:applicationpipeline:update")
     @ApiOperation(value = "更新",httpMethod = "PUT")
-    public Response update(@RequestBody ApplicationPipelineUpdateCmd applicationPipelineUpdateCmd){
-        return applicationPipelineAppService.update(applicationPipelineUpdateCmd);
+    public Response update(@RequestBody PipelineUpdateCmd pipelineUpdateCmd){
+        return applicationPipelineAppService.update(pipelineUpdateCmd);
     }
 }

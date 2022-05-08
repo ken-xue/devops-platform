@@ -28,7 +28,7 @@ public class JavaBuildNode implements Node {
         // 4.发送执行任务
         Object attributes = executeContext.getAttributes(getName());
         DefaultResult defaultResult = new DefaultResult();
-        log.info("attr : {}",attributes.toString());
+        log.info("attr : {}",attributes);
 
         return defaultResult;
     }

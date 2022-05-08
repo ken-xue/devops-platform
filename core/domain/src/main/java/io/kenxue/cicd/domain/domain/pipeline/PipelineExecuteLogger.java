@@ -21,7 +21,11 @@ public class PipelineExecuteLogger extends CommonEntity {
     /**
      * 存储数据正文
      */
-    private String executeContext;
+    private String context;
+    /**
+     * 流水线快照
+     */
+    private String graphContent;
     /**
      * 执行时间
      */

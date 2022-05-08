@@ -1,12 +1,9 @@
 package io.kenxue.cicd.application.pipeline.pipeline.service;
 
 import com.alibaba.fastjson.JSON;
-import io.kenxue.cicd.application.pipeline.pipeline.command.ApplicationPipelineExecuteCmdExe;
+import io.kenxue.cicd.application.pipeline.pipeline.command.PipelineExecuteCmdExe;
 import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
-import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
-import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeEnum;
-import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeExecuteStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
@@ -28,7 +25,7 @@ public class PipelineExecuteSocketServiceImpl implements PipelineExecuteSocketSe
     private static volatile Map<String, Queue<WebSocketSession>> webSocketConnectionPool = new ConcurrentHashMap<>(2 << 4);
 
     @Resource
-    private ApplicationPipelineExecuteCmdExe applicationPipelineExecuteCmdExe;
+    private PipelineExecuteCmdExe pipelineExecuteCmdExe;
 
     @Override
     public void initConnection(WebSocketSession session) {

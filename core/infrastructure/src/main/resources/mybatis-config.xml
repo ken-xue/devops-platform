@@ -11,16 +11,36 @@
     <typeAliases>
         <!--项目DataObject对应的包名-->
         <package name="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject"/>
+        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject"/>
+        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.jenkins.database.dataobject"/>
+        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.dataobject"/>
+        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.project.database.dataobject"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mybatis/UserMapper.xml"></mapper>
-        <mapper resource="mybatis/UserOfRoleMapper.xml"></mapper>
-        <mapper resource="mybatis/RoleOfMenuMapper.xml"></mapper>
-        <mapper resource="mybatis/MenuMapper.xml"></mapper>
-        <mapper resource="mybatis/LogMapper.xml"></mapper>
-        <mapper resource="mybatis/CaptchaMapper.xml"></mapper>
-        <mapper resource="mybatis/CodeGeneratorMapper.xml"></mapper>
-        <mapper resource="mybatis/ProjectInfoMapper.xml"></mapper>
-        <mapper resource="mybatis/ProjectOfUserMapper.xml"></mapper>
+<!--        sys-->
+        <mapper resource="mybatis/sys/UserMapper.xml"></mapper>
+        <mapper resource="mybatis/sys/UserOfRoleMapper.xml"></mapper>
+        <mapper resource="mybatis/sys/RoleOfMenuMapper.xml"></mapper>
+        <mapper resource="mybatis/sys/MenuMapper.xml"></mapper>
+        <mapper resource="mybatis/sys/LogMapper.xml"></mapper>
+        <mapper resource="mybatis/sys/CaptchaMapper.xml"></mapper>
+        <mapper resource="mybatis/sys/CodeGeneratorMapper.xml"></mapper>
+<!--        project-->
+        <mapper resource="mybatis/project/ProjectInfoMapper.xml"></mapper>
+        <mapper resource="mybatis/project/ProjectOfUserMapper.xml"></mapper>
+<!--        pipeline-->
+        <mapper resource="mybatis/pipeline/NodeExecuteLoggerMapper.xml"></mapper>
+        <mapper resource="mybatis/pipeline/PipelineExecuteLoggerMapper.xml"></mapper>
+        <mapper resource="mybatis/pipeline/PipelineMapper.xml"></mapper>
+        <mapper resource="mybatis/pipeline/PipelineNodeInfoMapper.xml"></mapper>
+        <mapper resource="mybatis/pipeline/PipelineNodeMapper.xml"></mapper>
+<!--        application-->
+        <mapper resource="mybatis/application/ApplicationConfigMapper.xml"></mapper>
+        <mapper resource="mybatis/application/ApplicationInfoMapper.xml"></mapper>
+        <mapper resource="mybatis/application/ApplicationOfUserMapper.xml"></mapper>
+<!--        machine-->
+        <mapper resource="mybatis/machine/MachineInfoMapper.xml"></mapper>
+<!--        middleware-->
+        <mapper resource="mybatis/middleware/JenkinsMapper.xml"></mapper>
     </mappers>
 </configuration>

@@ -12,6 +12,10 @@ import lombok.Data;
 @TableName("middleware_jenkins")
 public class JenkinsDO extends CommonEntity {
     /**
+     * 别名
+     */
+    private String name;
+    /**
      * jenkins uri
      */
     private String uri;
@@ -23,4 +27,8 @@ public class JenkinsDO extends CommonEntity {
      * 访问密码或秘钥
      */
     private String password;
+    /**
+     * 备注
+     */
+    private String remark;
 }

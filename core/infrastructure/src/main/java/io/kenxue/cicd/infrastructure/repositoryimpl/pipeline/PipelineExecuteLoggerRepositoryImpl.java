@@ -15,6 +15,7 @@ import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 流水线执行记录
@@ -43,13 +44,18 @@ public class PipelineExecuteLoggerRepositoryImpl implements PipelineExecuteLogge
     }
 
     @Override
-    public List<PipelineExecuteLogger> list(PipelineExecuteLoggerListQry pipelineExecuteLoggerListQry) {
-        return pipelineExecuteLogger2DOConvector.toDomainList(pipelineExecuteLoggerMapper.selectList(new QueryWrapper<>()));
+    public List<PipelineExecuteLogger> list(PipelineExecuteLoggerListQry qry) {
+        QueryWrapper<PipelineExecuteLoggerDO> qw = new QueryWrapper<>();
+        if (Objects.nonNull(qry.getPipelineUuid()))qw.eq("pipeline_uuid",qry.getPipelineUuid());
+        qw.orderByDesc("gmt_create");
+        return pipelineExecuteLogger2DOConvector.toDomainList(pipelineExecuteLoggerMapper.selectList(qw));
     }
 
     @Override
     public Page<PipelineExecuteLogger> page(PipelineExecuteLoggerPageQry qry) {
         QueryWrapper<PipelineExecuteLoggerDO> qw = new QueryWrapper<>();
+        if (Objects.nonNull(qry.getPipelineUuid()))qw.eq("pipeline_uuid",qry.getPipelineUuid());
+        qw.orderByDesc("gmt_create");
         IPage doPage = pipelineExecuteLoggerMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),pipelineExecuteLogger2DOConvector.toDomainList(doPage.getRecords()));
     }

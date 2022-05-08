@@ -27,4 +27,8 @@ public class ApplicationPipelineDO extends CommonEntity {
      * 描述
      */
     private String description;
+    /**
+     * 触发方式
+     */
+    private String triggerWay;
 }

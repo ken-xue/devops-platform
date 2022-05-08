@@ -154,7 +154,11 @@ public class CodeGenHandler {
     public Map<String, String> getTemplates(String className, String moduleName) {
         //key:模板路径,value:生成后的路径
         Map<String, String> templates = new HashMap<>();
-        templates.put("DomainMenu.sql.vm", "../doc/script/" + moduleName + "/");
+        //view
+        templates.put("Domain.js.vm", "../doc/view/" + moduleName + "/");
+        templates.put("Domain.vue.vm", "../doc/view/" + moduleName + "/");
+        //sql
+        templates.put("DomainMenu.sql.vm", "../doc/sql/" + moduleName + "/");
         templates.put("Domain.java.vm", "../core/domain/src/main/java/io/kenxue/cicd/domain/domain/" + moduleName + "/");
         //exe
         templates.put("DomainAddCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/");

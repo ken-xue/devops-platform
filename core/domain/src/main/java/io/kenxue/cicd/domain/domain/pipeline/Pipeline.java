@@ -48,6 +48,10 @@ public class Pipeline extends CommonEntity {
      */
     private Graph graph;
     /**
+     * 触发方式
+     */
+    private String triggerWay;
+    /**
      * 编译流程图
      */
     public void serializable() {
@@ -68,9 +72,11 @@ public class Pipeline extends CommonEntity {
         Assert.notNull(graph.getNodes(), "节点不能为空");
         Assert.notNull(applicationUuid, "应用ID不能为空");
         Assert.hasLength(pipelineName, "流水线名字不能为空");
-        int size = graph.getNodes().stream().filter(nodes -> "START".equals(nodes.getName())).collect(Collectors.toList()).size();
+        int start = graph.getNodes().stream().filter(nodes -> "START".equals(nodes.getName())).collect(Collectors.toList()).size();
         int end = graph.getNodes().stream().filter(nodes -> "END".equals(nodes.getName())).collect(Collectors.toList()).size();
-        Assert.isTrue(size == 1, "必须包含一个开始节点");
-        Assert.isTrue(end == 1, "必须包含一个结束节点");
+        Assert.isTrue(start <= 1, "必须包含一个开始节点");
+        Assert.isTrue(start >= 1, "最多包含一个开始节点");
+        Assert.isTrue(end <= 1, "必须包含一个结束节点");
+        Assert.isTrue(end >= 1, "最多包含一个结束节点");
     }
 }
