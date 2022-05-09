@@ -14,11 +14,10 @@ public class EndNode implements Node {
     public Result execute(ExecuteContext executeContext) {
         log.error(getName());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        throw new RuntimeException();
         return null;
     }
 

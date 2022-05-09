@@ -5,6 +5,5 @@ import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
 
 public interface Node {
     Result execute(ExecuteContext context);
-    String getName();
-    //void validate();
+    String getName();//节点名称必须和数据库节点对应
 }

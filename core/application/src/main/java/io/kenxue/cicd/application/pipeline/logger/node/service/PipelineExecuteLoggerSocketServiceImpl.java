@@ -37,9 +37,14 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
         String nodeUUID = key.split("&")[0].split("=")[1];
         //执行记录uuid
         String executeLoggerUUID = key.split("&")[1].split("=")[1];
-        //
+
+        log.info("socket node uuid = {},logger uuid = {}",nodeUUID,executeLoggerUUID);
+
+        // TODO: 2022/5/9 判断节点是否还在执行
+        //1.1如果不在执行则将从数据库查询出执行记录日志返回
+        //1.2如果在执行则将将之前已经执行的日志返回且现在执行的日志同步
         try {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 10; i++) {
                 Thread.sleep(500);
                 session.sendMessage(new TextMessage((String.format("pong\r\npong\r\npong\r\npong\r\n %s\r\n",Math.random())).getBytes()));
             }

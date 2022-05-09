@@ -27,7 +27,7 @@ public class PipelineExecuteLoggerWebSocketHandler implements WebSocketHandler{
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) {
-        log.info("用户:{},连接 Pipeline 执行r日志推送 WebSocket", webSocketSession.getAttributes().get(ConstantPool.USER_UUID_KEY));
+        log.info("用户:{},连接 Pipeline 执行日志推送 WebSocket", webSocketSession.getAttributes().get(ConstantPool.USER_UUID_KEY));
         //调用初始化连接
         pipelineExecuteLoggerSocketService.initConnection(webSocketSession);
     }

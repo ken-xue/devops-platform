@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -42,13 +43,16 @@ import java.util.concurrent.TimeUnit;
  * @date 2021-12-28 22:57:10
  */
 @Slf4j
-@Component
+@Service
 public class PipelineExecuteCmdExe implements DisposableBean {
 
     private static ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 3, 20L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
 
     //当前正在执行的实例 k=执行记录uuid,v=pipeline
     private static volatile ConcurrentHashMap<String, Pipeline> executingPipelineMap = new ConcurrentHashMap<>(2 << 4);
+    
+    //当前正在执行的节点 k=节点uuid+记录uuid
+    private static volatile ConcurrentHashMap<String, Nodes> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
 
     private volatile List<String> edges;//执行路线
 
@@ -95,7 +99,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
         prepare(pipeline);
 
-        generateExecutionRecord(pipeline);
+        logger(pipeline);
 
         executor.submit(() -> {
             try {
@@ -114,7 +118,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
      *
      * @param pipeline
      */
-    private PipelineExecuteLogger generateExecutionRecord(Pipeline pipeline) {
+    private PipelineExecuteLogger logger(Pipeline pipeline) {
         pipelineExecuteLogger = PipelineExecuteLoggerFactory.getPipelineExecuteLogger();
         pipelineExecuteLogger.create(UserThreadContext.get());
         pipelineExecuteLogger.setPipelineUuid(pipeline.getUuid());
@@ -208,6 +212,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             Result result = new DefaultResult();
             //变更状态
             node.refreshStatus(NodeExecuteStatus.LOADING);//进行中
+            //加入缓存
+            executingNodeMap.put(node.getId()+pipelineExecuteLogger.getUuid(),null);// TODO: 2022/5/9  
             //发送事件
             eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, sourceLineMap, NodeExecuteStatus.LOADING));
             //获取下一个执行的路线
@@ -226,6 +232,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             log.error("execute error , cur node : {}", node);
             e.printStackTrace();
         }
+        //执行完成移除出缓存
+        executingNodeMap.remove(node.getId()+pipelineExecuteLogger.getUuid());// TODO: 2022/5/9  
         //推送节点状态和所有输出的边
         eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, targetLineMap));
     }
