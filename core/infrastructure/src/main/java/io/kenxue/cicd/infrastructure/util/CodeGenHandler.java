@@ -156,19 +156,19 @@ public class CodeGenHandler {
         Map<String, String> templates = new HashMap<>();
         //view
         templates.put("Domain.js.vm", "../doc/view/" + moduleName + "/");
-        templates.put("Domain.vue.vm", "../doc/view/" + moduleName + "/");
+        templates.put("index.vue.vm", "../doc/view/" + moduleName + "/");
         //sql
         templates.put("DomainMenu.sql.vm", "../doc/sql/" + moduleName + "/");
         templates.put("Domain.java.vm", "../core/domain/src/main/java/io/kenxue/cicd/domain/domain/" + moduleName + "/");
         //exe
-        templates.put("DomainAddCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
-        templates.put("DomainDeleteCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
-        templates.put("DomainGetQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
-        templates.put("DomainListQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
-        templates.put("DomainUpdateCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
-        templates.put("DomainPageQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
+        templates.put("DomainAddCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
+        templates.put("DomainDeleteCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
+        templates.put("DomainGetQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
+        templates.put("DomainListQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
+        templates.put("DomainUpdateCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
+        templates.put("DomainPageQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
         //service
-        templates.put("DomainAppAppServiceImpl.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/" + className.toLowerCase() + "/service/");
+        templates.put("DomainAppAppServiceImpl.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/service/");
         templates.put("DomainAppService.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/api/"+moduleName+"/");
         //dto
         templates.put("DomainDTO.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/"+className.toLowerCase()+"/");
@@ -181,7 +181,7 @@ public class CodeGenHandler {
         templates.put("DomainMapper.java.vm", "../core/infrastructure/src/main/java/io/kenxue/cicd/infrastructure/repositoryimpl/"+moduleName+"/database/mapper/");
         templates.put("DomainMapper.xml.vm", "../core/infrastructure/src/main/resources/mybatis/");
         //controller
-        templates.put("DomainController.java.vm", "../core/adapter/src/main/java/io/kenxue/cicd/adapter/rest/" + moduleName + "/");
+//        templates.put("DomainController.java.vm", "../core/adapter/src/main/java/io/kenxue/cicd/adapter/rest/" + moduleName + "/");
         //cmd
         templates.put("DomainAddCmd.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/" + className.toLowerCase() + "/");
         templates.put("DomainDeleteCmd.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/"  + className.toLowerCase() + "/");
@@ -195,12 +195,12 @@ public class CodeGenHandler {
         templates.put("Domain2DOConvector.java.vm", "../core/infrastructure/src/main/java/io/kenxue/cicd/infrastructure/repositoryimpl/"+moduleName+"/database/convertor/");
         templates.put("Domain2DOMapStruct.java.vm", "../core/infrastructure/src/main/java/io/kenxue/cicd/infrastructure/repositoryimpl/"+moduleName+"/database/convertor/");
         //dto assembler
-        templates.put("Domain2DTOAssembler.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/"+ className.toLowerCase() + "/assembler/");
-        templates.put("Domain2DTOMapStruct.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/application/" +moduleName+"/"+ className.toLowerCase() + "/assembler/");
+        templates.put("Domain2DTOAssembler.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/"+ className.toLowerCase() + "/assembler/");
+        templates.put("Domain2DTOMapStruct.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/"+ className.toLowerCase() + "/assembler/");
         //event handler
-        templates.put("DomainDeleteEventHandler.java.vm","../core/application/src/main/java/io/kenxue/cicd/application/application/"+moduleName+"/"+className.toLowerCase()+"/handler/");
-        templates.put("DomainUpdateEventHandler.java.vm","../core/application/src/main/java/io/kenxue/cicd/application/application/"+moduleName+"/"+className.toLowerCase()+"/handler/");
-        templates.put("DomainCreateEventHandler.java.vm","../core/application/src/main/java/io/kenxue/cicd/application/application/"+moduleName+"/"+className.toLowerCase()+"/handler/");
+        templates.put("DomainDeleteEventHandler.java.vm","../core/application/src/main/java/io/kenxue/cicd/application/"+moduleName+"/"+className.toLowerCase()+"/handler/");
+        templates.put("DomainUpdateEventHandler.java.vm","../core/application/src/main/java/io/kenxue/cicd/application/"+moduleName+"/"+className.toLowerCase()+"/handler/");
+        templates.put("DomainCreateEventHandler.java.vm","../core/application/src/main/java/io/kenxue/cicd/application/"+moduleName+"/"+className.toLowerCase()+"/handler/");
         //event
         templates.put("DomainCreateEvent.java.vm","../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/" +className.toLowerCase()+"/event/");
         templates.put("DomainDeleteEvent.java.vm","../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/" +className.toLowerCase()+"/event/");

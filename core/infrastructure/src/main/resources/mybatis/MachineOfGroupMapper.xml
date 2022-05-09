@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.mapper.MachineOfGroupMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.dataobject.MachineOfGroupDO" id="machineOfGroupMap">
+            <result property="groupUuid" column="group_uuid"/>
+            <result property="machineUuid" column="machine_uuid"/>
+    </resultMap>
+</mapper>

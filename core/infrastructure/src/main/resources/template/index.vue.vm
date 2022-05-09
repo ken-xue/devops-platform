@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { add, del, info, page, update } from '@/api/${moduleName}/jenkins'
+import { add, del, info, page, update } from '@/api/${moduleName}/${classname}'
 import { nestedGetQuery } from "@/utils";
 
 export default {
@@ -110,7 +110,7 @@ export default {
             queryParams: {
                 pageIndex: 1,
                 pageSize: 10,
-                jenkinsDTO: {
+                ${className}DTO: {
                     name: ''
                 }
             },
@@ -190,32 +190,32 @@ export default {
         },
         /** 提交按钮 */
         submitForm: function() {
-            this.$refs['form'].validate(valid => {
-            if (valid) {
-                if (this.form.id !== undefined) {
-                    update({'${className}DTO':this.form}).then(response => {
-                        if (response.code === 2000) {
-                            this.msgSuccess('修改成功')
-                            this.open = false
-                            this.getList()
-                        } else {
-                            this.msgError(response.msg)
-                        }
-                    })
-                } else {
-                    add({'${className}DTO':this.form}).then(response => {
-                         if (response.code === 2000) {
-                             this.msgSuccess('新增成功')
-                             this.open = false
-                             this.getList()
-                         } else {
-                             this.msgError(response.msg)
-                         }
-                    })
-                }
-            }
+       this.refs['form'].validate(valid=>{
+        if (valid) {
+          if (this.form.id !== undefined) {
+            update({"${classname}DTO":this.form}).then(response => {
+              if (response.code === 2000) {
+                this.msgSuccess('修改成功')
+                this.open = false
+                this.getList()
+              } else {
+                this.msgError(response.msg)
+              }
             })
-        },
+          } else {
+            add({"${classname}DTO":this.form}).then(response => {
+              if (response.code === 2000) {
+                this.msgSuccess('新增成功')
+                this.open = false
+                this.getList()
+              } else {
+                this.msgError(response.msg)
+              }
+            })
+          }
+        }
+      })
+    },
         /** 删除按钮操作 */
         handleDelete(row) {
             const Ids = (row.id && [row.id]) || this.ids

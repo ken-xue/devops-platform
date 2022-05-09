@@ -7,6 +7,13 @@ export function page(data) {
         params: data
     })
 }
+export function list(data) {
+    return request({
+        url: '${moduleName}/${pathName}/list',
+        method: 'get',
+        params: data
+    })
+}
 // 查询详细
 export function info(id) {
     return request({

@@ -30,14 +30,15 @@ public class InfrastructureConfig {
 
     @Bean
     public CuratorFramework curatorFramework(){
-        CuratorFramework framework = CuratorFrameworkFactory.builder()
-                .connectString("116.198.160.30:2182")
-                .retryPolicy(new BoundedExponentialBackoffRetry(5000,5000,5000))
-                .sessionTimeoutMs(60000)
-                .connectionTimeoutMs(15000)
-                .build();
-        framework.start();
-        return framework;
+//        CuratorFramework framework = CuratorFrameworkFactory.builder()
+//                .connectString("116.198.160.30:2182")
+//                .retryPolicy(new BoundedExponentialBackoffRetry(5000,5000,5000))
+//                .sessionTimeoutMs(60000)
+//                .connectionTimeoutMs(15000)
+//                .build();
+//        framework.start();
+//        return framework;
+        return null;
     }
 
 }
