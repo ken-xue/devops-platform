@@ -5,7 +5,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
-import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;

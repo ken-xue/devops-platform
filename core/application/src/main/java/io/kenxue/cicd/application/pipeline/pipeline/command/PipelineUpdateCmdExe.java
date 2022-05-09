@@ -4,7 +4,7 @@ import io.kenxue.cicd.application.pipeline.pipeline.assembler.Pipeline2DTOAssemb
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineUpdateCmd;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 /**
@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 public class PipelineUpdateCmdExe {
 
     @Resource
-    private ApplicationPipelineRepository applicationPipelineRepository;
+    private PipelineRepository pipelineRepository;
     @Resource
     private Pipeline2DTOAssembler pipeline2DTOAssembler;
 
@@ -24,7 +24,7 @@ public class PipelineUpdateCmdExe {
         Pipeline pipeline = pipeline2DTOAssembler.toDomain(cmd.getPipelineDTO());
         pipeline.serializable();
         pipeline.validate();
-        applicationPipelineRepository.update(pipeline);
+        pipelineRepository.update(pipeline);
         return Response.success();
     }
 }

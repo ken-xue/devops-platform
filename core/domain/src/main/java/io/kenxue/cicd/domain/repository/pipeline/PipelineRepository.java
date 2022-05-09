@@ -1,4 +1,4 @@
-package io.kenxue.cicd.domain.repository.application;
+package io.kenxue.cicd.domain.repository.pipeline;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineListQry;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author mikey
  * @date 2021-12-28 22:57:10
  */
-public interface ApplicationPipelineRepository {
+public interface PipelineRepository {
     void create(Pipeline pipeline);
     void update(Pipeline pipeline);
     Pipeline getById(Long id);

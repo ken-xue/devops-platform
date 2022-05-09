@@ -77,9 +77,7 @@ public class MachineInfoController extends BasicController {
     public Response list(@ModelAttribute @Valid MachineInfoListQry machineInfoListQry){
         MultiResponse<MachineInfoDTO> response = machineInfoAppService.list(machineInfoListQry);
         response.getData().forEach(v->{
-            //数据脱敏
-            v.setAccessKey(null);
-            v.setAccessPassword(null);
+            v.setAccessKey(null).setAccessPassword(null);//数据脱敏
         });
         return response;
     }

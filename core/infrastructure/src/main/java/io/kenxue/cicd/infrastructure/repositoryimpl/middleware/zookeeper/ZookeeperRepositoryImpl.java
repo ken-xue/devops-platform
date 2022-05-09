@@ -5,7 +5,7 @@ import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkTreeNode;
 import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZookeeperConnectCmd;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.exception.BizException;
-import io.kenxue.cicd.domain.repository.basic.ZookeeperRepository;
+import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.factory.ZookeeperInstanceFactory;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;

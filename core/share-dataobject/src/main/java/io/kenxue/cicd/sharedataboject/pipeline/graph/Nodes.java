@@ -1,7 +1,10 @@
 package io.kenxue.cicd.sharedataboject.pipeline.graph;
 
+import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeExecuteStatus;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.util.Locale;
 
 /**
  * 节点
@@ -16,4 +19,12 @@ public class Nodes {
     private Points points;
     private Position position;
     private Data data;
+
+    /**
+     * 更新节点状态
+     * @param status
+     */
+    public void refreshStatus(NodeExecuteStatus status){
+        this.data.setNodeState(status.getName());
+    }
 }

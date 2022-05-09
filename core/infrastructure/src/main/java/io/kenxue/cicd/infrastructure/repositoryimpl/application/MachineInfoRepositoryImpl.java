@@ -5,7 +5,7 @@ import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDTO;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoPageQry;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
-import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.MachineInfo2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.MachineInfoMapper;
@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 服务器节点
@@ -45,8 +46,10 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
     }
 
     @Override
-    public List<MachineInfo> list(MachineInfoListQry machineInfoListQry) {
-        return machineInfo2DOConvector.toDomainList(machineInfoMapper.selectList(new QueryWrapper<>()));
+    public List<MachineInfo> list(MachineInfoListQry qry) {
+        QueryWrapper<MachineInfoDO> qw = new QueryWrapper<>();
+        Optional.ofNullable(qry.getName()).map(v->qw.like("name",v).or().like("ip",v));
+        return machineInfo2DOConvector.toDomainList(machineInfoMapper.selectList(qw));
     }
 
     @Override

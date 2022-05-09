@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.pipeline.logger.pipeline.handler;
+package io.kenxue.cicd.application.pipeline.logger.node.handler;
 
 import io.kenxue.cicd.application.machine.terminal.ConstantPool;
 import io.kenxue.cicd.application.pipeline.logger.node.service.PipelineExecuteLoggerSocketService;

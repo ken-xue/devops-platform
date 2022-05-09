@@ -9,7 +9,7 @@ import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDTO;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.exception.code.SSHErrorCode;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
-import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 

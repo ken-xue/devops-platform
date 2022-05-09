@@ -3,6 +3,7 @@ package io.kenxue.cicd.application.pipeline.logger.node.service;
 import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.application.pipeline.pipeline.command.PipelineExecuteCmdExe;
 import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
+import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteLoggerDTO;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,17 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
     @Override
     public void initConnection(WebSocketSession session) {
         URI uri = session.getUri();
+        //nodeUUID=node-e4b47930caef11ec9199672631f691b0&executeLoggerUUID=0c96dc08969a406e8e701a616b0721d8
         String key = uri.getQuery();
+        //流水线uuid
+        String nodeUUID = key.split("&")[0].split("=")[1];
+        //执行记录uuid
+        String executeLoggerUUID = key.split("&")[1].split("=")[1];
+        //
         try {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 20; i++) {
                 Thread.sleep(500);
-                session.sendMessage(new TextMessage("pong\r\npong\r\npong\r\npong\r\n".getBytes()));
+                session.sendMessage(new TextMessage((String.format("pong\r\npong\r\npong\r\npong\r\n %s\r\n",Math.random())).getBytes()));
             }
 //            Pipeline pipeline = applicationPipelineExecuteCmdExe.get(key);
 //            session.sendMessage(new TextMessage(JSON.toJSONString(pipeline).getBytes()));
@@ -54,9 +61,9 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
     }
 
     @Override
-    public void sendMessage(String key, PushNodeExecuteStatusDTO message) {
+    public void sendMessage(String key, PushNodeExecuteLoggerDTO message) {
         Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
-        log.error("推送信息:{},node name:{},node status:{}", webSocketSessions.size(), message.getNodes().getName(),message.getNodes().getData().getNodeState());
+        log.error("推送节点日志信息:{}", webSocketSessions.size());
         for (WebSocketSession conn : webSocketSessions) {
             synchronized(conn){
             try {

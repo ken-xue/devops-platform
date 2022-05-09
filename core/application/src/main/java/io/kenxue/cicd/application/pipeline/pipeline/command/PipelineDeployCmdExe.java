@@ -4,7 +4,7 @@ import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineDeployCmd;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -17,11 +17,11 @@ import javax.annotation.Resource;
 @Component
 public class PipelineDeployCmdExe {
     @Resource
-    private ApplicationPipelineRepository applicationPipelineRepository;
+    private PipelineRepository pipelineRepository;
 
     public Response execute(PipelineDeployCmd cmd) {
 
-        Pipeline pipeline = applicationPipelineRepository.getById(cmd.getId());
+        Pipeline pipeline = pipelineRepository.getById(cmd.getId());
 
         ExecuteContext context = new ExecuteContext();
 

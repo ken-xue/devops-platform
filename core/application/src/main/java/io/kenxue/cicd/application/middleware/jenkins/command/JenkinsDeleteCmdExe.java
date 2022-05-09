@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.middleware.jenkins.command;
 
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.domain.repository.jenkins.JenkinsRepository;
+import io.kenxue.cicd.domain.repository.middleware.jenkins.JenkinsRepository;
 import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDeleteCmd;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package io.kenxue.cicd.domain.repository.application;
+package io.kenxue.cicd.domain.repository.machine;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;

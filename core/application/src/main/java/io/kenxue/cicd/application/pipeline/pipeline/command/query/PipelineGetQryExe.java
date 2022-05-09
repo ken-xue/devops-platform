@@ -4,7 +4,7 @@ import io.kenxue.cicd.application.pipeline.pipeline.assembler.Pipeline2DTOAssemb
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineDTO;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineGetQry;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
@@ -17,12 +17,12 @@ import javax.annotation.Resource;
 public class PipelineGetQryExe {
 
     @Resource
-    private ApplicationPipelineRepository applicationPipelineRepository;
+    private PipelineRepository pipelineRepository;
     @Resource
     private Pipeline2DTOAssembler pipeline2DTOAssembler;
 
     public SingleResponse<PipelineDTO> execute(PipelineGetQry qry) {
-        return SingleResponse.of(pipeline2DTOAssembler.toDTO(applicationPipelineRepository.getById(qry.getId())));
+        return SingleResponse.of(pipeline2DTOAssembler.toDTO(pipelineRepository.getById(qry.getId())));
     }
 
 }

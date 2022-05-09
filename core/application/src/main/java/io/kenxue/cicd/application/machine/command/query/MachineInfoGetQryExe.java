@@ -4,7 +4,7 @@ import io.kenxue.cicd.application.machine.assembler.MachineInfo2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDTO;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoGetQry;
-import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 /**

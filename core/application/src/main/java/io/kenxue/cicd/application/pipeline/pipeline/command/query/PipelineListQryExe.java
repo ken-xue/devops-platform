@@ -5,7 +5,7 @@ import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineDTO;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineListQry;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.List;
 @Component
 public class PipelineListQryExe {
     @Resource
-    private ApplicationPipelineRepository applicationPipelineRepository;
+    private PipelineRepository pipelineRepository;
     @Resource
     private Pipeline2DTOAssembler pipeline2DTOAssembler;
 
     public MultiResponse<PipelineDTO> execute(PipelineListQry qry) {
-        List<Pipeline> pipelineDTOList = applicationPipelineRepository.list(qry);
+        List<Pipeline> pipelineDTOList = pipelineRepository.list(qry);
         return MultiResponse.of(pipeline2DTOAssembler.toDTOList(pipelineDTOList));
     }
 }

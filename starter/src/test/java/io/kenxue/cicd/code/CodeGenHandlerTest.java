@@ -33,6 +33,4 @@ public class CodeGenHandlerTest {
 //        codeGenHandler.deleteGenFile();
     }
 
-
-
 }

@@ -89,6 +89,7 @@ public class JenkinsClientTest {
             JenkinsServer jenkins = new JenkinsServer(new URI("http://101.200.54.149:8080"), "admin", "admin-kenxue");
             Map<String, Job> jobs = jenkins.getJobs();
             JobWithDetails job = jobs.get("test-job-1").details();
+
             log.info("job:{}",job);
             log.info("job xml:{}",jenkins.getJobXml("test-job-1"));
         String jobName = "java-client-create-job-" + DateFormatUtils.format(new Date(), "yyyy-MM-dd-HH-mm-ss");

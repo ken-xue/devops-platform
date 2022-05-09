@@ -1,4 +1,4 @@
-package io.kenxue.cicd.domain.repository.jenkins;
+package io.kenxue.cicd.domain.repository.middleware.jenkins;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsListQry;

@@ -5,7 +5,7 @@ import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDTO;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
-import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;

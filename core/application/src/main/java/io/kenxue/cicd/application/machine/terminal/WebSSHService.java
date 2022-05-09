@@ -14,12 +14,12 @@ public interface WebSSHService {
     public void initConnection(WebSocketSession session);
 
     /**
-     * @Description: 处理客户段发的数据
+     * @Description: 处理客户端发的数据
      */
     public void recvHandle(String buffer, WebSocketSession session);
 
     /**
-     * @Description: 数据写回前端 for websocket
+     * @Description: 数据写回前端 
      */
     public void sendMessage(WebSocketSession session, byte[] buffer) throws IOException;
 

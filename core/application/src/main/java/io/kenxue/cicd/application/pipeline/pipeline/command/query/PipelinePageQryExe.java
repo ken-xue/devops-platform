@@ -4,7 +4,7 @@ import io.kenxue.cicd.application.pipeline.pipeline.assembler.Pipeline2DTOAssemb
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineDTO;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelinePageQry;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import org.springframework.stereotype.Component;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import javax.annotation.Resource;
@@ -18,12 +18,12 @@ import io.kenxue.cicd.coreclient.dto.common.page.Page;
 public class PipelinePageQryExe {
 
     @Resource
-    private ApplicationPipelineRepository applicationPipelineRepository;
+    private PipelineRepository pipelineRepository;
     @Resource
     private Pipeline2DTOAssembler pipeline2DTOAssembler;
 
     public PageResponse<PipelineDTO> execute(PipelinePageQry qry) {
-        Page<Pipeline> page = applicationPipelineRepository.page(qry);
+        Page<Pipeline> page = pipelineRepository.page(qry);
         return PageResponse.of(pipeline2DTOAssembler.toDTOPage(page));
     }
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineListQry;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelinePageQry;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.ApplicationPipeline2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.ApplicationPipelineDO;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.ApplicationPipelineMapper;
@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Component
-public class PipelineRepositoryImpl implements ApplicationPipelineRepository {
+public class PipelineRepositoryImpl implements PipelineRepository {
 
     @Resource
     private ApplicationPipelineMapper applicationPipelineMapper;

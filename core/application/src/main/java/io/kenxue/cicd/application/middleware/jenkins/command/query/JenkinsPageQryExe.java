@@ -4,7 +4,7 @@ import io.kenxue.cicd.application.middleware.jenkins.assembler.Jenkins2DTOAssemb
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDTO;
 import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsPageQry;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
-import io.kenxue.cicd.domain.repository.jenkins.JenkinsRepository;
+import io.kenxue.cicd.domain.repository.middleware.jenkins.JenkinsRepository;
 import org.springframework.stereotype.Component;
 import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
 import javax.annotation.Resource;

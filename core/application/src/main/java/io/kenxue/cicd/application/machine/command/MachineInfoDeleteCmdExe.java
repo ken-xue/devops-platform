@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.machine.command;
 
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.domain.repository.application.MachineInfoRepository;
+import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDeleteCmd;
 import org.springframework.stereotype.Component;

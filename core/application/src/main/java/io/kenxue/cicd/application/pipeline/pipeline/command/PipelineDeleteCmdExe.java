@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.command;
 
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.domain.repository.application.ApplicationPipelineRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineDeleteCmd;
 import org.springframework.stereotype.Component;
@@ -15,13 +15,13 @@ import javax.annotation.Resource;
 @Component
 public class PipelineDeleteCmdExe {
     @Resource
-    private ApplicationPipelineRepository applicationPipelineRepository;
+    private PipelineRepository pipelineRepository;
 
     public Response execute(PipelineDeleteCmd cmd) {
         for(Long id:cmd.getIds()) {
-            Pipeline pipeline =applicationPipelineRepository.getById(id);
+            Pipeline pipeline = pipelineRepository.getById(id);
             pipeline.deleted(UserThreadContext.get());
-            applicationPipelineRepository.update(pipeline);
+            pipelineRepository.update(pipeline);
         }
         return Response.success();
     }
