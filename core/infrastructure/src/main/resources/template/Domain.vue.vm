@@ -56,7 +56,6 @@
                     :limit.sync="queryParams.pageSize"
                     @pagination="getList"
             />
-
             <!-- 添加或修改对话框 -->
             <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
                 <el-form ref="form" :model="form" :rules="rules" label-width="120px">
@@ -80,165 +79,158 @@
 </template>
 
 <script>
-    import { add, del, info, page, update } from '@/api/${moduleName}/jenkins'
-    import { nestedGetQuery } from "@/utils";
+import { add, del, info, page, update } from '@/api/${moduleName}/jenkins'
+import { nestedGetQuery } from "@/utils";
 
-    export default {
-        name: 'Role',
-        components: {},
-        data() {
-            return {
-                // 遮罩层
-                loading: true,
-                id: 0,
-                // 选中数组
-                ids: [],
-                // 非单个禁用
-                single: true,
-                // 非多个禁用
-                multiple: true,
-                // 总条数
-                total: 0,
-                // 弹出层标题
-                title: '',
-                // 是否显示弹出层
-                open: false,
-                isEdit: false,
-                // 类型数据字典
-                typeOptions: [],
-                dataList: [],
-                // 查询参数
-                queryParams: {
-                    pageIndex: 1,
-                    pageSize: 10,
-                    jenkinsDTO: {
-                        name: ''
-                    }
-                },
-                // 表单参数
-                form: {
-                },
-                // 表单校验
-                rules: {
-                    name: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
-                    uri: [{ required: true, message: 'URI不能为空', trigger: 'blur' }],
-                    username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
-                    password: [{ required: true, message: '密码或者秘钥不能为空', trigger: 'blur' }],
+export default {
+    name: 'Role',
+    components: {},
+    data() {
+        return {
+            // 遮罩层
+            loading: true,
+            id: 0,
+            // 选中数组
+            ids: [],
+            // 非单个禁用
+            single: true,
+            // 非多个禁用
+            multiple: true,
+            // 总条数
+            total: 0,
+            // 弹出层标题
+            title: '',
+            // 是否显示弹出层
+            open: false,
+            isEdit: false,
+            // 类型数据字典
+            typeOptions: [],
+            dataList: [],
+            // 查询参数
+            queryParams: {
+                pageIndex: 1,
+                pageSize: 10,
+                jenkinsDTO: {
+                    name: ''
                 }
-            }
-        },
-        created() {
-            this.getList()
-        },
-        methods: {
-            /** 查询参数列表 */
-            getList() {
-                this.loading = true
-                page(nestedGetQuery(this.queryParams)).then(response => {
-                    this.dataList = response.data
-                    this.total = response.totalCount
-                    this.loading = false
-                })
             },
-            // 取消按钮
-            cancel() {
-                this.open = false
-                this.reset()
-            },
-            // 表单重置
-            reset() {
-                this.form = {
-                    id: undefined,
-                    name: undefined,
-                    remark: undefined,
-                    uri: undefined,
-                    username: undefined,
-                    password: undefined,
-                }
-                this.resetForm('form')
-            },
-            /** 搜索按钮操作 */
-            handleQuery() {
-                this.queryParams.pageIndex = 1
-                this.getList()
-            },
-            /** 重置按钮操作 */
-            resetQuery() {
-                this.resetForm('queryForm')
-                this.queryParams.roleDTO.roleName = ''
-                this.handleQuery()
-            },
-            /** 新增按钮操作 */
-            handleAdd() {
-                this.reset()
-                this.open = true
-                this.title = '添加'
-                this.isEdit = false
-            },
-            // 多选框选中数据
-            handleSelectionChange(selection) {
-                this.ids = selection.map(item => item.jobId)
-                this.single = selection.length !== 1
-                this.multiple = !selection.length
-            },
-            /** 修改按钮操作 */
-            handleUpdate(row) {
-                this.reset()
-                info(row.id).then(response => {
-                    this.form.id = response.data.id
-                    this.form.name = String(response.data.name)
-                    this.form.uri = String(response.data.uri)
-                    this.form.username = String(response.data.username)
-                    this.form.password = String(response.data.password)
-                    this.form.remark = String(response.data.remark)
-                    this.open = true
-                    this.title = '修改'
-                    this.isEdit = true
-                })
-            },
-            /** 提交按钮 */
-            submitForm: function() {
-                this.$refs['form'].validate(valid => {
-                if (valid) {
-                if (this.form.id !== undefined) {
-                update({'jenkinsDTO':this.form}).then(response => {
-                if (response.code === 2000) {
-                this.msgSuccess('修改成功')
-                this.open = false
-                this.getList()
-                } else {
-                this.msgError(response.msg)
-                }
-                })
-                } else {
-                add({'jenkinsDTO':this.form}).then(response => {
-                if (response.code === 2000) {
-                this.msgSuccess('新增成功')
-                this.open = false
-                this.getList()
-                } else {
-                this.msgError(response.msg)
-                }
-                })
-                }
-                }
-                })
-            },
-            /** 删除按钮操作 */
-            handleDelete(row) {
-                const Ids = (row.id && [row.id]) || this.ids
-                this.$confirm('是否确认删除"' + row.name + '"的数据项?', '警告', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(function() {
-                    return del({ 'ids': Ids })
-                }).then(() => {
-                    this.getList()
-                    this.msgSuccess('删除成功')
-                }).catch(function() {
-                })
+            // 表单参数
+            form: {},
+            // 表单校验
+            rules: {
+        #foreach ($column in $columns)
+            $column.attrname: [{ required: true, message: '${column.comments}不能为空', trigger: 'blur' }],
+        #end
             }
         }
+    },
+    created() {
+        this.getList()
+    },
+    methods: {
+        /** 查询参数列表 */
+        getList() {
+            this.loading = true
+            page(nestedGetQuery(this.queryParams)).then(response => {
+                this.dataList = response.data
+                this.total = response.totalCount
+                this.loading = false
+            })
+        },
+        // 取消按钮
+        cancel() {
+            this.open = false
+            this.reset()
+        },
+        // 表单重置
+        reset() {
+            this.form = {
+            #foreach ($column in $columns)
+                $column.attrname: undefined,
+            #end
+            }
+            this.resetForm('form')
+        },
+        /** 搜索按钮操作 */
+        handleQuery() {
+            this.queryParams.pageIndex = 1
+            this.getList()
+        },
+        /** 重置按钮操作 */
+        resetQuery() {
+            this.resetForm('queryForm')
+            this.queryParams.roleDTO.roleName = ''
+            this.handleQuery()
+        },
+        /** 新增按钮操作 */
+        handleAdd() {
+            this.reset()
+            this.open = true
+            this.title = '添加'
+            this.isEdit = false
+        },
+        // 多选框选中数据
+        handleSelectionChange(selection) {
+            this.ids = selection.map(item => item.jobId)
+            this.single = selection.length !== 1
+            this.multiple = !selection.length
+        },
+        /** 修改按钮操作 */
+        handleUpdate(row) {
+            this.reset()
+            info(row.id).then(response => {
+                this.form.id = response.data.id
+            #foreach ($column in $columns)
+                this.form.$column.attrname = response.data.$column.attrname,
+            #end
+                this.open = true
+                this.title = '修改'
+                this.isEdit = true
+            })
+        },
+        /** 提交按钮 */
+        submitForm: function() {
+            this.$refs['form'].validate(valid => {
+            if (valid) {
+                if (this.form.id !== undefined) {
+                    update({'${className}DTO':this.form}).then(response => {
+                        if (response.code === 2000) {
+                            this.msgSuccess('修改成功')
+                            this.open = false
+                            this.getList()
+                        } else {
+                            this.msgError(response.msg)
+                        }
+                    })
+                } else {
+                    add({'${className}DTO':this.form}).then(response => {
+                         if (response.code === 2000) {
+                             this.msgSuccess('新增成功')
+                             this.open = false
+                             this.getList()
+                         } else {
+                             this.msgError(response.msg)
+                         }
+                    })
+                }
+            }
+            })
+        },
+        /** 删除按钮操作 */
+        handleDelete(row) {
+            const Ids = (row.id && [row.id]) || this.ids
+            this.$confirm('是否确认删除"' + row.id + '"的数据项?', '警告', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(function() {
+                return del({ 'ids': Ids })
+            }).then(() => {
+                this.getList()
+                this.msgSuccess('删除成功')
+            }).catch(function() {
+            })
+        }
     }
+}
 </script>
