@@ -1,6 +1,7 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.machine;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.kenxue.cicd.coreclient.dto.machine.machineofgroup.MachineOfGroupDeleteCmd;
 import io.kenxue.cicd.coreclient.dto.machine.machineofgroup.MachineOfGroupListQry;
 import io.kenxue.cicd.coreclient.dto.machine.machineofgroup.MachineOfGroupPageQry;
 import io.kenxue.cicd.domain.domain.machine.MachineOfGroup;
@@ -52,5 +53,10 @@ public class MachineOfGroupRepositoryImpl implements MachineOfGroupRepository {
         QueryWrapper<MachineOfGroupDO> qw = new QueryWrapper<>();
         IPage doPage = machineOfGroupMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),machineOfGroup2DOConvector.toDomainList(doPage.getRecords()));
+    }
+
+    @Override
+    public void delete(MachineOfGroupDeleteCmd machineOfGroup) {
+        machineOfGroupMapper.delete(new QueryWrapper<MachineOfGroupDO>().eq("machine_uuid",machineOfGroup.getMachineUuid()));
     }
 }

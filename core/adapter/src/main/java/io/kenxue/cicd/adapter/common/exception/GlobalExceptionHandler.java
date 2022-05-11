@@ -11,6 +11,9 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import java.sql.SQLException;
+
 /**
  * 全局异常处理器
  */
@@ -48,6 +51,12 @@ public class GlobalExceptionHandler {
 	public Response exceptionHandler(BindException e) {
 		String failMsg = e.getBindingResult().getFieldError().getDefaultMessage();
 		return Response.error(failMsg);
+	}
+
+	@ExceptionHandler(SQLException.class)
+	public Response sqlExceptionHandler(SQLException e) {
+		log.error(e.getMessage(), e);
+		return Response.error(500,e.getMessage());
 	}
 
 	@ExceptionHandler(Exception.class)

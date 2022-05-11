@@ -1,8 +1,15 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import io.kenxue.cicd.coreclient.dto.machine.MachineInfoPageQry;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
 /**
  * 服务器节点
  * @author mikey
@@ -11,4 +18,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MachineInfoMapper extends BaseMapper<MachineInfoDO> {
 
+    List<MachineInfoDO> queryPage(IPage iPage, @Param("qry") MachineInfoPageQry qry);
 }

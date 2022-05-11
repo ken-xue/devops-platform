@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.machine.machineofgroup.command;
+package io.kenxue.cicd.application.machine.machineofgroup.command;
 
 import io.kenxue.cicd.application.application.machine.machineofgroup.assembler.MachineOfGroup2DTOAssembler;
 import io.kenxue.cicd.domain.domain.machine.MachineOfGroup;

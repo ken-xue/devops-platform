@@ -11,4 +11,14 @@
             <result property="accessPassword" column="access_password"/>
             <result property="accessKey" column="access_key"/>
     </resultMap>
+    <select id="queryPage"
+            resultType="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO">
+            select distinct(machine_info.uuid) machine_info_uuid,machine_info.* from machine_info left join machine_of_group on machine_info.uuid = machine_of_group.machine_uuid
+             where 1 = 1
+            <if test="qry.machineInfoDTO.groupUuid != null and qry.machineInfoDTO.groupUuid != ''">
+                and machine_of_group.group_uuid = #{qry.machineInfoDTO.groupUuid}
+            </if>
+            order by gmt_create
+    </select>
+
 </mapper>

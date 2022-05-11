@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.command;
 
 import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.application.common.event.EventBusI;
-import io.kenxue.cicd.application.pipeline.pipeline.manager.NodeManager;
+import io.kenxue.cicd.application.pipeline.pipeline.manager.PipelineNodeManager;
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
@@ -25,9 +25,7 @@ import io.kenxue.cicd.sharedataboject.pipeline.graph.Nodes;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -75,7 +73,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     @Resource
     private PipelineNodeInfoRepository pipelineNodeInfoRepository;
     @Resource
-    private NodeManager nodeManager;
+    private PipelineNodeManager pipelineNodeManager;
     @Resource
     private EventBusI eventBus;
 
@@ -221,7 +219,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             //执行节点
             context.setAttributes(node.getName()+"logger-uuid",pipelineExecuteLogger.getUuid());
             context.setAttributes(node.getName()+"node-uuid",node.getId());
-            Result ret = nodeManager.get(node.getName()).execute(context);
+            Result ret = pipelineNodeManager.get(node.getName()).execute(context);
             result.add(node.getName(), ret);
             node.refreshStatus(NodeExecuteStatus.SUCCESS);//执行成功
 

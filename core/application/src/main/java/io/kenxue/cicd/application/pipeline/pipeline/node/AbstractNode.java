@@ -49,7 +49,6 @@ public abstract class AbstractNode implements Node {
             session.connect(); // 通过Session建立链接
             log.debug("执行如下命令:\n" + String.join("\n", commands));
 
-
             channel = (ChannelShell) session.openChannel("shell");
             in = channel.getInputStream();
             channel.setPty(true);
@@ -78,8 +77,7 @@ public abstract class AbstractNode implements Node {
                     System.out.print(resp);
                     startTime = System.currentTimeMillis();
                     log.info("推送日志数据:{}",key);
-                    nodeLogger.append(commandBytes);
-                    nodeLogger.append(resp.getBytes());
+                    nodeLogger.append(commandBytes + resp);
                     loggerService.sendMessage(key, commandBytes + resp);
                 }
                 if (channel.isClosed()) {

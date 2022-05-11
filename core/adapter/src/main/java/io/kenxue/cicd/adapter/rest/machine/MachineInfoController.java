@@ -65,8 +65,7 @@ public class MachineInfoController extends BasicController {
         PageResponse<MachineInfoDTO> response = machineInfoAppService.page(machineInfoPageQry);
         response.getData().forEach(v->{
             //数据脱敏
-            v.setAccessKey(null);
-            v.setAccessPassword(null);
+            v.setAccessKey(null).setAccessPassword(null);
         });
         return response;
     }

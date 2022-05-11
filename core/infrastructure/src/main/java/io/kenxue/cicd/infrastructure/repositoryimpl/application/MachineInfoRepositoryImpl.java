@@ -54,13 +54,9 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
 
     @Override
     public Page<MachineInfo> page(MachineInfoPageQry qry) {
-        QueryWrapper<MachineInfoDO> qw = new QueryWrapper<>();
-        MachineInfoDTO machineInfoDTO = qry.getMachineInfoDTO();
-        if (Objects.nonNull(machineInfoDTO.getName())){
-            qw.like("name",machineInfoDTO.getName()).or().like("ip",machineInfoDTO.getName());
-        }
-        IPage doPage = machineInfoMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
-        return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),machineInfo2DOConvector.toDomainList(doPage.getRecords()));
+        PageDTO page = new PageDTO(qry.getPageIndex(), qry.getPageSize());
+        List<MachineInfoDO> list = machineInfoMapper.queryPage(page,qry);
+        return Page.of(page.getCurrent(),page.getSize(),page.getTotal(),machineInfo2DOConvector.toDomainList(list));
     }
 
     @Override

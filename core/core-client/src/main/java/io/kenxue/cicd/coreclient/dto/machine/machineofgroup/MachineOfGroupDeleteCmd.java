@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class MachineOfGroupDeleteCmd extends CommonCommand {
     @NotNull
-    private Long[] ids;
+    private String machineUuid;
 }
