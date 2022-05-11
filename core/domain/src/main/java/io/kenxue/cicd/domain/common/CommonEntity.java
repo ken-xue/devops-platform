@@ -58,6 +58,9 @@ public abstract class CommonEntity extends UUIDEntity {
         this.deleted = deleted;
     }
 
+    public void create(){
+        create("");
+    }
     public void create(String operator){
         this.setCreator(operator);
         this.setModifier(operator);

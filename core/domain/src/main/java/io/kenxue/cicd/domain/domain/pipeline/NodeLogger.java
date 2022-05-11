@@ -37,4 +37,18 @@ public class NodeLogger extends CommonEntity {
      * 结束时间
      */
     private Date executeEndTime;
+    /**
+     * 存储日志
+     */
+    private StringBuilder sb = new StringBuilder();
+    /**
+     * 序列化
+     */
+    public void serializable(){
+        logger = sb.toString();
+    }
+
+    public void append(byte[] logger){
+        sb.append(logger);
+    }
 }
