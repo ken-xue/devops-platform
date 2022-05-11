@@ -13,6 +13,7 @@ import java.util.Locale;
 @lombok.Data
 @Accessors(chain = true)
 public class Nodes {
+
     private String id;
     private String name;
     private transient int order;

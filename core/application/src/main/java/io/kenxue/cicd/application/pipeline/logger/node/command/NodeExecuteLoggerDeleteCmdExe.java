@@ -3,7 +3,7 @@ package io.kenxue.cicd.application.pipeline.logger.node.command;
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
-import io.kenxue.cicd.domain.domain.pipeline.NodeExecuteLogger;
+import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.coreclient.dto.pipeline.nodeexecutelogger.NodeExecuteLoggerDeleteCmd;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
@@ -19,9 +19,9 @@ public class NodeExecuteLoggerDeleteCmdExe {
 
     public Response execute(NodeExecuteLoggerDeleteCmd cmd) {
         for(Long id:cmd.getIds()) {
-            NodeExecuteLogger nodeExecuteLogger =nodeExecuteLoggerRepository.getById(id);
-            nodeExecuteLogger.deleted(UserThreadContext.get());
-            nodeExecuteLoggerRepository.update(nodeExecuteLogger);
+            NodeLogger nodeLogger =nodeExecuteLoggerRepository.getById(id);
+            nodeLogger.deleted(UserThreadContext.get());
+            nodeExecuteLoggerRepository.update(nodeLogger);
         }
         return Response.success();
     }

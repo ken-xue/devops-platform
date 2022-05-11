@@ -51,7 +51,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     //当前正在执行的实例 k=执行记录uuid,v=pipeline
     private static volatile ConcurrentHashMap<String, Pipeline> executingPipelineMap = new ConcurrentHashMap<>(2 << 4);
     
-    //当前正在执行的节点 k=节点uuid+记录uuid
+    //当前正在执行的节点 k=记录uuid+"&"+节点uuid
     private static volatile ConcurrentHashMap<String, Nodes> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
 
     private volatile List<String> edges;//执行路线
@@ -213,27 +213,31 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             //变更状态
             node.refreshStatus(NodeExecuteStatus.LOADING);//进行中
             //加入缓存
-            executingNodeMap.put(node.getId()+pipelineExecuteLogger.getUuid(),null);// TODO: 2022/5/9  
+            executingNodeMap.put(String.format("%s&%s",pipelineExecuteLogger.getUuid(),node.getId()),node);// TODO: 2022/5/9
             //发送事件
             eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, sourceLineMap, NodeExecuteStatus.LOADING));
             //获取下一个执行的路线
             List<String> sources = node.getPoints().getSources();
-            //执行
+            //执行节点
+            context.setAttributes(node.getName()+"logger-uuid",pipelineExecuteLogger.getUuid());
+            context.setAttributes(node.getName()+"node-uuid",node.getId());
             Result ret = nodeManager.get(node.getName()).execute(context);
             result.add(node.getName(), ret);
             node.refreshStatus(NodeExecuteStatus.SUCCESS);//执行成功
+
             sources.forEach(sce -> {
                 String next = sce.replace("source-", "");
                 List<String> list = targetLineMap.getOrDefault(next, Collections.emptyList());
                 list.forEach(v -> executor.submit(() -> execute(context, targetMap.get(v))));
             });
+
         } catch (Exception e) {
             node.refreshStatus(NodeExecuteStatus.FAILED);//执行失败
             log.error("execute error , cur node : {}", node);
             e.printStackTrace();
         }
         //执行完成移除出缓存
-        executingNodeMap.remove(node.getId()+pipelineExecuteLogger.getUuid());// TODO: 2022/5/9  
+        executingNodeMap.remove(String.format("%s&%s",pipelineExecuteLogger.getUuid(),node.getId()));
         //推送节点状态和所有输出的边
         eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, targetLineMap));
     }
@@ -279,5 +283,9 @@ public class PipelineExecuteCmdExe implements DisposableBean {
         if (!executor.isShutdown()) {
             executor.shutdown();
         }
+    }
+
+    public Nodes getExecuteNode(String key) {
+        return executingNodeMap.get(key);
     }
 }

@@ -1,6 +1,6 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.convertor;
 
-import io.kenxue.cicd.domain.domain.pipeline.NodeExecuteLogger;
+import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.dataobject.NodeExecuteLoggerDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
@@ -18,12 +18,12 @@ public interface NodeExecuteLogger2DOMapStruct {
     NodeExecuteLogger2DOMapStruct INSTANCE = Mappers.getMapper(NodeExecuteLogger2DOMapStruct.class);
 
     @Mappings({})
-    NodeExecuteLoggerDO toDO(NodeExecuteLogger nodeExecuteLogger);
+    NodeExecuteLoggerDO toDO(NodeLogger nodeLogger);
 
     @Mappings({})
-    NodeExecuteLogger toDomain(NodeExecuteLoggerDO nodeExecuteLoggerDO);
+    NodeLogger toDomain(NodeExecuteLoggerDO nodeExecuteLoggerDO);
 
-    List<NodeExecuteLoggerDO> toDOList(List<NodeExecuteLogger> nodeExecuteLoggerList);
+    List<NodeExecuteLoggerDO> toDOList(List<NodeLogger> nodeLoggerList);
 
-    List<NodeExecuteLogger> toDomainList(List<NodeExecuteLoggerDO> nodeExecuteLoggerDOList);
+    List<NodeLogger> toDomainList(List<NodeExecuteLoggerDO> nodeExecuteLoggerDOList);
 }

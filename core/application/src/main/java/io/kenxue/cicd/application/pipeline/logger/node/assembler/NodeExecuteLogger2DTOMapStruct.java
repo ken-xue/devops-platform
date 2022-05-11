@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.pipeline.logger.node.assembler;
 
 import io.kenxue.cicd.coreclient.dto.pipeline.nodeexecutelogger.NodeExecuteLoggerDTO;
-import io.kenxue.cicd.domain.domain.pipeline.NodeExecuteLogger;
+import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
@@ -18,12 +18,12 @@ public interface NodeExecuteLogger2DTOMapStruct {
     NodeExecuteLogger2DTOMapStruct INSTANCE = Mappers.getMapper(NodeExecuteLogger2DTOMapStruct.class);
 
     @Mappings({})
-    NodeExecuteLoggerDTO toDTO(NodeExecuteLogger nodeExecuteLogger);
+    NodeExecuteLoggerDTO toDTO(NodeLogger nodeLogger);
 
     @Mappings({})
-    NodeExecuteLogger toDomain(NodeExecuteLoggerDTO nodeExecuteLoggerDTO);
+    NodeLogger toDomain(NodeExecuteLoggerDTO nodeExecuteLoggerDTO);
 
-    List<NodeExecuteLoggerDTO> toDTOList(List<NodeExecuteLogger> NodeExecuteLoggerList);
+    List<NodeExecuteLoggerDTO> toDTOList(List<NodeLogger> nodeLoggerList);
 
-    List<NodeExecuteLogger> toDomainList(List<NodeExecuteLoggerDTO> NodeExecuteLoggerDTOList);
+    List<NodeLogger> toDomainList(List<NodeExecuteLoggerDTO> NodeExecuteLoggerDTOList);
 }

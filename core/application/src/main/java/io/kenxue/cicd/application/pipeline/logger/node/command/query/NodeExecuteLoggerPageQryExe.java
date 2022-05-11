@@ -6,7 +6,7 @@ import io.kenxue.cicd.coreclient.dto.pipeline.nodeexecutelogger.NodeExecuteLogge
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
 import org.springframework.stereotype.Component;
-import io.kenxue.cicd.domain.domain.pipeline.NodeExecuteLogger;
+import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import javax.annotation.Resource;
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 /**
@@ -23,7 +23,7 @@ public class NodeExecuteLoggerPageQryExe {
     private NodeExecuteLogger2DTOAssembler nodeExecuteLogger2DTOAssembler;
 
     public PageResponse<NodeExecuteLoggerDTO> execute(NodeExecuteLoggerPageQry qry) {
-        Page<NodeExecuteLogger> page = nodeExecuteLoggerRepository.page(qry);
+        Page<NodeLogger> page = nodeExecuteLoggerRepository.page(qry);
         return PageResponse.of(nodeExecuteLogger2DTOAssembler.toDTOPage(page));
     }
 }

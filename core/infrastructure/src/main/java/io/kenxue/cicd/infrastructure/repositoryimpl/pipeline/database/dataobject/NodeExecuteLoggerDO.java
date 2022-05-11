@@ -10,12 +10,16 @@ import java.util.Date;
  * @date 2022-05-05 11:24:39
  */
 @Data
-@TableName("pipeline_node_execute_logger")
+@TableName("pipeline_node_logger")
 public class NodeExecuteLoggerDO extends CommonEntity {
     /**
      * 流水线执行记录uuid
      */
-    private String pipelineExecuteLoggerUuid;
+    private String loggerUuid;
+    /**
+     * 节点uuid
+     */
+    private String nodeUuid;
     /**
      * 存储数据正文
      */

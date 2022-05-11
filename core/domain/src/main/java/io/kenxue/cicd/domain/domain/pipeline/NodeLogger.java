@@ -4,6 +4,8 @@ import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.util.Date;
 /**
  * 节点执行记录
@@ -13,11 +15,16 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NodeExecuteLogger extends CommonEntity {
+@Accessors(chain = true)
+public class NodeLogger extends CommonEntity {
     /**
      * 流水线执行记录uuid
      */
-    private String pipelineExecuteLoggerUuid;
+    private String loggerUuid;
+    /**
+     * 节点uuid
+     */
+    private String nodeUuid;
     /**
      * 存储数据正文
      */

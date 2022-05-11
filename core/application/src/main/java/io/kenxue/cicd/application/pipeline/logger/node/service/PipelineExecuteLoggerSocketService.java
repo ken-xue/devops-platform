@@ -1,6 +1,5 @@
 package io.kenxue.cicd.application.pipeline.logger.node.service;
 
-import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteLoggerDTO;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
@@ -20,7 +19,7 @@ public interface PipelineExecuteLoggerSocketService {
     /**
      * @Description: 数据写回前端 
      */
-    void sendMessage(String key, PushNodeExecuteLoggerDTO message);
+    void sendMessage(String key, String message);
 
     /**
      * @Description: 关闭连接
