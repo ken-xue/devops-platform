@@ -48,7 +48,7 @@ public class NodeLogger extends CommonEntity {
         logger = sb.toString();
     }
 
-    public void append(byte[] logger){
+    public void append(String logger){
         sb.append(logger);
     }
 }

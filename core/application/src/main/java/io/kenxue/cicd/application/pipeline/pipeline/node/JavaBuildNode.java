@@ -42,7 +42,7 @@ public class JavaBuildNode extends AbstractNode {
                 , "mvn clean install -Dmaven.test.skip=true"
                 , "cd starter/"
                 , "ls target"
-                , "tar -cvfz target/cicd-platform.jar package.tar.gz"
+                , "tar -czvf package.tar.gz target/cicd-platform.jar"
         });
 
         log.error("{}节点执行完成", getName());
