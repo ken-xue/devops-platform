@@ -2,6 +2,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.command;
 
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
+import io.kenxue.cicd.sharedataboject.pipeline.graph.Graph;
 import io.kenxue.cicd.sharedataboject.pipeline.graph.Nodes;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -16,6 +17,14 @@ import java.util.Map;
 @Data
 @Accessors(chain = true)
 public class PipelineExecuteContext extends ExecuteContext {
+    /**
+     * 流程图实例
+     */
+    private Graph graph;
+    /**
+     * 所有节点
+     */
+    private List<Nodes> nodes;
     /**
      * 执行路线
      */

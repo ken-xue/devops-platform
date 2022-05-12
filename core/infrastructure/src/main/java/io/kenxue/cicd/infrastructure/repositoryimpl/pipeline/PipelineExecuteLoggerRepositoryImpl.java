@@ -39,6 +39,10 @@ public class PipelineExecuteLoggerRepositoryImpl implements PipelineExecuteLogge
             pipelineExecuteLoggerMapper.updateById(pipelineExecuteLogger2DOConvector.toDO(pipelineExecuteLogger));
     }
 
+    public void updateByUuid(PipelineExecuteLogger logger){
+        pipelineExecuteLoggerMapper.update(pipelineExecuteLogger2DOConvector.toDO(logger),new QueryWrapper<PipelineExecuteLoggerDO>().eq("uuid",logger.getUuid()));
+    }
+
     public PipelineExecuteLogger getById(Long id){
         return pipelineExecuteLogger2DOConvector.toDomain(pipelineExecuteLoggerMapper.selectById(id));
     }

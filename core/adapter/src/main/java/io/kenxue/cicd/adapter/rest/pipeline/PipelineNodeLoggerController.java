@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "节点执行记录模块",description = "包含新增/列表/删除")
 @RequestMapping("pipeline/node/execute/logger")
-public class NodeExecuteLoggerController extends BasicController {
+public class PipelineNodeLoggerController extends BasicController {
     @Resource
     private NodeExecuteLoggerAppService nodeExecuteLoggerAppService;
 

@@ -112,6 +112,9 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
         Graph graph = pipeline.getGraph();
         List<Nodes> nodes = graph.getNodes();
+        context.setNodes(nodes);
+        context.setGraph(graph);
+
         for (Nodes node : nodes) {
             //暂无需理会开始结束节点
             if (NodeEnum.START.getName().equals(node.getName()) || NodeEnum.END.getName().equals(node.getName())) {

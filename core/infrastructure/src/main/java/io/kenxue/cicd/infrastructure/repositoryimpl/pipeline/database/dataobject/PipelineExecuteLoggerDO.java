@@ -10,7 +10,7 @@ import java.util.Date;
  * @date 2022-05-05 11:31:43
  */
 @Data
-@TableName("pipeline_execute_logger")
+@TableName("pipeline_logger")
 public class PipelineExecuteLoggerDO extends CommonEntity {
     /**
      * 流水线uuid

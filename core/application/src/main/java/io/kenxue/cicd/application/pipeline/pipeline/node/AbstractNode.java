@@ -52,7 +52,7 @@ public abstract class AbstractNode implements Node {
                 cmdsb.append(cmd).append(CommandConst.ENTER);
             }
 
-            cmdsb.append(CommandConst.ENTER);
+            cmdsb.append(CommandConst.EXIT);
 
             byte[] commandBytes = cmdsb.toString().getBytes();
             os.write(commandBytes);
@@ -85,10 +85,10 @@ public abstract class AbstractNode implements Node {
                     break;
                 }
                 //十秒钟未响应退出
-                if (System.currentTimeMillis() - startTime > 10000) {
-                    loggerService.sendMessage(key, String.format("%s%s%s", CommandConst.ENTER,"响应超时", CommandConst.ENTER));
-                    break;
-                }
+//                if (System.currentTimeMillis() - startTime > 10000) {
+//                    loggerService.sendMessage(key, String.format("%s%s%s", CommandConst.ENTER,"响应超时", CommandConst.ENTER));
+//                    break;
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();

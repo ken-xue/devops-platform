@@ -13,6 +13,7 @@ import java.util.List;
 public interface PipelineExecuteLoggerRepository {
     void create(PipelineExecuteLogger pipelineExecuteLogger);
     void update(PipelineExecuteLogger pipelineExecuteLogger);
+    void updateByUuid(PipelineExecuteLogger pipelineExecuteLogger);
     PipelineExecuteLogger getById(Long id);
     List<PipelineExecuteLogger> list(PipelineExecuteLoggerListQry pipelineExecuteLoggerListQry);
     Page<PipelineExecuteLogger> page(PipelineExecuteLoggerPageQry qry);
