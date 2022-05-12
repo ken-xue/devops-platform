@@ -31,3 +31,7 @@ build/
 
 ### MAC DIR ###
 *.DS_Store
+
+### code generate vue file ###
+
+./doc/view/*

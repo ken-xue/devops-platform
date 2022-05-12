@@ -3,7 +3,7 @@ package io.kenxue.cicd.sharedataboject.pipeline.constant;
 /**
  * @author 麦奇
  */
-public class NodeConstant {
+public class NodeConst {
     public static final String SP = "&&";
     public static final String SOURCE = "source-";
     public static final String TARGET = "target-";

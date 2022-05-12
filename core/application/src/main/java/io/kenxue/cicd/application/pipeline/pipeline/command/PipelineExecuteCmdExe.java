@@ -12,9 +12,9 @@ import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineNodeInfo;
 import io.kenxue.cicd.domain.factory.pipeline.PipelineExecuteLoggerFactory;
-import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
+import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
@@ -46,45 +46,22 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
     private static ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 3, 20L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
 
-    //当前正在执行的实例 k=执行记录uuid,v=pipeline
-    private static volatile ConcurrentHashMap<String, Pipeline> executingPipelineMap = new ConcurrentHashMap<>(2 << 4);
-    
     //当前正在执行的节点 k=记录uuid+"&"+节点uuid
     private static volatile ConcurrentHashMap<String, Nodes> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
 
-    private volatile List<String> edges;//执行路线
-
-    private volatile Nodes start;
-
-    private volatile Map<String, List<String>> targetLineMap = new HashMap<>(2 << 4);//路线source->List<target>
-
-    private volatile Map<String, List<String>> sourceLineMap = new HashMap<>(2 << 4);//路线target<-List<source>
-
-    private volatile Map<String, Nodes> targetMap = new HashMap<>(2 << 4);//
-
-    private volatile Map<String, Nodes> sourceMap = new HashMap<>(2 << 4);//
-
-    private volatile PipelineExecuteLogger pipelineExecuteLogger;//当前执行的记录
-
     @Resource
-    private PipelineExecuteLoggerRepository pipelineExecuteLoggerRepository;
+    private PipelineExecuteLoggerRepository loggerRepository;
     @Resource
     private PipelineRepository pipelineRepository;
     @Resource
-    private PipelineNodeInfoRepository pipelineNodeInfoRepository;
+    private PipelineNodeInfoRepository nodeInfoRepository;
     @Resource
     private PipelineNodeManager pipelineNodeManager;
     @Resource
     private EventBusI eventBus;
 
     /**
-     * 两个入口
-     * 1.打开页面点击执行
-     * 1.1 生成执行记录id
-     * 1.2 建立节点实时状态socket推送
-     * 2.点击执行记录
-     * 2.1 执行中（根据执行记录id判断是否正在执行，如果是正在执行建立socket连接）
-     * 2.2 已经执行完成（返回执行记录结果即可，无需建立socket连接）
+     * 流水线执行入口
      *
      * @param cmd
      * @return
@@ -93,11 +70,9 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
         Pipeline pipeline = pipelineRepository.getById(cmd.getId());
 
-        ExecuteContext context = buildContext(pipeline);
+        PipelineExecuteContext context = buildContext(pipeline);
 
-        prepare(pipeline);
-
-        logger(pipeline);
+        context.setLogger(logger(pipeline));
 
         executor.submit(() -> {
             try {
@@ -105,10 +80,10 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            execute(context, start);
+            execute(context, context.getStart());
         });
 
-        return SingleResponse.of(pipelineExecuteLogger);
+        return SingleResponse.of(context.getLogger());
     }
 
     /**
@@ -117,14 +92,13 @@ public class PipelineExecuteCmdExe implements DisposableBean {
      * @param pipeline
      */
     private PipelineExecuteLogger logger(Pipeline pipeline) {
-        pipelineExecuteLogger = PipelineExecuteLoggerFactory.getPipelineExecuteLogger();
-        pipelineExecuteLogger.create(UserThreadContext.get());
-        pipelineExecuteLogger.setPipelineUuid(pipeline.getUuid());
-        pipelineExecuteLogger.setExecuteStartTime(new Date());
-        pipelineExecuteLogger.setGraphContent(JSON.toJSONString(pipeline.getGraph()));
-        pipelineExecuteLoggerRepository.create(pipelineExecuteLogger);
-        executingPipelineMap.put(pipeline.getUuid(), pipeline);
-        return pipelineExecuteLogger;
+        PipelineExecuteLogger logger = PipelineExecuteLoggerFactory.getPipelineExecuteLogger();
+        logger.create(UserThreadContext.get());
+        logger.setPipelineUuid(pipeline.getUuid());
+        logger.setExecuteStartTime(new Date());
+        logger.setGraphContent(JSON.toJSONString(pipeline.getGraph()));
+        loggerRepository.create(logger);
+        return logger;
     }
 
     /**
@@ -132,64 +106,50 @@ public class PipelineExecuteCmdExe implements DisposableBean {
      *
      * @param pipeline
      */
-    private ExecuteContext buildContext(Pipeline pipeline) {
+    private PipelineExecuteContext buildContext(Pipeline pipeline) {
 
-        ExecuteContext context = new ExecuteContext();
+        PipelineExecuteContext context = new PipelineExecuteContext();
 
-        for (Nodes node : pipeline.getGraph().getNodes()) {
-            if (NodeEnum.START.getName().equals(node.getName()) || NodeEnum.END.getName().equals(node.getName()))
+        Graph graph = pipeline.getGraph();
+        List<Nodes> nodes = graph.getNodes();
+        for (Nodes node : nodes) {
+            //暂无需理会开始结束节点
+            if (NodeEnum.START.getName().equals(node.getName()) || NodeEnum.END.getName().equals(node.getName())) {
                 continue;
-            PipelineNodeInfo nodeInfo = pipelineNodeInfoRepository.getByNodeId(node.getId());
+            }
+            PipelineNodeInfo nodeInfo = nodeInfoRepository.getByNodeId(node.getId());
             if (Objects.isNull(nodeInfo)) {
                 log.error("node : {},config node info data is null", node);
             } else {
                 context.setAttributes(node.getName(), nodeInfo);
             }
         }
-
-        return context;
-    }
-
-    /**
-     * 解析流水线准备数据
-     *
-     * @param pipeline
-     */
-    private void prepare(Pipeline pipeline) {
-
-        targetLineMap.clear();
-        sourceLineMap.clear();
-        targetMap.clear();
-        sourceMap.clear();
-
-        Graph graph = pipeline.getGraph();
-        List<Nodes> nodes = graph.getNodes();
         //获取开始节点
-        start = nodes.stream().filter(node -> NodeEnum.START.toString().equals(node.getName())).findFirst().get();
-        //移除开始节点
-        nodes.remove(start);
+        context.setStart(nodes.stream().filter(node -> NodeEnum.START.toString().equals(node.getName())).findFirst().get());
         //映射每个节点对应的输入和输出节点
         for (Nodes n : nodes) {
             //当前节点n作为target
-            n.getPoints().getTargets().forEach(uuid -> targetMap.put(uuid.replace("target-", ""), n));
+            n.getPoints().getTargets().forEach(uuid -> context.getTargetMap().put(uuid.replace("target-", ""), n));
             //当前节点n作为source
-            n.getPoints().getSources().forEach(uuid -> sourceMap.put(uuid.replace("source-", ""), n));
+            n.getPoints().getSources().forEach(uuid -> context.getSourceMap().put(uuid.replace("source-", ""), n));
         }
         //获取执行路径
-        edges = graph.getEdges();
+        List<String> edges = graph.getEdges();
         for (String edge : edges) {
             String[] lines = edge.split("&&");
             String source = lines[0].replace("source-", "");
             String target = lines[1].replace("target-", "");
             //target
-            List<String> targetLineMapOrDefault = targetLineMap.getOrDefault(source, new LinkedList<>());
+            List<String> targetLineMapOrDefault = context.getTargetLineMap().getOrDefault(source, new LinkedList<>());
             targetLineMapOrDefault.add(target);
-            targetLineMap.put(source, targetLineMapOrDefault);
+            context.getTargetLineMap().put(source, targetLineMapOrDefault);
             //source
-            List<String> sourceLineMapOrDefault = sourceLineMap.getOrDefault(target, new LinkedList<>());
+            List<String> sourceLineMapOrDefault = context.getSourceLineMap().getOrDefault(target, new LinkedList<>());
             sourceLineMapOrDefault.add(source);
-            sourceLineMap.put(target, sourceLineMapOrDefault);
+            context.getSourceLineMap().put(target, sourceLineMapOrDefault);
         }
+
+        return context;
     }
 
 
@@ -199,10 +159,10 @@ public class PipelineExecuteCmdExe implements DisposableBean {
      * @param context
      * @param node
      */
-    public void execute(ExecuteContext context, Nodes node) {
+    public void execute(PipelineExecuteContext context, Nodes node) {
 
         //判断是否可执行
-        if (!executable(node)) {
+        if (!executable(context, node)) {
             return;
         }
 
@@ -213,12 +173,12 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             //变更状态//进行中
             node.refreshStatus(NodeExecuteStatus.LOADING);
             //加入缓存
-            executingNodeMap.put(String.format("%s&%s",pipelineExecuteLogger.getUuid(),node.getId()),node);
+            executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), node);
             //发送事件
-            eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, sourceLineMap, NodeExecuteStatus.LOADING));
+            eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getSourceLineMap(), NodeExecuteStatus.LOADING));
             //执行节点
-            context.setAttributes(node.getName()+"logger-uuid",pipelineExecuteLogger.getUuid());
-            context.setAttributes(node.getName()+"node-uuid",node.getId());
+            context.setAttributes(node.getName() + "logger-uuid", context.getLogger().getUuid());
+            context.setAttributes(node.getName() + "node-uuid", node.getId());
             Result ret = pipelineNodeManager.get(node.getName()).execute(context);
             result.add(node.getName(), ret);
             //执行成功
@@ -227,8 +187,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             List<String> sources = node.getPoints().getSources();
             sources.forEach(sce -> {
                 String next = sce.replace("source-", "");
-                List<String> list = targetLineMap.getOrDefault(next, Collections.emptyList());
-                list.forEach(v -> executor.submit(() -> execute(context, targetMap.get(v))));
+                List<String> list = context.getTargetLineMap().getOrDefault(next, Collections.emptyList());
+                list.forEach(v -> executor.submit(() -> execute(context, context.getTargetMap().get(v))));
             });
 
         } catch (Exception e) {
@@ -238,27 +198,30 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             e.printStackTrace();
         }
         //执行完成移除出缓存
-        executingNodeMap.remove(String.format("%s&%s",pipelineExecuteLogger.getUuid(),node.getId()));
+        executingNodeMap.remove(String.format("%s&%s", context.getLogger().getUuid(), node.getId()));
         //推送节点状态和所有输出的边
-        eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, targetLineMap));
+        eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getTargetLineMap()));
     }
 
     /**
      * 判断是否可执行当前节点（检查当前节点是否所有输入节点都已经执行完成）
+     *
      * @param node 当前节点
      * @return
      */
-    private synchronized boolean executable(Nodes node) {
+    private synchronized boolean executable(PipelineExecuteContext context, Nodes node) {
         try {
             log.info("检查是否所有输入节点都已经执行完成:{}", node.getName());
-            if (NodeExecuteStatus.SUCCESS.getName().equals(node.getData().getNodeState())) return false;
+            if (NodeExecuteStatus.SUCCESS.getName().equals(node.getData().getNodeState())) {
+                return false;
+            }
             //判断当前节点的所有前置节点是否已经执行完成
             List<String> targets = node.getPoints().getTargets();
             for (String t : targets) {
                 String targetUUID = t.replace("target-", "");
-                List<String> sourceUUIDList = sourceLineMap.getOrDefault(targetUUID, Collections.emptyList());
+                List<String> sourceUUIDList = context.getSourceLineMap().getOrDefault(targetUUID, Collections.emptyList());
                 for (String sourceUUID : sourceUUIDList) {
-                    Nodes sourceNode = sourceMap.get(sourceUUID);
+                    Nodes sourceNode = context.getSourceMap().get(sourceUUID);
                     if (Objects.nonNull(sourceNode) && (Objects.isNull(sourceNode.getData().getNodeState()) ||
                             StringUtils.isBlank(sourceNode.getData().getNodeState()) ||
                             NodeExecuteStatus.LOADING.getName().equals(sourceNode.getData().getNodeState()) ||
@@ -273,10 +236,6 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             return false;
         }
         return true;
-    }
-
-    public Pipeline get(String key) {
-        return executingPipelineMap.get(key);
     }
 
     @Override

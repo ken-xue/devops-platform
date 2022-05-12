@@ -26,8 +26,7 @@ public class JavaBuildNode extends AbstractNode {
         DefaultResult defaultResult = new DefaultResult();
         log.info("attr : {}", attributes);
 
-        shell(logger, context, new String[]{
-                "cd /home/admin/"
+        shell(logger, context, "cd /home/admin/"
                 , "git -v"
                 , "rm -rf cicd-platform"
                 , "git clone https://gitee.com/ken_xue/cicd-platform.git"
@@ -36,8 +35,7 @@ public class JavaBuildNode extends AbstractNode {
                 , "mvn clean install -Dmaven.test.skip=true"
                 , "cd starter/"
                 , "ls target"
-                , "tar -czvf package.tar.gz target/cicd-platform.jar"
-        });
+                , "tar -czvf package.tar.gz target/cicd-platform.jar");
 
         log.error("{}节点执行完成", getName());
         return defaultResult;

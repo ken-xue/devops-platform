@@ -5,8 +5,8 @@ import io.kenxue.cicd.application.pipeline.logger.node.service.PipelineExecuteLo
 import io.kenxue.cicd.application.pipeline.pipeline.manager.ChannelManager;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
-import io.kenxue.cicd.sharedataboject.pipeline.constant.CommandConstant;
-import io.kenxue.cicd.sharedataboject.pipeline.constant.NodeConstant;
+import io.kenxue.cicd.sharedataboject.pipeline.constant.CommandConst;
+import io.kenxue.cicd.sharedataboject.pipeline.constant.NodeConst;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.node.Node;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +31,8 @@ public abstract class AbstractNode implements Node {
     private ChannelManager channelManager;
 
     public int shell(NodeLogger nodeLogger, ExecuteContext executeContext, String... commands) {
-        String loggerUuid = (String) executeContext.getAttributes(getName() + NodeConstant.LOGGER_UUID_KEY);
-        String nodeUuid = (String) executeContext.getAttributes(getName() + NodeConstant.NODE_UUID_KEY);
+        String loggerUuid = (String) executeContext.getAttributes(getName() + NodeConst.LOGGER_UUID_KEY);
+        String nodeUuid = (String) executeContext.getAttributes(getName() + NodeConst.NODE_UUID_KEY);
         nodeLogger.setLoggerUuid(loggerUuid);
         nodeLogger.setNodeUuid(nodeUuid);
         String key = String.format("%s&%s", loggerUuid, nodeUuid);
@@ -49,10 +49,10 @@ public abstract class AbstractNode implements Node {
             //拼接命令
             StringBuilder cmdsb = new StringBuilder();
             for (String cmd : commands) {
-                cmdsb.append(cmd).append(CommandConstant.ENTER);
+                cmdsb.append(cmd).append(CommandConst.ENTER);
             }
 
-            cmdsb.append(CommandConstant.ENTER);
+            cmdsb.append(CommandConst.ENTER);
 
             byte[] commandBytes = cmdsb.toString().getBytes();
             os.write(commandBytes);
@@ -67,8 +67,8 @@ public abstract class AbstractNode implements Node {
                         break;
                     }
                     String resp = new String(buffer, 0, i);
-                    if (resp.indexOf(NodeConstant.MORE) >= 0) {
-                        os.write((NodeConstant.BLANK).getBytes());
+                    if (resp.indexOf(NodeConst.MORE) >= 0) {
+                        os.write((NodeConst.BLANK).getBytes());
                         os.flush();
                     }
                     log.debug(resp);
@@ -86,7 +86,7 @@ public abstract class AbstractNode implements Node {
                 }
                 //十秒钟未响应退出
                 if (System.currentTimeMillis() - startTime > 10000) {
-                    loggerService.sendMessage(key, String.format("%s%s%s",CommandConstant.ENTER,"响应超时",CommandConstant.ENTER));
+                    loggerService.sendMessage(key, String.format("%s%s%s", CommandConst.ENTER,"响应超时", CommandConst.ENTER));
                     break;
                 }
             }
