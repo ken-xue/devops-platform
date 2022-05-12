@@ -168,7 +168,7 @@ public class CodeGenHandler {
         templates.put("DomainUpdateCmdExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/");
         templates.put("DomainPageQryExe.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/command/query/");
         //service
-        templates.put("DomainAppAppServiceImpl.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/service/");
+        templates.put("DomainAppServiceImpl.java.vm", "../core/application/src/main/java/io/kenxue/cicd/application/" +moduleName+"/" + className.toLowerCase() + "/service/");
         templates.put("DomainAppService.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/api/"+moduleName+"/");
         //dto
         templates.put("DomainDTO.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/"+className.toLowerCase()+"/");
