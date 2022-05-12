@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.${moduleName}.${allLowName}.command;
+package io.kenxue.cicd.application..${moduleName}.${allLowName}.command;
 
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
