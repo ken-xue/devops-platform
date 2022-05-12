@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author biaoyang
+ * @author 麦奇
  */
 @Service
 public class PipelineNodeManager implements InitializingBean {

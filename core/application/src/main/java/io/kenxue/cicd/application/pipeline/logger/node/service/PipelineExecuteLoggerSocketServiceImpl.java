@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * @author biaoyang
+ * @author 麦奇
  */
 @Slf4j
 @Service

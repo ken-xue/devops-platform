@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 /**
  * channel缓存管理
- * @author biaoyang
+ * @author 麦奇
  */
 @Slf4j
 @Service

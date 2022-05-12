@@ -181,7 +181,7 @@ public class CodeGenHandler {
         templates.put("DomainMapper.java.vm", "../core/infrastructure/src/main/java/io/kenxue/cicd/infrastructure/repositoryimpl/"+moduleName+"/database/mapper/");
         templates.put("DomainMapper.xml.vm", "../core/infrastructure/src/main/resources/mybatis/");
         //controller
-//        templates.put("DomainController.java.vm", "../core/adapter/src/main/java/io/kenxue/cicd/adapter/rest/" + moduleName + "/");
+        templates.put("DomainController.java.vm", "../core/adapter/src/main/java/io/kenxue/cicd/adapter/rest/" + moduleName + "/");
         //cmd
         templates.put("DomainAddCmd.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/" + className.toLowerCase() + "/");
         templates.put("DomainDeleteCmd.java.vm", "../core/core-client/src/main/java/io/kenxue/cicd/coreclient/dto/"+moduleName+"/"  + className.toLowerCase() + "/");

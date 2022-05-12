@@ -1,7 +1,8 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.kenxue.cicd.coreclient.dto.machine.MachineInfoDTO;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;
 import io.kenxue.cicd.coreclient.dto.machine.MachineInfoPageQry;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
@@ -9,16 +10,15 @@ import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.MachineInfo2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.MachineInfoMapper;
+import io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.convertor.MachineOfGroup2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.dataobject.MachineOfGroupDO;
 import io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.mapper.MachineOfGroupMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.kenxue.cicd.coreclient.dto.common.page.Page;
-import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,6 +38,8 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
     private MachineInfo2DOConvector machineInfo2DOConvector;
     @Resource
     private MachineOfGroupMapper machineOfGroupMapper;
+    @Resource
+    private MachineOfGroup2DOConvector machineOfGroup2DOConvector;
 
     @Override
     public void create(MachineInfo machineInfo){
@@ -51,7 +53,15 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
 
     @Override
     public MachineInfo getById(Long id){
-        return machineInfo2DOConvector.toDomain(machineInfoMapper.selectById(id));
+        MachineInfoDO machineInfoDO = machineInfoMapper.selectById(id);
+        machineInfoDO.setGroupList(new ArrayList<>(
+                        machineOfGroupMapper.selectList(
+                                new QueryWrapper<MachineOfGroupDO>().eq("machine_uuid",machineInfoDO.getUuid()
+                                )
+                        ).stream().map(v->v.getGroupUuid()).collect(Collectors.toSet())
+                )
+        );
+        return machineInfo2DOConvector.toDomain(machineInfoDO);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package io.kenxue.cicd.application.pipeline.pipeline.node;
 
 import com.jcraft.jsch.ChannelShell;
-import com.jcraft.jsch.Session;
 import io.kenxue.cicd.application.pipeline.logger.node.service.PipelineExecuteLoggerSocketService;
 import io.kenxue.cicd.application.pipeline.pipeline.manager.ChannelManager;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;

@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
- * @author biaoyang
+ * @author 麦奇
  */
 @Service
 public class BuilderMachineManager implements InitializingBean {

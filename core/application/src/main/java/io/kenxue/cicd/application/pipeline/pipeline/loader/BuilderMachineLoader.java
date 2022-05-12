@@ -5,7 +5,6 @@ import io.kenxue.cicd.coreclient.dto.machine.MachineInfoListQry;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.cicd.sharedataboject.machine.enums.GroupEnum;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,7 +12,7 @@ import java.util.List;
 
 /**
  * 构建服务器加载器
- * @author biaoyang
+ * @author 麦奇
  */
 @Service
 public class BuilderMachineLoader implements Loader<String,MachineInfo> {

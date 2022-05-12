@@ -1,8 +1,12 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.Data;
+
+import java.util.List;
+
 /**
  * 服务器节点
  * @author mikey
@@ -39,4 +43,10 @@ public class MachineInfoDO extends CommonEntity {
      * 服务器登陆密钥
      */
     private String accessKey;
+
+    /**
+     * 所属分组
+     */
+    @TableField(exist = false)
+    private List<String> groupList;
 }
