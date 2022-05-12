@@ -1,6 +1,6 @@
 package io.kenxue.cicd.application.machine.machinegroup.command;
 
-import io.kenxue.cicd.application.application.machine.machinegroup.assembler.MachineGroup2DTOAssembler;
+import io.kenxue.cicd.application.machine.machinegroup.assembler.MachineGroup2DTOAssembler;
 import io.kenxue.cicd.domain.domain.machine.MachineGroup;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.machine.machinegroup.MachineGroupUpdateCmd;

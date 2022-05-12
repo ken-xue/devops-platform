@@ -1,6 +1,6 @@
-package io.kenxue.cicd.application.application.machine.machinegroup.command.query;
+package io.kenxue.cicd.application.machine.machinegroup.command.query;
 
-import io.kenxue.cicd.application.application.machine.machinegroup.assembler.MachineGroup2DTOAssembler;
+import io.kenxue.cicd.application.machine.machinegroup.assembler.MachineGroup2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.machine.machinegroup.MachineGroupDTO;
 import io.kenxue.cicd.coreclient.dto.machine.machinegroup.MachineGroupListQry;

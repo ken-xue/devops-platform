@@ -1,11 +1,11 @@
 package io.kenxue.cicd.application.machine.machinegroup.service;
 
-import io.kenxue.cicd.application.application.machine.machinegroup.command.MachineGroupAddCmdExe;
-import io.kenxue.cicd.application.application.machine.machinegroup.command.query.MachineGroupGetQryExe;
-import io.kenxue.cicd.application.application.machine.machinegroup.command.query.MachineGroupListQryExe;
-import io.kenxue.cicd.application.application.machine.machinegroup.command.query.MachineGroupPageQryExe;
+import io.kenxue.cicd.application.machine.machinegroup.command.MachineGroupAddCmdExe;
 import io.kenxue.cicd.application.machine.machinegroup.command.MachineGroupDeleteCmdExe;
 import io.kenxue.cicd.application.machine.machinegroup.command.MachineGroupUpdateCmdExe;
+import io.kenxue.cicd.application.machine.machinegroup.command.query.MachineGroupGetQryExe;
+import io.kenxue.cicd.application.machine.machinegroup.command.query.MachineGroupListQryExe;
+import io.kenxue.cicd.application.machine.machinegroup.command.query.MachineGroupPageQryExe;
 import io.kenxue.cicd.coreclient.api.machine.MachineGroupAppService;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
