@@ -8,9 +8,11 @@ import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineExecuteCmd;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;
+import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineNodeInfo;
+import io.kenxue.cicd.domain.factory.pipeline.NodeExecuteLoggerFactory;
 import io.kenxue.cicd.domain.factory.pipeline.PipelineExecuteLoggerFactory;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
@@ -47,7 +49,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     private static ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 3, 20L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
 
     //当前正在执行的节点 k=记录uuid+"&"+节点uuid
-    private static volatile ConcurrentHashMap<String, Nodes> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
+    private static volatile ConcurrentHashMap<String, NodeLogger> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
 
     @Resource
     private PipelineExecuteLoggerRepository loggerRepository;
@@ -176,7 +178,10 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             //变更状态//进行中
             node.refreshStatus(NodeExecuteStatus.LOADING);
             //加入缓存
-            executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), node);
+            NodeLogger logger = NodeExecuteLoggerFactory.getNodeExecuteLogger().setExecuteStartTime(new Date());
+            context.setAttributes(node.getName()+"logger",logger);
+//            executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), node);
+            executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), logger);
             //发送事件
             eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getSourceLineMap(), NodeExecuteStatus.LOADING));
             //执行节点
@@ -248,7 +253,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
         }
     }
 
-    public Nodes getExecuteNode(String key) {
+    public NodeLogger getExecuteNode(String key) {
         return executingNodeMap.get(key);
     }
 }

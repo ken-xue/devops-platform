@@ -25,4 +25,10 @@ public interface PipelineExecuteLoggerSocketService {
      * @Description: 关闭连接
      */
     void close(WebSocketSession session);
+
+    /**
+     * 通过key关闭连接
+     * @param key
+     */
+    void close(String key);
 }

@@ -52,20 +52,24 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
 
         session.getAttributes().put("key", key);
 
-        Nodes node = pipelineExecuteCmdExe.getExecuteNode(key);
+        NodeLogger logger = pipelineExecuteCmdExe.getExecuteNode(key);
 
         //1.1 如果不在执行则将从数据库查询出执行记录日志返回
-        if (Objects.isNull(node)) {
-            NodeLogger logger = nodeExecuteLoggerRepository.getByLoggerUUIDAndNodeUUID(loggerUUID, nodeUUID);
+        if (Objects.isNull(logger)) {
+            NodeLogger loggerDO = nodeExecuteLoggerRepository.getByLoggerUUIDAndNodeUUID(loggerUUID, nodeUUID);
             try {
-                session.sendMessage(new TextMessage(Optional.ofNullable(logger).map(v -> v.getLogger()).orElse("Not Found Node Execute Logger...\r\n")));
+                session.sendMessage(new TextMessage(Optional.ofNullable(loggerDO).map(v -> v.getLogger()).orElse("Not Found Node Execute Logger...\r\n")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         //1.2 如果在执行则将将之前已经执行的日志返回且现在执行的日志同步（将当前连接加入）
         else {
-            // TODO: 2022/5/12
+            try {
+                session.sendMessage(new TextMessage(logger.getSb().toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         Queue<WebSocketSession> queue = webSocketConnectionPool.getOrDefault(key, new ConcurrentLinkedQueue<>());
         log.error("加入连接池 key:{} queue:{}", key, queue);
@@ -82,7 +86,7 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
     public void sendMessage(String key, String message) {
         Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
         if (webSocketSessions == null||webSocketSessions.isEmpty()){
-            log.info("当前 key:{}socket 无连接实例,无需推送",key);
+            log.info("当前 key:{} socket 无连接实例,无需推送",key);
             return;
         }
         log.info("推送节点日志信息,客户端实例个数:{}个", webSocketSessions.size());
@@ -96,9 +100,25 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
             }
         }
     }
+    /**
+     * 关闭连接
+     * @param key
+     */
+    @Override
+    public void close(String key) {
+        Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
+        if (webSocketSessions == null||webSocketSessions.isEmpty()){
+            log.info("当前 key:{} socket 无连接实例,无需关闭连接",key);
+            return;
+        }
+        for (WebSocketSession conn : webSocketSessions) {
+            close(conn);
+        }
+    }
 
     @Override
     public void close(WebSocketSession session) {
         log.info("close session:{}", session);
     }
+
 }

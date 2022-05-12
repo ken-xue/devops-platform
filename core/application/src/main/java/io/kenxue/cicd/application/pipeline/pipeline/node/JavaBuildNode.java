@@ -20,7 +20,8 @@ public class JavaBuildNode extends AbstractNode {
     @Override
     public Result execute(ExecuteContext context) {
 
-        NodeLogger logger = NodeExecuteLoggerFactory.getNodeExecuteLogger().setExecuteStartTime(new Date());
+//        NodeLogger logger = NodeExecuteLoggerFactory.getNodeExecuteLogger().setExecuteStartTime(new Date());
+        NodeLogger logger = (NodeLogger) context.getAttributes(getName()+"logger");
         log.error(getName());
         Object attributes = context.getAttributes(getName());
         DefaultResult defaultResult = new DefaultResult();

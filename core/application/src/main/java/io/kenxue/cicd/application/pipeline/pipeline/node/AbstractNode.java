@@ -58,7 +58,7 @@ public abstract class AbstractNode implements Node {
             os.write(commandBytes);
             os.flush();
 
-            long startTime = System.currentTimeMillis();
+//            long startTime = System.currentTimeMillis();
             byte[] buffer = new byte[1024];
             while (true) {
                 while (in.available() > 0) {
@@ -72,7 +72,7 @@ public abstract class AbstractNode implements Node {
                         os.flush();
                     }
                     log.debug(resp);
-                    startTime = System.currentTimeMillis();
+//                    startTime = System.currentTimeMillis();
                     log.info("推送日志数据 key:{}", key);
                     nodeLogger.append(commandBytes + resp);
                     loggerService.sendMessage(key, commandBytes + resp);
@@ -100,6 +100,8 @@ public abstract class AbstractNode implements Node {
                 nodeLogger.serializable();//序列化
                 nodeLogger.setExecuteEndTime(new Date());
                 loggerRepository.create(nodeLogger);
+                //主动释放当前socket连接
+                loggerService.close(key);
             } catch (Exception e) {
                 e.printStackTrace();
             }
