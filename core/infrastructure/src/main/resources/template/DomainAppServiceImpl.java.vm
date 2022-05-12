@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @date ${datetime}
  */
 @Service
-public class ${className}AppAppServiceImpl implements ${className}AppService {
+public class ${className}AppServiceImpl implements ${className}AppService {
     @Resource
     private ${className}AddCmdExe ${classname}AddCmdExe;
     @Resource

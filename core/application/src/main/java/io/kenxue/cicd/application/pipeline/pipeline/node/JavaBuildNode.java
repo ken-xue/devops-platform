@@ -1,20 +1,14 @@
 package io.kenxue.cicd.application.pipeline.pipeline.node;
 
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-import io.kenxue.cicd.application.pipeline.logger.node.service.PipelineExecuteLoggerSocketService;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.factory.pipeline.NodeExecuteLoggerFactory;
-import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Date;
-import java.util.Properties;
 
 /**
  * java构建step
