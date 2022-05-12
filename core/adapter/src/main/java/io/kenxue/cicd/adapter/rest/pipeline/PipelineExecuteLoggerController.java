@@ -26,43 +26,36 @@ public class PipelineExecuteLoggerController extends BasicController {
     @Resource
     private PipelineExecuteLoggerAppService pipelineExecuteLoggerAppService;
 
-//    @PostMapping("/add")
-//    @Permissions("pipeline:pipelineexecutelogger:add")
-//    @ApiOperation(value = "添加",httpMethod = "POST")
-//    public Response add(@RequestBody @Valid PipelineExecuteLoggerAddCmd pipelineExecuteLoggerAddCmd) {
-//        return pipelineExecuteLoggerAppService.add(pipelineExecuteLoggerAddCmd);
-//    }
-
     @DeleteMapping("/delete")
-    @Permissions("pipeline:pipelineexecutelogger:delete")
+    @Permissions("pipeline:logger:delete")
     @ApiOperation(value = "删除",httpMethod = "DELETE")
     public Response delete(@RequestBody @Valid PipelineExecuteLoggerDeleteCmd pipelineExecuteLoggerDeleteCmd){
         return pipelineExecuteLoggerAppService.delete(pipelineExecuteLoggerDeleteCmd);
     }
 
     @GetMapping("/page")
-    @Permissions("pipeline:pipelineexecutelogger:page")
+    @Permissions("pipeline:logger:page")
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response page(@ModelAttribute @Valid PipelineExecuteLoggerPageQry pipelineExecuteLoggerPageQry){
         return pipelineExecuteLoggerAppService.page(pipelineExecuteLoggerPageQry);
     }
 
     @GetMapping("/list")
-    @Permissions("pipeline:pipelineexecutelogger:list")
+    @Permissions("pipeline:logger:list")
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response list(@ModelAttribute @Valid PipelineExecuteLoggerListQry pipelineExecuteLoggerListQry){
         return pipelineExecuteLoggerAppService.list(pipelineExecuteLoggerListQry);
     }
 
     @GetMapping("/info")
-    @Permissions("pipeline:pipelineexecutelogger:info")
+    @Permissions("pipeline:logger:info")
     @ApiOperation(value = "详情",httpMethod = "GET")
     public Response info(@ModelAttribute @Valid PipelineExecuteLoggerGetQry pipelineExecuteLoggerGetQry){
         return pipelineExecuteLoggerAppService.getById(pipelineExecuteLoggerGetQry);
     }
 
     @PutMapping("/update")
-    @Permissions("pipeline:pipelineexecutelogger:update")
+    @Permissions("pipeline:logger:update")
     @ApiOperation(value = "更新",httpMethod = "PUT")
     public Response update(@RequestBody PipelineExecuteLoggerUpdateCmd pipelineExecuteLoggerUpdateCmd){
         return pipelineExecuteLoggerAppService.update(pipelineExecuteLoggerUpdateCmd);

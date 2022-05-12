@@ -1,12 +1,14 @@
 package io.kenxue.cicd.application.machine.machineofgroup.command;
 
-import io.kenxue.cicd.application.application.machine.machineofgroup.assembler.MachineOfGroup2DTOAssembler;
-import io.kenxue.cicd.domain.domain.machine.MachineOfGroup;
+import io.kenxue.cicd.application.machine.machineofgroup.assembler.MachineOfGroup2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.machine.machineofgroup.MachineOfGroupUpdateCmd;
+import io.kenxue.cicd.domain.domain.machine.MachineOfGroup;
 import io.kenxue.cicd.domain.repository.machine.MachineOfGroupRepository;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.Resource;
+
 /**
  * 服务器分组
  * @author mikey

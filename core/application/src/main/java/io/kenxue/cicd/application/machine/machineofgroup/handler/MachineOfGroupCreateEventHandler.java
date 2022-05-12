@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.machine.machineofgroup.handler;
+package io.kenxue.cicd.application.machine.machineofgroup.handler;
 
 import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;

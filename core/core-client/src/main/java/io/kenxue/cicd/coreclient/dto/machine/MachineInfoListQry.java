@@ -39,4 +39,8 @@ public class MachineInfoListQry extends CommonCommand {
      * 服务器登陆密钥
      */
     private String accessKey;
+    /**
+     * 分组uuid（查询列表）
+     */
+    private String groupUuid;
 }

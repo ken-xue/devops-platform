@@ -54,6 +54,7 @@ public class PipelineExecuteLoggerRepositoryImpl implements PipelineExecuteLogge
     @Override
     public Page<PipelineExecuteLogger> page(PipelineExecuteLoggerPageQry qry) {
         QueryWrapper<PipelineExecuteLoggerDO> qw = new QueryWrapper<>();
+        qw.eq("deleted",false);
         if (Objects.nonNull(qry.getPipelineUuid()))qw.eq("pipeline_uuid",qry.getPipelineUuid());
         qw.orderByDesc("gmt_create");
         IPage doPage = pipelineExecuteLoggerMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);

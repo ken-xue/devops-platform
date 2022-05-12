@@ -1,6 +1,7 @@
-package io.kenxue.cicd.application.application.machine.machineofgroup.assembler;
+package io.kenxue.cicd.application.machine.machineofgroup.assembler;
 
 import io.kenxue.cicd.application.common.assembler.Assembler;
+import io.kenxue.cicd.application.machine.machineofgroup.assembler.MachineOfGroup2DTOMapStruct;
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.machine.machineofgroup.MachineOfGroupDTO;
 import io.kenxue.cicd.domain.domain.machine.MachineOfGroup;

@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.application.machine.machineofgroup.assembler;
+package io.kenxue.cicd.application.machine.machineofgroup.assembler;
 
 import io.kenxue.cicd.coreclient.dto.machine.machineofgroup.MachineOfGroupDTO;
 import io.kenxue.cicd.domain.domain.machine.MachineOfGroup;

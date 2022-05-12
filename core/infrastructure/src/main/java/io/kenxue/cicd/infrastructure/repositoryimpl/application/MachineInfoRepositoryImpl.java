@@ -9,6 +9,8 @@ import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.convertor.MachineInfo2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.MachineInfoDO;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.MachineInfoMapper;
+import io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.dataobject.MachineOfGroupDO;
+import io.kenxue.cicd.infrastructure.repositoryimpl.machine.database.mapper.MachineOfGroupMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,6 +20,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 服务器节点
@@ -32,23 +36,35 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
     private MachineInfoMapper machineInfoMapper;
     @Resource
     private MachineInfo2DOConvector machineInfo2DOConvector;
+    @Resource
+    private MachineOfGroupMapper machineOfGroupMapper;
 
+    @Override
     public void create(MachineInfo machineInfo){
             machineInfoMapper.insert(machineInfo2DOConvector.toDO(machineInfo));
     }
 
+    @Override
     public void update(MachineInfo machineInfo){
             machineInfoMapper.updateById(machineInfo2DOConvector.toDO(machineInfo));
     }
 
+    @Override
     public MachineInfo getById(Long id){
         return machineInfo2DOConvector.toDomain(machineInfoMapper.selectById(id));
     }
 
     @Override
     public List<MachineInfo> list(MachineInfoListQry qry) {
+
         QueryWrapper<MachineInfoDO> qw = new QueryWrapper<>();
         Optional.ofNullable(qry.getName()).map(v->qw.like("name",v).or().like("ip",v));
+
+        Optional.ofNullable(qry.getGroupUuid()).map(v->{
+            Set<String> groupSet = machineOfGroupMapper.selectList(new QueryWrapper<MachineOfGroupDO>().eq("group_uuid", v)).stream().map(g -> g.getMachineUuid()).collect(Collectors.toSet());
+            qw.in("uuid",groupSet);
+            return true;
+        });
         return machineInfo2DOConvector.toDomainList(machineInfoMapper.selectList(qw));
     }
 

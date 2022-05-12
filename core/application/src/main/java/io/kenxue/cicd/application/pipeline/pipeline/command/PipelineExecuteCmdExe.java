@@ -202,27 +202,29 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     public void execute(ExecuteContext context, Nodes node) {
 
         //判断是否可执行
-        if (!executable(node)) return;
+        if (!executable(node)) {
+            return;
+        }
 
         try {
             log.info("执行的节点：{}", node.getName());
             //执行结果
             Result result = new DefaultResult();
-            //变更状态
-            node.refreshStatus(NodeExecuteStatus.LOADING);//进行中
+            //变更状态//进行中
+            node.refreshStatus(NodeExecuteStatus.LOADING);
             //加入缓存
-            executingNodeMap.put(String.format("%s&%s",pipelineExecuteLogger.getUuid(),node.getId()),node);// TODO: 2022/5/9
+            executingNodeMap.put(String.format("%s&%s",pipelineExecuteLogger.getUuid(),node.getId()),node);
             //发送事件
             eventBus.publish(new PipelineNodeRefreshEvent(pipelineExecuteLogger.getUuid(), node, sourceLineMap, NodeExecuteStatus.LOADING));
-            //获取下一个执行的路线
-            List<String> sources = node.getPoints().getSources();
             //执行节点
             context.setAttributes(node.getName()+"logger-uuid",pipelineExecuteLogger.getUuid());
             context.setAttributes(node.getName()+"node-uuid",node.getId());
             Result ret = pipelineNodeManager.get(node.getName()).execute(context);
             result.add(node.getName(), ret);
-            node.refreshStatus(NodeExecuteStatus.SUCCESS);//执行成功
-
+            //执行成功
+            node.refreshStatus(NodeExecuteStatus.SUCCESS);
+            //获取下一个执行的路线
+            List<String> sources = node.getPoints().getSources();
             sources.forEach(sce -> {
                 String next = sce.replace("source-", "");
                 List<String> list = targetLineMap.getOrDefault(next, Collections.emptyList());
@@ -230,7 +232,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             });
 
         } catch (Exception e) {
-            node.refreshStatus(NodeExecuteStatus.FAILED);//执行失败
+            //执行失败
+            node.refreshStatus(NodeExecuteStatus.FAILED);
             log.error("execute error , cur node : {}", node);
             e.printStackTrace();
         }

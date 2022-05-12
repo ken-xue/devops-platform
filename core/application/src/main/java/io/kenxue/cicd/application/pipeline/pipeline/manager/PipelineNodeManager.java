@@ -1,13 +1,22 @@
 package io.kenxue.cicd.application.pipeline.pipeline.manager;
 
 
+import io.kenxue.cicd.application.pipeline.pipeline.loader.PipelineNodeLoader;
 import io.kenxue.cicd.sharedataboject.pipeline.node.Node;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author biaoyang
+ */
 @Service
-public class PipelineNodeManager {
+public class PipelineNodeManager implements InitializingBean {
+
+    @Resource
+    private PipelineNodeLoader pipelineNodeLoader;
 
     private ConcurrentHashMap<String, Node> cached = new ConcurrentHashMap<>(2<<4);
 
@@ -21,5 +30,10 @@ public class PipelineNodeManager {
 
     public Node remove(String key){
         return cached.remove(key);
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        pipelineNodeLoader.loadAll().forEach(node -> add(node.getName(),node));
     }
 }

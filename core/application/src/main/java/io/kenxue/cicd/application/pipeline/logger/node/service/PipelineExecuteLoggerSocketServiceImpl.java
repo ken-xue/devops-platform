@@ -19,6 +19,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ * @author biaoyang
+ */
 @Slf4j
 @Service
 public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLoggerSocketService {
@@ -59,11 +62,11 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            close(session);
-//            return;
         }
         //1.2 如果在执行则将将之前已经执行的日志返回且现在执行的日志同步（将当前连接加入）
-
+        else {
+            // TODO: 2022/5/12
+        }
         Queue<WebSocketSession> queue = webSocketConnectionPool.getOrDefault(key, new ConcurrentLinkedQueue<>());
         log.error("加入连接池 key:{} queue:{}", key, queue);
         queue.offer(session);
@@ -82,7 +85,7 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
             log.info("当前 key:{}socket 无连接实例,无需推送",key);
             return;
         }
-        log.info("推送节点日志信息:{}", webSocketSessions.size());
+        log.info("推送节点日志信息,客户端实例个数:{}个", webSocketSessions.size());
         for (WebSocketSession conn : webSocketSessions) {
             synchronized (conn) {
                 try {
