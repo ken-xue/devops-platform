@@ -46,7 +46,7 @@ public class ${className}RepositoryImpl implements ${className}Repository {
     public List<${className}> list(${className}ListQry ${classname}ListQry) {
         QueryWrapper<${className}DO> qw = new QueryWrapper<>();
         qw.eq("deleted",false);
-        return machineGroup2DOConvector.toDomainList(machineGroupMapper.selectList(qw));
+        return ${classname}2DOConvector.toDomainList(${classname}Mapper.selectList(qw));
     }
 
     @Override
