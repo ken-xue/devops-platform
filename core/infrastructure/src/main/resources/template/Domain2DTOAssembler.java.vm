@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application..${moduleName}.${allLowName}.assembler;
+package io.kenxue.cicd.application.${moduleName}.${allLowName}.assembler;
 
 import io.kenxue.cicd.application.common.assembler.Assembler;
 import io.kenxue.cicd.coreclient.dto.common.page.Page;

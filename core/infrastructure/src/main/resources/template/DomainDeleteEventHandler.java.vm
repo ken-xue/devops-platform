@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application..${moduleName}.${allLowName}.handler;
+package io.kenxue.cicd.application.${moduleName}.${allLowName}.handler;
 
 
 import io.kenxue.cicd.application.common.event.EventHandler;

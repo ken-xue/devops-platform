@@ -1,6 +1,6 @@
-package io.kenxue.cicd.application..${moduleName}.${allLowName}.command.query;
+package io.kenxue.cicd.application.${moduleName}.${allLowName}.command.query;
 
-import io.kenxue.cicd.application..${moduleName}.${allLowName}.assembler.${className}2DTOAssembler;
+import io.kenxue.cicd.application.${moduleName}.${allLowName}.assembler.${className}2DTOAssembler;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}DTO;
 import io.kenxue.cicd.coreclient.dto.${moduleName}.${allLowName}.${className}ListQry;
