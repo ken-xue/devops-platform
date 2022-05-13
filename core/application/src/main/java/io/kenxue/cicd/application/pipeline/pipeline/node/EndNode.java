@@ -1,7 +1,6 @@
 package io.kenxue.cicd.application.pipeline.pipeline.node;
 
 import com.alibaba.fastjson.JSON;
-import io.kenxue.cicd.application.pipeline.pipeline.command.PipelineExecuteContext;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;

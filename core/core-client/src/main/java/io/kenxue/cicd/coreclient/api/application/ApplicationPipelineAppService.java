@@ -32,4 +32,6 @@ public interface ApplicationPipelineAppService {
      * @return
      */
     Response execute(PipelineExecuteCmd pipelineExecuteCmd);
+
+    Response webhook(PipelineWebhookExecuteCmd setUuid);
 }

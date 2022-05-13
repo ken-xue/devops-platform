@@ -3,6 +3,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.command;
 import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.application.common.event.EventBusI;
 import io.kenxue.cicd.application.pipeline.pipeline.manager.PipelineNodeManager;
+import io.kenxue.cicd.application.pipeline.pipeline.node.PipelineExecuteContext;
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
@@ -18,7 +19,6 @@ import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;
-import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
 import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeEnum;
 import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeExecuteStatus;
@@ -180,7 +180,6 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             //加入缓存
             NodeLogger logger = NodeExecuteLoggerFactory.getNodeExecuteLogger().setExecuteStartTime(new Date());
             context.setAttributes(node.getName()+"logger",logger);
-//            executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), node);
             executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), logger);
             //发送事件
             eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getSourceLineMap(), NodeExecuteStatus.LOADING));

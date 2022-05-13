@@ -20,7 +20,6 @@ public class JavaBuildNode extends AbstractNode {
     @Override
     public Result execute(ExecuteContext context) {
 
-//        NodeLogger logger = NodeExecuteLoggerFactory.getNodeExecuteLogger().setExecuteStartTime(new Date());
         NodeLogger logger = (NodeLogger) context.getAttributes(getName()+"logger");
         log.error(getName());
         Object attributes = context.getAttributes(getName());
@@ -28,7 +27,7 @@ public class JavaBuildNode extends AbstractNode {
         log.info("attr : {}", attributes);
 
         shell(logger, context, "cd /home/admin/"
-                , "git -v"
+                , "git --version"
                 , "rm -rf cicd-platform"
                 , "git clone https://gitee.com/ken_xue/cicd-platform.git"
                 , "cd cicd-platform"

@@ -27,6 +27,12 @@ public class PipelineController extends BasicController {
     @Resource
     private ApplicationPipelineAppService applicationPipelineAppService;
 
+    @GetMapping("/webhook/{uuid}")
+    @ApiOperation(value = "详情",httpMethod = "GET")
+    public Response webhook(@PathVariable String uuid){
+        return applicationPipelineAppService.webhook(new PipelineWebhookExecuteCmd().setUuid(uuid));
+    }
+
     @PostMapping("/add")
     @Permissions("application:applicationpipeline:add")
     @ApiOperation(value = "添加",httpMethod = "POST")

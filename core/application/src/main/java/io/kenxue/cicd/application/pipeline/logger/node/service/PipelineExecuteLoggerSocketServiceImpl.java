@@ -61,6 +61,8 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            close(session);
+            return;
         }
         //1.2 如果在执行则将将之前已经执行的日志返回且现在执行的日志同步（将当前连接加入）
         else {

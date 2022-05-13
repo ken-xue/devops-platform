@@ -58,7 +58,15 @@ public abstract class AbstractNode implements Node {
             os.write(commandBytes);
             os.flush();
 
-//            long startTime = System.currentTimeMillis();
+//            InputStreamReader isr = new InputStreamReader(in,"UTF-8");
+//            BufferedReader br = new BufferedReader(isr);
+//            String line = null;
+//            while ((line = br.readLine()) != null) {
+//                nodeLogger.append(line);
+//                loggerService.sendMessage(key, line+CommandConst.ENTER);
+//            }
+
+            long startTime = System.currentTimeMillis();
             byte[] buffer = new byte[1024];
             while (true) {
                 while (in.available() > 0) {
@@ -99,6 +107,7 @@ public abstract class AbstractNode implements Node {
                 nodeLogger.create();
                 nodeLogger.serializable();//序列化
                 nodeLogger.setExecuteEndTime(new Date());
+                //logger最好存在搜索引擎中如elasticsearch
                 loggerRepository.create(nodeLogger);
                 //主动释放当前socket连接
                 loggerService.close(key);

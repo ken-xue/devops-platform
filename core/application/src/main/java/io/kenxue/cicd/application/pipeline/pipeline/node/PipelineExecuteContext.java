@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.pipeline.pipeline.command;
+package io.kenxue.cicd.application.pipeline.pipeline.node;
 
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;

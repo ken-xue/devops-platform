@@ -72,4 +72,9 @@ public class PipelineAppAppServiceImpl implements ApplicationPipelineAppService 
         return pipelineExecuteCmdExe.execute(pipelineExecuteCmd);
     }
 
+    @Override
+    public Response webhook(PipelineWebhookExecuteCmd setUuid) {
+        return null;
+    }
+
 }
