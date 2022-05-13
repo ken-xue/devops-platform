@@ -75,7 +75,7 @@ public abstract class AbstractNode implements Node {
 //                    startTime = System.currentTimeMillis();
                     log.info("推送日志数据 key:{}", key);
                     nodeLogger.append(commandBytes + resp);
-                    loggerService.sendMessage(key, commandBytes + resp);
+                    loggerService.sendMessage(key, resp);
                 }
                 if (channel.isClosed()) {
                     if (in.available() > 0) {

@@ -3,7 +3,6 @@ package io.kenxue.cicd.application.pipeline.logger.node.service;
 import io.kenxue.cicd.application.pipeline.pipeline.command.PipelineExecuteCmdExe;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
-import io.kenxue.cicd.sharedataboject.pipeline.graph.Nodes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
