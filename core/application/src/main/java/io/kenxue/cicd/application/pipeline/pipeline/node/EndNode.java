@@ -33,19 +33,22 @@ public class EndNode implements Node {
     public Result execute(ExecuteContext executeContext) {
         log.info(getName());
         try {
-            Thread.sleep(5000);
             PipelineExecuteContext context = (PipelineExecuteContext) executeContext;
-            List<Nodes> nodes = context.getNodes();
-            nodes.forEach(v-> {
-                if(NodeEnum.END.getName().equals(v.getName())){
-                    v.refreshStatus(NodeExecuteStatus.SUCCESS);
-                }
-            });
-            context.getGraph().setNodes(nodes);
             PipelineExecuteLogger logger = context.getLogger();
+            List<Nodes> nodes = context.getNodes();
+            Thread.sleep(5000);
+            //只有全部节点执行成功当前流水线才能算执行成功
+            if (!PipelineBuildResultEnum.FAILED.getDesc().equals(logger.getFinalStatus())) {
+                nodes.forEach(v -> {
+                    if (NodeEnum.END.getName().equals(v.getName())) {
+                        v.refreshStatus(NodeExecuteStatus.SUCCESS);
+                    }
+                });
+                logger.setFinalStatus(PipelineBuildResultEnum.SUCCESS.getDesc());
+            }
+            context.getGraph().setNodes(nodes);
             logger.setExecuteEndTime(new Date());
             logger.setGraphContent(JSON.toJSONString(context.getGraph()));
-            logger.setFinalStatus(PipelineBuildResultEnum.SUCCESS.getDesc());
             //更新流水线各个节点执行状态
             loggerRepository.updateByUuid(logger);
         } catch (InterruptedException e) {

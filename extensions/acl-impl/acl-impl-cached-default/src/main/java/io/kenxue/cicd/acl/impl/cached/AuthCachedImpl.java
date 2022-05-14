@@ -3,11 +3,15 @@ package io.kenxue.cicd.acl.impl.cached;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import io.kenxue.cicd.acl.cache.CacheService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Resource;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,9 +25,16 @@ public class AuthCachedImpl implements CacheService<String,Object> , Initializin
 
     private Cache<String, Object> cached;
 
+    @Resource
+    private UserDetailsService userDetailsService;
+
+    @SneakyThrows
     @Override
     public Object get(String key) {
-        return cached.getIfPresent(key);
+        return cached.get(key, () -> {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(key);
+            return Optional.ofNullable(userDetails).map(v->v.getAuthorities()).orElse(null);
+        });
     }
 
     @Override
