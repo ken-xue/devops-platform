@@ -65,6 +65,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             String username = claims.getSubject();
             //设置对应的权限
             Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) cacheService.get(username);
+            if (Objects.isNull(authorities))throw new ExpiredJwtException(null,claims,AuthErrorCode.EXPIRED_TOKEN.desc);
             authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
             //设置对应的权限
             SecurityContextHolder.getContext().setAuthentication(authentication);
