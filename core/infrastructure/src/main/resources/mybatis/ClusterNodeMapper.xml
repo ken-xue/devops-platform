@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.database.mapper.ClusterNodeMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.database.dataobject.ClusterNodeDO" id="clusterNodeMap">
+            <result property="clusterUuid" column="cluster_uuid"/>
+            <result property="name" column="name"/>
+            <result property="type" column="type"/>
+            <result property="graphContent" column="graph_content"/>
+    </resultMap>
+</mapper>

@@ -4,7 +4,7 @@
             <el-form ref="queryForm" :model="queryParams" :inline="true" label-position="left" label-width="68px">
                 <el-form-item label="名称" prop="roleName">
                     <el-input
-                            v-model="queryParams.jenkinsDTO.name"
+                            v-model="queryParams.${className}DTO.name"
                             placeholder="请输入名称"
                             clearable
                             size="small"

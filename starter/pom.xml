@@ -136,6 +136,11 @@
             <artifactId>acl-impl-event-default</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>io.kenxue.cicd</groupId>
+            <artifactId>acl-impl-cached-default</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

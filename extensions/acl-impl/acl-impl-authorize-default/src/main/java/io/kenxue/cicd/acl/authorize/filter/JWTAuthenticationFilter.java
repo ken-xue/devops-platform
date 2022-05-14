@@ -5,6 +5,7 @@ import io.kenxue.cicd.acl.authorize.constant.Constant;
 import io.kenxue.cicd.acl.authorize.impl.GrantedAuthorityImpl;
 import io.kenxue.cicd.acl.authorize.util.ResponseUtil;
 import io.kenxue.cicd.acl.authorize.config.JWTConfig;
+import io.kenxue.cicd.acl.cache.CacheService;
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.sys.user.UserDTO;
 import io.kenxue.cicd.coreclient.exception.code.AuthErrorCode;
@@ -13,7 +14,9 @@ import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -22,9 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * 自定义JWT认证过滤器
@@ -34,9 +35,13 @@ import java.util.Date;
  */
 @Slf4j
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
-	
-	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+
+
+    private CacheService cacheService;
+
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager,CacheService cacheService) {
         super(authenticationManager);
+        this.cacheService = cacheService;
     }
 
     
@@ -54,9 +59,16 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             return;
         }
         // parse the token.
-        String user;
         try {
-            Claims claims = Jwts.parser().setSigningKey(Constant.SIGNING_KEY).parseClaimsJws(token.replace("Bearer ", "")).getBody();
+            Claims claims = Jwts.parser().setSigningKey(Constant.SIGNING_KEY).parseClaimsJws(token.replace(Constant.PREFIX, "")).getBody();
+
+            String username = claims.getSubject();
+            //设置对应的权限
+            Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) cacheService.get(username);
+            authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+            //设置对应的权限
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserThreadContext.set(new UserDTO().setUserId(username));
             // token签发时间
             long issuedAt = claims.getIssuedAt().getTime();
             // 当前时间
@@ -67,7 +79,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             // 2. (签发时间+((token过期时间-token签发时间)/2)) < 当前时间 < token过期时间 刷新token并返回给前端
             // 3. token过期时间 < 当前时间 跳转登录，重新登录获取token
             // 验证token时间有效性
-
             if ((issuedAt + ((expirationTime - issuedAt) / 2)) < currentTimeMillis && currentTimeMillis < expirationTime) {
                 // 重新生成token start
                 Calendar calendar = Calendar.getInstance();
@@ -88,19 +99,11 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 response.setHeader("Access-Control-Expose-Headers",Constant.AUTHORIZATION);
                 response.addHeader(Constant.AUTHORIZATION, Constant.PREFIX + refreshToken);
             }
-            long end = System.currentTimeMillis();
-            log.info("执行时间: {}", (end - start) + " 毫秒");
-            user = claims.getSubject();
-            if (user != null) {
-                String[] split = user.split("-");
-                UserThreadContext.set(new UserDTO().setUserId(split[0]));
-                String[] permissions = split[1].split(",");
-                ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                for (int i=0; i < permissions.length; i++) {
-                    authorities.add(new GrantedAuthorityImpl(permissions[i].replace("[","").replace("]","")));
-                }
-                authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+            if (log.isDebugEnabled()) {
+                log.info("执行时间: {} 毫秒", (System.currentTimeMillis() - start));
             }
+
         } catch (ExpiredJwtException e) {
             log.error("Token已过期: {} " , e.getMessage());
             ResponseUtil.add(response, Response.of(AuthErrorCode.EXPIRED_TOKEN));
@@ -122,7 +125,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             ResponseUtil.add(response, Response.of(AuthErrorCode.ILLEGAL_ARGUMENT));
             return;
         }
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
     }
 }

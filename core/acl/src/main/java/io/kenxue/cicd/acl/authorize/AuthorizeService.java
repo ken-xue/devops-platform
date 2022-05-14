@@ -12,17 +12,14 @@ public interface AuthorizeService {
      * @return
      */
     List<String> getPermissions();
-
     /**
      * 生成验证码
      * @param captchaGetQry
      * @return
      */
     BufferedImage generateCaptcha(CaptchaGetDTO captchaGetQry);
-
     /**
      * 验证验证码
      */
     Boolean captchaValidate(CaptchaValidateDTO captchaValidateDTO);
-
 }

@@ -5,6 +5,8 @@ import io.kenxue.cicd.acl.authorize.filter.JWTAuthenticationFilter;
 import io.kenxue.cicd.acl.authorize.filter.JWTLoginFilter;
 import io.kenxue.cicd.acl.authorize.handler.CustomAuthenticationEntryPoint;
 import io.kenxue.cicd.acl.authorize.impl.AuthenticationProviderImpl;
+import io.kenxue.cicd.acl.cache.CacheService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,6 +65,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutSuccessHandler customLogoutSuccessHandler;
     @Resource
     private AuthorizeService authorizeService;
+    @Resource
+    @Qualifier("authCachedImpl")
+    private CacheService cacheService;
 
     // 设置 HTTP 验证规则
     
@@ -74,11 +79,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()  // 所有请求需要身份认证
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint("Basic realm=DevAdmin"))
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint("Basic realm=cicd-platform"))
                 .accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
                 .and()
-                .addFilter(new JWTLoginFilter(authenticationManager(),authorizeService))
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTLoginFilter(authenticationManager(),authorizeService,cacheService))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(),cacheService))
                 .logout() // 默认注销行为为logout，可以通过下面的方式来修改
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(customLogoutSuccessHandler)
