@@ -28,8 +28,4 @@ public class ClusterDTO extends CommonDTO {
      * 集群配置文件
      */
     private String config;
-    /**
-     * 流水线快照
-     */
-    private String graphContent;
 }

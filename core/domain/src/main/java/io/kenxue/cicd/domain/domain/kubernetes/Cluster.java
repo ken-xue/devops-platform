@@ -30,8 +30,4 @@ public class Cluster extends CommonEntity {
      * 集群配置文件
      */
     private String config;
-    /**
-     * 流水线快照
-     */
-    private String graphContent;
 }

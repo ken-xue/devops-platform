@@ -8,6 +8,5 @@
             <result property="version" column="version"/>
             <result property="secretKey" column="secret_key"/>
             <result property="config" column="config"/>
-            <result property="graphContent" column="graph_content"/>
     </resultMap>
 </mapper>

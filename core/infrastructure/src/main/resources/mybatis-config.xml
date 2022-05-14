@@ -40,7 +40,12 @@
         <mapper resource="mybatis/application/ApplicationOfUserMapper.xml"></mapper>
 <!--        machine-->
         <mapper resource="mybatis/machine/MachineInfoMapper.xml"></mapper>
+        <mapper resource="mybatis/machine/MachineGroupMapper.xml"></mapper>
+        <mapper resource="mybatis/machine/MachineOfGroupMapper.xml"></mapper>
 <!--        middleware-->
         <mapper resource="mybatis/middleware/JenkinsMapper.xml"></mapper>
+<!--        kubernetes-->
+        <mapper resource="mybatis/kubernetes/ClusterNodeMapper.xml"></mapper>
+        <mapper resource="mybatis/kubernetes/ClusterMapper.xml"></mapper>
     </mappers>
 </configuration>
