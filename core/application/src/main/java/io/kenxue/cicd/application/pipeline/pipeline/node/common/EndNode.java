@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.pipeline.pipeline.node;
+package io.kenxue.cicd.application.pipeline.pipeline.node.common;
 
 import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;

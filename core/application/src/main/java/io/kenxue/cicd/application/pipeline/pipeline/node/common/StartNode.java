@@ -1,5 +1,4 @@
-package io.kenxue.cicd.application.pipeline.pipeline.node;
-
+package io.kenxue.cicd.application.pipeline.pipeline.node.common;
 
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
@@ -9,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class MavenUnitTestNode implements Node {
+public class StartNode implements Node {
 
     @Override
     public Result execute(ExecuteContext executeContext) {
-        log.error(getName());
+        log.info(getName());
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -24,6 +23,6 @@ public class MavenUnitTestNode implements Node {
 
     @Override
     public String getName() {
-        return "MAVEN_UNIT_TEST";
+        return "START";
     }
 }

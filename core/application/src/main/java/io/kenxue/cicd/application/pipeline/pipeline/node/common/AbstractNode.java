@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.pipeline.pipeline.node;
+package io.kenxue.cicd.application.pipeline.pipeline.node.common;
 
 import com.jcraft.jsch.ChannelShell;
 import io.kenxue.cicd.application.pipeline.logger.node.service.PipelineExecuteLoggerSocketService;

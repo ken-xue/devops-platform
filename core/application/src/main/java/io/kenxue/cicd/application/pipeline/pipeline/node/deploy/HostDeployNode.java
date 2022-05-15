@@ -1,4 +1,4 @@
-package io.kenxue.cicd.application.pipeline.pipeline.node;
+package io.kenxue.cicd.application.pipeline.pipeline.node.deploy;
 
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
@@ -15,7 +15,7 @@ public class HostDeployNode implements Node {
 
     @Override
     public Result execute(ExecuteContext executeContext) {
-        log.error(getName());
+        log.info(getName());
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
