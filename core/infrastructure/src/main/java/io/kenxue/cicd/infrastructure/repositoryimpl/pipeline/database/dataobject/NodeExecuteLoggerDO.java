@@ -17,6 +17,10 @@ public class NodeExecuteLoggerDO extends CommonEntity {
      */
     private String loggerUuid;
     /**
+     * 存储数据正文
+     */
+    private String nodeData;
+    /**
      * 节点uuid
      */
     private String nodeUuid;

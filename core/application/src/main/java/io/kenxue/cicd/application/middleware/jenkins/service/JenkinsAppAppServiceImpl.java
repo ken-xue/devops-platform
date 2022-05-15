@@ -6,12 +6,12 @@ import io.kenxue.cicd.application.middleware.jenkins.command.JenkinsUpdateCmdExe
 import io.kenxue.cicd.application.middleware.jenkins.command.query.JenkinsGetQryExe;
 import io.kenxue.cicd.application.middleware.jenkins.command.query.JenkinsPageQryExe;
 import io.kenxue.cicd.coreclient.api.middleware.JenkinsAppService;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.*;
 import io.kenxue.cicd.application.middleware.jenkins.command.query.JenkinsListQryExe;
 import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

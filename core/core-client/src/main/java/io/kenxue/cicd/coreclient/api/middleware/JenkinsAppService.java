@@ -4,7 +4,8 @@ import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.*;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.*;
+
 /**
  * 基建中间件Jenkins
  * @author mikey

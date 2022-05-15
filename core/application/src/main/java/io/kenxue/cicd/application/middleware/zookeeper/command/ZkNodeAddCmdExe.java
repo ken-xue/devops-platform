@@ -1,6 +1,6 @@
 package io.kenxue.cicd.application.middleware.zookeeper.command;
 
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkNodeAddCmd;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkNodeAddCmd;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
 import org.springframework.stereotype.Component;

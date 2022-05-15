@@ -9,6 +9,7 @@
             <result property="label" column="label"/>
             <result property="nodDescription" column="nod_description"/>
             <result property="icon" column="icon"/>
+            <result property="view" column="view"/>
             <result property="type" column="type"/>
     </resultMap>
 </mapper>

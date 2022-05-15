@@ -25,6 +25,10 @@ public class NodeExecuteLoggerDTO extends CommonDTO {
     /**
      * 存储数据正文
      */
+    private String nodeData;
+    /**
+     * 存储数据正文
+     */
     private String logger;
     /**
      * 执行时间

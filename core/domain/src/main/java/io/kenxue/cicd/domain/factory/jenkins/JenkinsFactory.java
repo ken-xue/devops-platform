@@ -1,6 +1,6 @@
 package io.kenxue.cicd.domain.factory.jenkins;
 
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 /**
  * 基建中间件Jenkins
  * @author mikey

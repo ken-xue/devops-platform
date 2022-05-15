@@ -40,6 +40,10 @@ public class PipelineNodeDTO extends CommonDTO {
      */
     private Integer type;
     /**
+     * 是否有结果数组供前端展示
+     */
+    private Boolean view;
+    /**
      * 子节点
      */
     private List<PipelineNodeDTO> children = new ArrayList<>();

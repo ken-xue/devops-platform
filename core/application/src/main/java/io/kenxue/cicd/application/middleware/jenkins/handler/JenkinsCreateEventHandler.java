@@ -3,7 +3,7 @@ package io.kenxue.cicd.application.middleware.jenkins.handler;
 import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.event.JenkinsCreateEvent;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.event.JenkinsCreateEvent;
 import lombok.extern.slf4j.Slf4j;
 /**
  * 基建中间件Jenkins

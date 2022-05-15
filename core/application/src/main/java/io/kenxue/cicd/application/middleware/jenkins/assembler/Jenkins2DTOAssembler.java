@@ -2,8 +2,8 @@ package io.kenxue.cicd.application.middleware.jenkins.assembler;
 
 import io.kenxue.cicd.application.common.assembler.Assembler;
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDTO;
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsDTO;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import org.springframework.stereotype.Component;
 import java.util.List;
 /**

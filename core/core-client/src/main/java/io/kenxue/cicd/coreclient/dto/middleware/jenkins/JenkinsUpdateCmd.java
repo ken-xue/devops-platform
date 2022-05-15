@@ -1,4 +1,4 @@
-package io.kenxue.cicd.coreclient.dto.jenkins.jenkins;
+package io.kenxue.cicd.coreclient.dto.middleware.jenkins;
 
 import lombok.Data;
 import javax.validation.constraints.NotNull;

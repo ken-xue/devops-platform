@@ -1,4 +1,4 @@
-package io.kenxue.cicd.coreclient.dto.jenkins.jenkins.event;
+package io.kenxue.cicd.coreclient.dto.middleware.jenkins.event;
 
 import io.kenxue.cicd.coreclient.dto.common.event.DomainEventI;
 import lombok.AllArgsConstructor;
@@ -11,6 +11,6 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class JenkinsDeleteEvent implements DomainEventI {
+public class JenkinsUpdateEvent implements DomainEventI {
     private String uuid;
 }

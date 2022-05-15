@@ -1,14 +1,12 @@
 package io.kenxue.cicd.repositoryimpl;
 
 
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkTreeNode;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkTreeNode;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.api.GetConfigBuilder;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.retry.BoundedExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.server.quorum.flexible.QuorumVerifier;
 import org.junit.Test;
 

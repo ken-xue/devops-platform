@@ -1,4 +1,4 @@
-package io.kenxue.cicd.coreclient.dto.jenkins.jenkins;
+package io.kenxue.cicd.coreclient.dto.middleware.jenkins;
 
 import io.kenxue.cicd.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
@@ -10,9 +10,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class JenkinsGetQry extends CommonCommand {
-
-    private Long id;
+public class JenkinsListQry extends CommonCommand {
     /**
      * jenkins uri
      */

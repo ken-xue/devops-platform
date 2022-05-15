@@ -11,4 +11,5 @@ public class Data {
     private String value;
     private String nodeState;//执行状态 /warning
     private String icon;
+    private Boolean view;
 }

@@ -1,9 +1,9 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsListQry;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsPageQry;
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsListQry;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsPageQry;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import io.kenxue.cicd.domain.repository.middleware.jenkins.JenkinsRepository;
 import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.convertor.Jenkins2DOConvector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.dataobject.JenkinsDO;

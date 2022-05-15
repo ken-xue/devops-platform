@@ -63,7 +63,7 @@
                         #foreach ($column in $columns)
                             <el-col :span="24">
                                 <el-form-item label="${column.comments}" prop="$column.attrname">
-                                    <el-input v-model="$column.attrname" placeholder="请输入${column.comments}"/>
+                                    <el-input v-model="form.$column.attrname" placeholder="请输入${column.comments}"/>
                                 </el-form-item>
                             </el-col>
                         #end

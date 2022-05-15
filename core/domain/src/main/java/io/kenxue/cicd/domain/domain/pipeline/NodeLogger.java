@@ -28,6 +28,10 @@ public class NodeLogger extends CommonEntity {
     /**
      * 存储数据正文
      */
+    private String nodeData;
+    /**
+     * 存储日志正文
+     */
     private String logger;
     /**
      * 执行时间

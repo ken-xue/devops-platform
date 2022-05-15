@@ -1,6 +1,6 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.factory;
 
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZookeeperConnectCmd;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperConnectCmd;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.BoundedExponentialBackoffRetry;

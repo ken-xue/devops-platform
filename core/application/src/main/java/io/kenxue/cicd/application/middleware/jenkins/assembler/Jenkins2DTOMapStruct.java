@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.middleware.jenkins.assembler;
 
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDTO;
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsDTO;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;

@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.middleware.jenkins.factory;
 
 import com.offbytwo.jenkins.JenkinsServer;
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;

@@ -1,6 +1,6 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.convertor;
 
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.dataobject.JenkinsDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;

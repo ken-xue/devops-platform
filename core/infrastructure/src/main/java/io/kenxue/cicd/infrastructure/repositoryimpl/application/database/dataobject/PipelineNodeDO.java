@@ -32,6 +32,10 @@ public class PipelineNodeDO extends CommonEntity {
      */
     private String icon;
     /**
+     * 是否有结果数组供前端展示
+     */
+    private Boolean view;
+    /**
      * 节点类型：目录 or 节点
      */
     private Integer type;

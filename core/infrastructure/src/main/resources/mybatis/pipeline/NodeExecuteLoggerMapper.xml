@@ -4,7 +4,9 @@
 
 <mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.mapper.NodeExecuteLoggerMapper">
     <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.dataobject.NodeExecuteLoggerDO" id="nodeExecuteLoggerMap">
-            <result property="pipelineExecuteLoggerUuid" column="pipeline_execute_logger_uuid"/>
+            <result property="loggerUuid" column="logger_uuid"/>
+            <result property="nodeUuid" column="node_uuid"/>
+            <result property="nodeData" column="node_data"/>
             <result property="logger" column="logger"/>
             <result property="executeStartTime" column="execute_start_time"/>
             <result property="executeEndTime" column="execute_end_time"/>

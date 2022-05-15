@@ -1,9 +1,9 @@
 package io.kenxue.cicd.application.middleware.jenkins.command.query;
 
 import io.kenxue.cicd.application.middleware.jenkins.assembler.Jenkins2DTOAssembler;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsDTO;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsDTO;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsGetQry;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsGetQry;
 import io.kenxue.cicd.domain.repository.middleware.jenkins.JenkinsRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;

@@ -1,9 +1,9 @@
 package io.kenxue.cicd.domain.repository.middleware.jenkins;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsListQry;
-import io.kenxue.cicd.coreclient.dto.jenkins.jenkins.JenkinsPageQry;
-import io.kenxue.cicd.domain.domain.jenkins.Jenkins;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsListQry;
+import io.kenxue.cicd.coreclient.dto.middleware.jenkins.JenkinsPageQry;
+import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import java.util.List;
 /**
  * 基建中间件Jenkins

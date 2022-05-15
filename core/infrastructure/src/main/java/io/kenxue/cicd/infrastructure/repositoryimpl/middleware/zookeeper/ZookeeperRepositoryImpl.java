@@ -1,8 +1,8 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper;
 
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkNodeAddCmd;
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkTreeNode;
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZookeeperConnectCmd;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkNodeAddCmd;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkTreeNode;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperConnectCmd;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.exception.BizException;
 import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;

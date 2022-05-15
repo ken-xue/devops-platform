@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.middleware.zookeeper.command;
 
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZkTreeNode;
-import io.kenxue.cicd.coreclient.dto.basic.zookeeper.ZookeeperConnectCmd;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkTreeNode;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperConnectCmd;
 import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
