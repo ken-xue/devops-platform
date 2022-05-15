@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -71,6 +72,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     public Response execute(PipelineExecuteCmd cmd) {
 
         Pipeline pipeline = pipelineRepository.getById(cmd.getId());
+
+        Assert.isTrue(Objects.nonNull(pipeline),"请先保存流水线");
 
         PipelineExecuteContext context = buildContext(pipeline);
 
