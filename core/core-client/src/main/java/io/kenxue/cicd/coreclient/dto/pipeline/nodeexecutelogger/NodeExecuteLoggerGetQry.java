@@ -17,7 +17,11 @@ public class NodeExecuteLoggerGetQry extends CommonCommand {
     /**
      * 流水线执行记录uuid
      */
-    private String pipelineExecuteLoggerUuid;
+    private String loggerUuid;
+    /**
+     * 节点uuid
+     */
+    private String nodeUuid;
     /**
      * 存储数据正文
      */

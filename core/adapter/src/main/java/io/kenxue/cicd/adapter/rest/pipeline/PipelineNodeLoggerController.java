@@ -54,6 +54,13 @@ public class PipelineNodeLoggerController extends BasicController {
         return nodeExecuteLoggerAppService.list(nodeExecuteLoggerListQry);
     }
 
+    @GetMapping("/get")
+    @Permissions("pipeline:nodeexecutelogger:info")
+    @ApiOperation(value = "详情",httpMethod = "GET")
+    public Response view(@ModelAttribute @Valid NodeExecuteLoggerGetQry nodeExecuteLoggerGetQry){
+        return nodeExecuteLoggerAppService.getNodeAndLoggerUuId(nodeExecuteLoggerGetQry);
+    }
+
     @GetMapping("/info")
     @Permissions("pipeline:nodeexecutelogger:info")
     @ApiOperation(value = "详情",httpMethod = "GET")

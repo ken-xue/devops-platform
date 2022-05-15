@@ -17,4 +17,11 @@ public interface NodeExecuteLoggerAppService {
     SingleResponse<NodeExecuteLoggerDTO> getById(NodeExecuteLoggerGetQry qry);
     MultiResponse<NodeExecuteLoggerDTO> list(NodeExecuteLoggerListQry qry);
     PageResponse<NodeExecuteLoggerDTO> page(NodeExecuteLoggerPageQry userPageQry);
+
+    /**
+     * 通过node-uuid和logger-uuid查询日志详情
+     * @param nodeExecuteLoggerGetQry
+     * @return
+     */
+    Response getNodeAndLoggerUuId(NodeExecuteLoggerGetQry nodeExecuteLoggerGetQry);
 }

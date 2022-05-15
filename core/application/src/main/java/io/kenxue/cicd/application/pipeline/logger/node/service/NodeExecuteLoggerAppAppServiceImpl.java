@@ -1,5 +1,6 @@
 package io.kenxue.cicd.application.pipeline.logger.node.service;
 
+import io.kenxue.cicd.application.pipeline.logger.node.command.query.NodeLoggerGetQryExe;
 import io.kenxue.cicd.coreclient.api.pipeline.NodeExecuteLoggerAppService;
 import io.kenxue.cicd.coreclient.dto.pipeline.nodeexecutelogger.*;
 import io.kenxue.cicd.application.pipeline.logger.node.command.NodeExecuteLoggerAddCmdExe;
@@ -35,6 +36,8 @@ public class NodeExecuteLoggerAppAppServiceImpl implements NodeExecuteLoggerAppS
     private NodeExecuteLoggerPageQryExe nodeExecuteLoggerPageQryExe;
     @Resource
     private NodeExecuteLoggerDeleteCmdExe nodeExecuteLoggerDeleteCmdExe;
+    @Resource
+    private NodeLoggerGetQryExe nodeLoggerGetQryExe;
 
     public Response add(NodeExecuteLoggerAddCmd nodeExecuteLoggerAddCmd) {
         return  nodeExecuteLoggerAddCmdExe.execute(nodeExecuteLoggerAddCmd);
@@ -58,6 +61,11 @@ public class NodeExecuteLoggerAppAppServiceImpl implements NodeExecuteLoggerAppS
 
     public PageResponse<NodeExecuteLoggerDTO> page(NodeExecuteLoggerPageQry nodeExecuteLoggerPageQry) {
         return nodeExecuteLoggerPageQryExe.execute(nodeExecuteLoggerPageQry);
+    }
+
+    @Override
+    public Response getNodeAndLoggerUuId(NodeExecuteLoggerGetQry nodeExecuteLoggerGetQry) {
+        return nodeLoggerGetQryExe.execute(nodeExecuteLoggerGetQry);
     }
 
 }
