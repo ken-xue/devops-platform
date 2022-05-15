@@ -14,6 +14,9 @@ public interface ApplicationConfigRepository {
     void create(ApplicationConfig applicationConfig);
     void update(ApplicationConfig applicationConfig);
     ApplicationConfig getById(Long id);
+
+    ApplicationConfig getBUuid(String uuid);
+
     List<ApplicationConfig> list(ApplicationConfigListQry applicationConfigListQry);
     Page<ApplicationConfig> page(ApplicationConfigPageQry qry);
 }

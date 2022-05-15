@@ -43,6 +43,11 @@ public class ApplicationConfigRepositoryImpl implements ApplicationConfigReposit
     }
 
     @Override
+    public ApplicationConfig getBUuid(String uuid){
+        return applicationConfig2DOConvector.toDomain(applicationConfigMapper.selectOne(new QueryWrapper<ApplicationConfigDO>().eq("uuid",uuid)));
+    }
+
+    @Override
     public List<ApplicationConfig> list(ApplicationConfigListQry applicationConfigListQry) {
         return applicationConfig2DOConvector.toDomainList(applicationConfigMapper.selectList(new QueryWrapper<>()));
     }

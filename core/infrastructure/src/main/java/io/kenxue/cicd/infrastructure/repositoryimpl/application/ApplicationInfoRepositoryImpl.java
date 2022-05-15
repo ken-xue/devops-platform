@@ -59,4 +59,9 @@ public class ApplicationInfoRepositoryImpl implements ApplicationInfoRepository 
         IPage doPage = applicationInfoMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),applicationInfo2DOConvector.toDomainList(doPage.getRecords()));
     }
+
+    @Override
+    public ApplicationInfo getByUuid(String applicationUuid) {
+        return applicationInfo2DOConvector.toDomain(applicationInfoMapper.selectOne(new QueryWrapper<ApplicationInfoDO>().eq("uuid",applicationUuid)));
+    }
 }

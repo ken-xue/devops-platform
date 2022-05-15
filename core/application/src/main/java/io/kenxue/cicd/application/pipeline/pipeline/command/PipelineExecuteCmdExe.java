@@ -9,12 +9,16 @@ import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineExecuteCmd;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;
+import io.kenxue.cicd.domain.domain.application.ApplicationConfig;
+import io.kenxue.cicd.domain.domain.application.ApplicationInfo;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineNodeInfo;
 import io.kenxue.cicd.domain.factory.pipeline.NodeExecuteLoggerFactory;
 import io.kenxue.cicd.domain.factory.pipeline.PipelineExecuteLoggerFactory;
+import io.kenxue.cicd.domain.repository.application.ApplicationConfigRepository;
+import io.kenxue.cicd.domain.repository.application.ApplicationInfoRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
@@ -62,6 +66,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     private PipelineNodeManager pipelineNodeManager;
     @Resource
     private EventBusI eventBus;
+    @Resource
+    private ApplicationInfoRepository applicationInfoRepository;
 
     /**
      * 流水线执行入口
@@ -156,6 +162,9 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             sourceLineMapOrDefault.add(source);
             context.getSourceLineMap().put(target, sourceLineMapOrDefault);
         }
+
+        ApplicationInfo application = applicationInfoRepository.getByUuid(pipeline.getApplicationUuid());
+        context.setApplication(application);
 
         return context;
     }

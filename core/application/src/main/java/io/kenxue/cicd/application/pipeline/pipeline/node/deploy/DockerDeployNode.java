@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 public class DockerDeployNode extends AbstractNode {
     @Override
     public Result execute(ExecuteContext context) {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

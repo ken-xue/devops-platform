@@ -21,6 +21,11 @@ public class JavaImageConstructionNode extends AbstractNode {
         Object attributes = executeContext.getAttributes(getName());
         DefaultResult defaultResult = new DefaultResult();
         log.info("attr : {}",attributes);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return defaultResult;
     }
 

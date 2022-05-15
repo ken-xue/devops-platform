@@ -1,5 +1,7 @@
 package io.kenxue.cicd.application.pipeline.pipeline.node.common;
 
+import io.kenxue.cicd.domain.domain.application.ApplicationConfig;
+import io.kenxue.cicd.domain.domain.application.ApplicationInfo;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.graph.Graph;
@@ -54,4 +56,9 @@ public class PipelineExecuteContext extends ExecuteContext {
      * 当前执行的记录
      */
     private volatile PipelineExecuteLogger pipelineExecute,Logger;
+
+    /**
+     * 当前执行的应用
+     */
+    private ApplicationInfo application;
 }

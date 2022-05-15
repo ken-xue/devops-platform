@@ -16,4 +16,6 @@ public interface ApplicationInfoRepository {
     ApplicationInfo getById(Long id);
     List<ApplicationInfo> list(ApplicationInfoListQry applicationInfoListQry);
     Page<ApplicationInfo> page(ApplicationInfoPageQry qry);
+
+    ApplicationInfo getByUuid(String applicationUuid);
 }
