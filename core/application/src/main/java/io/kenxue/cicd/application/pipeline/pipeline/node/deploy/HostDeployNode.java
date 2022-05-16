@@ -21,7 +21,8 @@ public class HostDeployNode implements Node {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new RuntimeException("hello");
+//        return null;
     }
 
     @Override

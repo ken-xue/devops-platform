@@ -26,6 +26,7 @@ import io.kenxue.cicd.sharedataboject.pipeline.context.DefaultResult;
 import io.kenxue.cicd.sharedataboject.pipeline.context.Result;
 import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeEnum;
 import io.kenxue.cicd.sharedataboject.pipeline.enums.NodeExecuteStatus;
+import io.kenxue.cicd.sharedataboject.pipeline.enums.PipelineBuildResultEnum;
 import io.kenxue.cicd.sharedataboject.pipeline.graph.Graph;
 import io.kenxue.cicd.sharedataboject.pipeline.graph.Nodes;
 import lombok.extern.slf4j.Slf4j;
@@ -213,11 +214,17 @@ public class PipelineExecuteCmdExe implements DisposableBean {
         } catch (Exception e) {
             //执行失败
             node.refreshStatus(NodeExecuteStatus.FAILED);
+            context.getLogger().setFinalStatus(PipelineBuildResultEnum.FAILED.getDesc());//要全部节点通过才算最终执行成功
             log.error("execute error , cur node : {}", node);
             e.printStackTrace();
         }
         //执行完成移除出缓存
         executingNodeMap.remove(String.format("%s&%s", context.getLogger().getUuid(), node.getId()));
+        //更新日志
+        PipelineExecuteLogger logger = context.getLogger();
+        context.getGraph().setNodes(context.getNodes());
+        logger.setGraphContent(JSON.toJSONString(context.getGraph()));
+        loggerRepository.updateByUuid(logger);
         //推送节点状态和所有输出的边
         eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getTargetLineMap()));
     }
@@ -231,9 +238,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     private synchronized boolean executable(PipelineExecuteContext context, Nodes node) {
         try {
             log.info("检查是否所有输入节点都已经执行完成:{}", node.getName());
-            if (NodeExecuteStatus.SUCCESS.getName().equals(node.getData().getNodeState())) {
-                return false;
-            }
+            if (NodeExecuteStatus.SUCCESS.getName().equals(node.getData().getNodeState())) return false;
             //判断当前节点的所有前置节点是否已经执行完成
             List<String> targets = node.getPoints().getTargets();
             for (String t : targets) {

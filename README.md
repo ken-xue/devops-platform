@@ -12,6 +12,14 @@
   </a>
 </p>
 
+<p align="center">
+<a title="GitHub Watchers" target="_blank" href="https://github.com/ken-xue/ddd-framework/watchers"><img alt="GitHub Watchers" src="https://img.shields.io/github/watchers/ken-xue/ddd-framework.svg?label=Watchers&style=social"></a>  
+  <a title="GitHub Stars" target="_blank" href="https://github.com/ken-xue/ddd-framework/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/ken-xue/ddd-framework.svg?label=Stars&style=social"></a>  
+  <a title="GitHub Forks" target="_blank" href="https://github.com/ken-xue/ddd-framework/network/members"><img alt="GitHub Forks" src="https://img.shields.io/github/forks/ken-xue/ddd-framework.svg?label=Forks&style=social"></a>
+</p>
+
+<p align="center"> 中文简体  |  <a title="Englist" href="README_en.md"> English</a></p>
+
 
 
 ## Introduction
