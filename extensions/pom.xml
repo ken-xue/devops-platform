@@ -14,7 +14,7 @@
     <artifactId>extensions</artifactId>
 
     <modules>
-        <module>acl-impl</module>
+        <module>acl-implements</module>
     </modules>
 
     <dependencyManagement>
