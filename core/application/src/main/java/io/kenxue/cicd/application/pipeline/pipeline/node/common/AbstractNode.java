@@ -58,14 +58,6 @@ public abstract class AbstractNode implements Node {
             os.write(commandBytes);
             os.flush();
 
-//            InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-//            BufferedReader br = new BufferedReader(isr);
-//            String line = null;
-//            while ((line = br.readLine()) != null) {
-//                nodeLogger.append(line);
-//                loggerService.sendMessage(key, line+CommandConst.ENTER);
-//            }
-
             long startTime = System.currentTimeMillis();
             byte[] buffer = new byte[1024];
             while (true) {
