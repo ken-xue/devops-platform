@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2022/2/229:09
  */
 @Data
-public class ZkTreeNode {
+public class ZookeeperTreeNode {
     /**
      * 节点id
      */
@@ -37,6 +37,6 @@ public class ZkTreeNode {
      */
     private boolean parentFlag;
 
-    private List<ZkTreeNode> children = new ArrayList<>();
+    private List<ZookeeperTreeNode> children = new ArrayList<>();
 
 }

@@ -1,4 +1,4 @@
-package io.kenxue.cicd.coreclient.dto.middleware.zookeeper;
+package io.kenxue.cicd.coreclient.dto.middleware.zookeeper.node;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

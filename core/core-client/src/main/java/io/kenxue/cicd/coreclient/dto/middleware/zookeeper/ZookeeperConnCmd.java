@@ -3,12 +3,16 @@ package io.kenxue.cicd.coreclient.dto.middleware.zookeeper;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author 刘牌
  * @Title:
- * @date 2022/2/2121:05
+ * @date 2022-05-1414:40
  */
 @Data
 @Accessors(chain = true)
-public class ZkInfoDTO {
+public class ZookeeperConnCmd {
+    @NotNull
+    private ZookeeperDTO zookeeperDTO;
 }

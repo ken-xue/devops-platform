@@ -1,22 +1,30 @@
 package io.kenxue.cicd.coreclient.api.middleware;
 
-import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkNodeAddCmd;
-import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZkTreeNode;
-import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperConnectCmd;
+import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
+import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.*;
+import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.node.*;
 
 import java.util.List;
 
 /**
- * @author 刘牌
- * @Title:
- * @date 2022/2/2117:40
+ * 基建中间件zk
+ * @author steakliu
+ * @date 2022-05-15 16:46:02
  */
 public interface ZookeeperAppService {
-    SingleResponse<List<ZkTreeNode>> connect(ZookeeperConnectCmd zookeeperConnectCmd);
-
-    SingleResponse<List<ZkTreeNode>> lazyLeaf(String id);
-
-    Response addZkNode(ZkNodeAddCmd nodeAddCmd);
+    Response add(ZookeeperAddCmd cmd);
+    Response update(ZookeeperUpdateCmd cmd);
+    Response delete(ZookeeperDeleteCmd userDeleteCmd);
+    SingleResponse<ZookeeperDTO> getById(ZookeeperGetQry qry);
+    MultiResponse<ZookeeperDTO> list(ZookeeperListQry qry);
+    PageResponse<ZookeeperDTO> page(ZookeeperPageQry userPageQry);
+    Response testConn(ZookeeperConnCmd zookeeperConnCmd);
+    SingleResponse<ZookeeperTreeNode> tree(ZookeeperConnCmd ZookeeperConnCmd);
+    SingleResponse<List<ZookeeperTreeNode>> lazyLeaf(ZookeeperLazyLeafCmd zookeeperLazyLeafCmd);
+    Response addZkNode(ZookeeperNodeAddCmd nodeAddCmd);
+    SingleResponse<ZookeeperDetailInfoDTO> zkNodeDetail(ZookeeperDetailInfoQry zookeeperDetailInfoQry);
+    Response deleteZkNode(ZookeeperNodeDeleteCmd zookeeperNodeDeleteCmd);
 }
