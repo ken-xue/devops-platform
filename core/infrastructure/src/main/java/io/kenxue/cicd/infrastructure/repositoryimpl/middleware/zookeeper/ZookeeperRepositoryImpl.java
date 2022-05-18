@@ -1,13 +1,13 @@
-package io.kenxue.cicd.infrastructure.repositoryimpl.middleware;
+package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperListQry;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperPageQry;
 import io.kenxue.cicd.domain.domain.middleware.Zookeeper;
-import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
-import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.convertor.Zookeeper2DOConvector;
-import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.dataobject.ZookeeperDO;
-import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.mapper.ZookeeperMapper;
+import io.kenxue.cicd.domain.repository.middleware.zookeeper.ZookeeperRepository;
+import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.convertor.Zookeeper2DOConvector;
+import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.dataobject.ZookeeperDO;
+import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.mapper.ZookeeperMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import com.baomidou.mybatisplus.core.metadata.IPage;

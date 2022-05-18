@@ -3,16 +3,13 @@ package io.kenxue.cicd.application.middleware.zookeeper.command;
 import io.kenxue.cicd.application.middleware.zookeeper.factory.ZkCacheFactory;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperConnCmd;
-import io.kenxue.cicd.coreclient.exception.BizException;
+import io.kenxue.cicd.coreclient.exception.ZkException;
+import io.kenxue.cicd.coreclient.exception.code.ZkErrorCode;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.apache.zookeeper.CreateMode;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,12 +31,12 @@ public class ZookeeperConnCmdExe {
             try {
                 if (!framework.blockUntilConnected(zookeeperConnCmd.getZookeeperDTO().getSessionTimeout(), TimeUnit.MILLISECONDS)) {
                     framework.close();
-                    throw new BizException("zk连接失败");
+                    throw new ZkException(ZkErrorCode.CONNECTION_ERROR);
                 }
                 ZkCacheFactory.putCache(zookeeperConnCmd.getZookeeperDTO().getUuid(), framework);
             } catch (Exception e) {
                 framework.close();
-                throw new BizException("连接异常，请检查网络或zk是否正常");
+                throw new ZkException(ZkErrorCode.CONNECTION_ERROR);
             }
         }
         return Response.success();

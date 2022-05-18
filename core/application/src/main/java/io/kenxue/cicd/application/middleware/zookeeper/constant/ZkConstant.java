@@ -6,5 +6,5 @@ package io.kenxue.cicd.application.middleware.zookeeper.constant;
  * @date 2022-05-1710:51
  */
 public interface ZkConstant {
-    final String ZK_ROOT = "/root";
+    String ZK_ROOT = "/";
 }

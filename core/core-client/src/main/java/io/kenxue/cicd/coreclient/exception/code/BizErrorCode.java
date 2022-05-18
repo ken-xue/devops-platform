@@ -4,8 +4,8 @@ public enum BizErrorCode implements ErrorCode {
 
     BIZ_ERROR_CODE(5231, "业务异常");
 
-    private final Integer errCode;
-    private final String errDesc;
+    private Integer errCode;
+    private String errDesc;
 
     private BizErrorCode(Integer errCode, String errDesc) {
         this.errCode = errCode;
@@ -20,5 +20,11 @@ public enum BizErrorCode implements ErrorCode {
     @Override
     public String getDesc() {
         return errDesc;
+    }
+
+    @Override
+    public ErrorCode setMsg(String msg) {
+        this.errDesc = msg;
+        return this;
     }
 }

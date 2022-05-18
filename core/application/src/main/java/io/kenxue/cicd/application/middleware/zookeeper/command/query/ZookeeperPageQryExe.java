@@ -4,7 +4,7 @@ import io.kenxue.cicd.application.middleware.zookeeper.assembler.Zookeeper2DTOAs
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperDTO;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperPageQry;
 import io.kenxue.cicd.coreclient.dto.common.response.PageResponse;
-import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
+import io.kenxue.cicd.domain.repository.middleware.zookeeper.ZookeeperRepository;
 import org.springframework.stereotype.Component;
 import io.kenxue.cicd.domain.domain.middleware.Zookeeper;
 import javax.annotation.Resource;

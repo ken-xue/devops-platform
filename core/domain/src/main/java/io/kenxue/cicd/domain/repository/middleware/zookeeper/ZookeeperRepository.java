@@ -1,4 +1,4 @@
-package io.kenxue.cicd.domain.repository.middleware;
+package io.kenxue.cicd.domain.repository.middleware.zookeeper;
 
 import io.kenxue.cicd.coreclient.dto.common.page.Page;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperListQry;

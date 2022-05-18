@@ -26,4 +26,10 @@ public enum AuthErrorCode implements ErrorCode{
     public String getDesc() {
         return desc;
     }
+
+    @Override
+    public ErrorCode setMsg(String msg) {
+        this.desc = msg;
+        return this;
+    }
 }

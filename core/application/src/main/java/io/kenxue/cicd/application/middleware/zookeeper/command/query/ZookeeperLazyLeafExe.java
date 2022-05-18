@@ -22,7 +22,7 @@ public class ZookeeperLazyLeafExe {
         try {
             CuratorFramework framework = ZkCacheFactory.getCuratorFramework(zookeeperLazyLeafCmd.getZookeeperLazyLeafDTO().getUuid());
             List<String> list = framework.getChildren().forPath(zookeeperLazyLeafCmd.getZookeeperLazyLeafDTO().getId());
-            return ZkTreeBuilder.buildTree(zookeeperLazyLeafCmd.getZookeeperLazyLeafDTO().getId(), list, framework);
+            return ZkTreeBuilder.buildTree(zookeeperLazyLeafCmd.getZookeeperLazyLeafDTO().getId(), list);
         }catch (Exception e){
             e.printStackTrace();
             throw new BizException("叶子节点懒加载失败");

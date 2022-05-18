@@ -2,6 +2,7 @@ package io.kenxue.cicd.adapter.common.exception;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.exception.AuthException;
 import io.kenxue.cicd.coreclient.exception.BizException;
+import io.kenxue.cicd.coreclient.exception.ZkException;
 import io.kenxue.cicd.coreclient.exception.code.AuthErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -63,5 +64,10 @@ public class GlobalExceptionHandler {
 	public Response handleException(Exception e){
 		log.error(e.getMessage(), e);
 		return Response.error(500,e.getMessage());
+	}
+
+	@ExceptionHandler(ZkException.class)
+	public Response zkException(ZkException e){
+		return Response.error(e.getZkErrorCode().getCode(),e.getZkErrorCode().getDesc());
 	}
 }

@@ -5,7 +5,7 @@ import io.kenxue.cicd.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperDTO;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperListQry;
 import io.kenxue.cicd.domain.domain.middleware.Zookeeper;
-import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
+import io.kenxue.cicd.domain.repository.middleware.zookeeper.ZookeeperRepository;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;

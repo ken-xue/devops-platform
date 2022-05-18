@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.mapper.ZookeeperMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.dataobject.ZookeeperDO" id="zookeeperMap">
+<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.mapper.ZookeeperMapper">
+    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.dataobject.ZookeeperDO" id="zookeeperMap">
             <result property="name" column="name"/>
             <result property="address" column="address"/>
             <result property="sessionTimeout" column="session_timeout"/>

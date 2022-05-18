@@ -1,7 +1,7 @@
-package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.convertor;
+package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.convertor;
 
 import io.kenxue.cicd.domain.domain.middleware.Zookeeper;
-import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.dataobject.ZookeeperDO;
+import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.dataobject.ZookeeperDO;
 import org.springframework.stereotype.Component;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;
 import java.util.List;

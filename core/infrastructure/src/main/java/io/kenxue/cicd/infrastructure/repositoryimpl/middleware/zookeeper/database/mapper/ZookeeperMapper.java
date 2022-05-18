@@ -1,7 +1,7 @@
-package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.mapper;
+package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.dataobject.ZookeeperDO;
+import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.dataobject.ZookeeperDO;
 import org.apache.ibatis.annotations.Mapper;
 /**
  * 基建中间件zk

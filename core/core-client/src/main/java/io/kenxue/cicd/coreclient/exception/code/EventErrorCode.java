@@ -22,4 +22,10 @@ public enum EventErrorCode implements ErrorCode {
     public String getDesc() {
         return errDesc;
     }
+
+    @Override
+    public ErrorCode setMsg(String msg) {
+        this.errDesc = msg;
+        return this;
+    }
 }

@@ -2,7 +2,7 @@ package io.kenxue.cicd.application.middleware.zookeeper.command;
 
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
-import io.kenxue.cicd.domain.repository.middleware.ZookeeperRepository;
+import io.kenxue.cicd.domain.repository.middleware.zookeeper.ZookeeperRepository;
 import io.kenxue.cicd.domain.domain.middleware.Zookeeper;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperDeleteCmd;
 import org.springframework.stereotype.Component;

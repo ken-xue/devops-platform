@@ -24,18 +24,6 @@ public class ZookeeperTreeNode {
      * 节点名称
      */
     private String label;
-    /**
-     * 节点是否展开
-     */
-    private boolean open;
-    /**
-     * 是否是叶子节点
-     */
-    private boolean leafFlag;
-    /**
-     * 是否是父级节点
-     */
-    private boolean parentFlag;
 
     private List<ZookeeperTreeNode> children = new ArrayList<>();
 

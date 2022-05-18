@@ -6,6 +6,8 @@ import io.kenxue.cicd.application.middleware.zookeeper.factory.ZkCacheFactory;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperTreeNode;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.ZookeeperConnCmd;
 import io.kenxue.cicd.coreclient.exception.BizException;
+import io.kenxue.cicd.coreclient.exception.ZkException;
+import io.kenxue.cicd.coreclient.exception.code.ZkErrorCode;
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,7 @@ public class ZookeeperTreeQryExe {
         try {
             CuratorFramework framework = ZkCacheFactory.getCuratorFramework(zookeeperConnCmd.getZookeeperDTO().getUuid());
             List<String> list = framework.getChildren().forPath("/");
-            List<ZookeeperTreeNode> nodeList = ZkTreeBuilder.buildTree(null, list, framework);
+            List<ZookeeperTreeNode> nodeList = ZkTreeBuilder.buildTree(null, list);
             ZookeeperTreeNode tree = new ZookeeperTreeNode();
             tree.setId(ZkConstant.ZK_ROOT);
             tree.setLabel(ZkConstant.ZK_ROOT);
@@ -31,7 +33,7 @@ public class ZookeeperTreeQryExe {
             return tree;
         }catch (Exception e){
             e.printStackTrace();
-            throw new BizException("get zk data exception");
+            throw new ZkException(ZkErrorCode.CUSTOM_EXCEPTION,"获取数据异常，请检测zk是否已经连接或zk是否正常");
         }
     }
 

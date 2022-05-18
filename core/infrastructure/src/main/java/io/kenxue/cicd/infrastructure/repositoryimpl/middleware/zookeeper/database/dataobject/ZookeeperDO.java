@@ -1,9 +1,9 @@
-package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.database.dataobject;
+package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.zookeeper.database.dataobject;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.Data;
-import java.util.Date;
+
 /**
  * 基建中间件zk
  * @author steakliu
