@@ -102,13 +102,13 @@ public class ZookeeperController extends BasicController {
     }
 
     @PostMapping("/updateZkNode")
-    @ApiOperation(value = "节点详情",httpMethod = "POST")
+    @ApiOperation(value = "更新节点",httpMethod = "POST")
     public Response updateZkNode(@RequestBody ZookeeperNodeUpdateCmd zookeeperNodeUpdateCmd){
-        return null;
+        return zookeeperAppService.updateZkNode(zookeeperNodeUpdateCmd);
     }
 
     @PostMapping("/deleteZkNode")
-    @ApiOperation(value = "节点详情",httpMethod = "POST")
+    @ApiOperation(value = "删除节点",httpMethod = "POST")
     public Response deleteZkNode(@RequestBody ZookeeperNodeDeleteCmd zookeeperNodeDeleteCmd){
         return zookeeperAppService.deleteZkNode(zookeeperNodeDeleteCmd);
     }

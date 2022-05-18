@@ -45,6 +45,8 @@ public class ZookeeperAppServiceImpl implements ZookeeperAppService {
     private ZookeeperDetailInfoCmdExe zookeeperDetailInfoCmdExe;
     @Resource
     private ZookeeperNodeDeleteCmdExe zookeeperNodeDeleteCmdExe;
+    @Resource
+    private ZookeeperNodeUpdateCmdExe zookeeperNodeUpdateCmdExe;
 
     public Response add(ZookeeperAddCmd zookeeperAddCmd) {
         return  zookeeperAddCmdExe.execute(zookeeperAddCmd);
@@ -97,6 +99,11 @@ public class ZookeeperAppServiceImpl implements ZookeeperAppService {
     @Override
     public Response deleteZkNode(ZookeeperNodeDeleteCmd zookeeperNodeDeleteCmd) {
         return zookeeperNodeDeleteCmdExe.execute(zookeeperNodeDeleteCmd);
+    }
+
+    @Override
+    public Response updateZkNode(ZookeeperNodeUpdateCmd zookeeperNodeUpdateCmd) {
+        return zookeeperNodeUpdateCmdExe.execute(zookeeperNodeUpdateCmd);
     }
 
 

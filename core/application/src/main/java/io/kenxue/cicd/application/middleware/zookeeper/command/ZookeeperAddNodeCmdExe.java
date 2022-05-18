@@ -3,7 +3,6 @@ package io.kenxue.cicd.application.middleware.zookeeper.command;
 import io.kenxue.cicd.application.middleware.zookeeper.factory.ZkCacheFactory;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.middleware.zookeeper.node.ZookeeperNodeAddCmd;
-import io.kenxue.cicd.coreclient.exception.BizException;
 import io.kenxue.cicd.coreclient.exception.ZkException;
 import io.kenxue.cicd.coreclient.exception.code.ZkErrorCode;
 import org.apache.curator.framework.CuratorFramework;
@@ -21,11 +20,11 @@ import java.nio.charset.StandardCharsets;
 public class ZookeeperAddNodeCmdExe {
     public Response execute(ZookeeperNodeAddCmd zookeeperNodeAddCmd) {
         try {
-            CuratorFramework framework = ZkCacheFactory.getCuratorFramework(zookeeperNodeAddCmd.getZookeeperAddNodeDTO().getUuid());
+            CuratorFramework framework = ZkCacheFactory.getCuratorFramework(zookeeperNodeAddCmd.getZookeeperAddOrUpdateNodeDTO().getUuid());
             String result = framework.create()
                     .creatingParentContainersIfNeeded()
                     .withMode(CreateMode.PERSISTENT)
-                    .forPath(zookeeperNodeAddCmd.getZookeeperAddNodeDTO().getName(),zookeeperNodeAddCmd.getZookeeperAddNodeDTO().getData().getBytes(StandardCharsets.UTF_8));
+                    .forPath(zookeeperNodeAddCmd.getZookeeperAddOrUpdateNodeDTO().getName(),zookeeperNodeAddCmd.getZookeeperAddOrUpdateNodeDTO().getData().getBytes(StandardCharsets.UTF_8));
             return Response.success(result);
         }catch (Exception e){
             e.printStackTrace();

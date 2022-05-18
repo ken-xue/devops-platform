@@ -9,5 +9,5 @@ import lombok.Data;
  */
 @Data
 public class ZookeeperNodeUpdateCmd {
-    private ZookeeperAddNodeDTO zookeeperAddNodeDTO;
+    private ZookeeperAddOrUpdateNodeDTO zookeeperAddOrUpdateNodeDTO;
 }

@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022-05-1713:29
  */
 @Data
-public class ZookeeperAddNodeDTO {
+public class ZookeeperAddOrUpdateNodeDTO {
     private String uuid;
     private String name;
     private String data;

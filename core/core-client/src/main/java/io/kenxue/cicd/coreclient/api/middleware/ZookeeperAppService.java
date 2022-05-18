@@ -27,4 +27,5 @@ public interface ZookeeperAppService {
     Response addZkNode(ZookeeperNodeAddCmd nodeAddCmd);
     SingleResponse<ZookeeperDetailInfoDTO> zkNodeDetail(ZookeeperDetailInfoQry zookeeperDetailInfoQry);
     Response deleteZkNode(ZookeeperNodeDeleteCmd zookeeperNodeDeleteCmd);
+    Response updateZkNode(ZookeeperNodeUpdateCmd zookeeperNodeUpdateCmd);
 }

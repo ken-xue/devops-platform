@@ -6,6 +6,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.retry.BoundedExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.server.quorum.flexible.QuorumVerifier;
 import org.junit.Test;
 
@@ -27,8 +28,11 @@ public class ZookeeperOps {
     }
 
     @Test
-    public void monitor(){
+    public void monitor() throws Exception {
         CuratorFramework framework = get();
+        Stat stat = framework.setData().forPath("/h", "hhhhh".getBytes(StandardCharsets.UTF_8));
+        //String s = framework.create().forPath("/h", "hhhhh".getBytes(StandardCharsets.UTF_8));
+        System.out.println(stat);
     }
 
     @Test
