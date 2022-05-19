@@ -58,15 +58,7 @@ public abstract class AbstractNode implements Node {
             os.write(commandBytes);
             os.flush();
 
-//            InputStreamReader isr = new InputStreamReader(in,"UTF-8");
-//            BufferedReader br = new BufferedReader(isr);
-//            String line = null;
-//            while ((line = br.readLine()) != null) {
-//                nodeLogger.append(line);
-//                loggerService.sendMessage(key, line+CommandConst.ENTER);
-//            }
-
-            long startTime = System.currentTimeMillis();
+            //long startTime = System.currentTimeMillis();
             byte[] buffer = new byte[1024];
             while (true) {
                 while (in.available() > 0) {
@@ -82,7 +74,7 @@ public abstract class AbstractNode implements Node {
                     log.debug(resp);
 //                    startTime = System.currentTimeMillis();
                     log.info("推送日志数据 key:{}", key);
-                    nodeLogger.append(commandBytes + resp);
+                    nodeLogger.append(resp);
                     loggerService.sendMessage(key, resp);
                 }
                 if (channel.isClosed()) {
