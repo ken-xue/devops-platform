@@ -1,5 +1,6 @@
 package io.kenxue.cicd.application.kubernetes.cluster.service;
 
+import io.kenxue.cicd.application.kubernetes.cluster.ClusterCreateCmdExe;
 import io.kenxue.cicd.coreclient.api.kubernetes.ClusterAppService;
 import io.kenxue.cicd.coreclient.dto.kubernetes.cluster.*;
 import io.kenxue.cicd.application.kubernetes.cluster.command.ClusterAddCmdExe;
@@ -25,6 +26,8 @@ import javax.annotation.Resource;
 public class ClusterAppServiceImpl implements ClusterAppService {
     @Resource
     private ClusterAddCmdExe clusterAddCmdExe;
+    @Resource
+    private ClusterCreateCmdExe clusterCreateCmdExe;
     @Resource
     private ClusterUpdateCmdExe clusterUpdateCmdExe;
     @Resource
@@ -58,6 +61,11 @@ public class ClusterAppServiceImpl implements ClusterAppService {
 
     public PageResponse<ClusterDTO> page(ClusterPageQry clusterPageQry) {
         return clusterPageQryExe.execute(clusterPageQry);
+    }
+
+    @Override
+    public Response create(ClusterCreateCmd clusterCreateCmd) {
+        return clusterCreateCmdExe.execute(clusterCreateCmd);
     }
 
 }

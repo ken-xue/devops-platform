@@ -33,6 +33,13 @@ public class ClusterController extends BasicController {
         return clusterAppService.add(clusterAddCmd);
     }
 
+    @PostMapping("/create")
+    @Permissions("kubernetes:cluster:add")
+    @ApiOperation(value = "添加",httpMethod = "POST")
+    public Response create(@RequestBody @Valid ClusterCreateCmd clusterCreateCmd) {
+        return clusterAppService.create(clusterCreateCmd);
+    }
+
     @DeleteMapping("/delete")
     @Permissions("kubernetes:cluster:delete")
     @ApiOperation(value = "删除",httpMethod = "DELETE")

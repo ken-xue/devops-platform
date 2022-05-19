@@ -91,4 +91,11 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
         qw.eq("uuid",uuid);
         return machineInfo2DOConvector.toDomain(machineInfoMapper.selectOne(qw));
     }
+
+    @Override
+    public List<MachineInfo> getByUuid(List<String> uuids) {
+        QueryWrapper<MachineInfoDO> qw = new QueryWrapper<>();
+        qw.in("uuid",uuids);
+        return machineInfo2DOConvector.toDomainList(machineInfoMapper.selectList(qw));
+    }
 }
