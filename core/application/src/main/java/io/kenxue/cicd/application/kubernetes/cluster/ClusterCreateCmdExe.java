@@ -45,7 +45,7 @@ public class ClusterCreateCmdExe {
     @Resource
     @Qualifier("clusterCreateLoggerSocketServiceImpl")
     private WebSocketService webSocketService;
-    @Value("kubernetes.install.cmd")
+    @Value("${kubernetes.install.cmd}")
     private String kubernetesInstallCmd;
 
     public Response execute(ClusterCreateCmd cmd) {
