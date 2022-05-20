@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 
 /**
-* WebSSH的WebSocket处理器
+* WebSocket处理器
 */
 @Component
 @Slf4j

@@ -3,6 +3,7 @@ package io.kenxue.cicd.application.kubernetes.cluster;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+import io.kenxue.cicd.application.common.websocket.WebSocketService;
 import io.kenxue.cicd.application.kubernetes.cluster.assembler.Cluster2DTOAssembler;
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
@@ -15,6 +16,7 @@ import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.cicd.sharedataboject.pipeline.constant.CommandConst;
 import io.kenxue.cicd.sharedataboject.pipeline.constant.NodeConst;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +42,9 @@ public class ClusterCreateCmdExe {
     private Cluster2DTOAssembler cluster2DTOAssembler;
     @Resource
     private MachineInfoRepository machineInfoRepository;
+    @Resource
+    @Qualifier("clusterCreateLoggerSocketServiceImpl")
+    private WebSocketService webSocketService;
     @Value("kubernetes.install.cmd")
     private String kubernetesInstallCmd;
 
@@ -69,6 +74,7 @@ public class ClusterCreateCmdExe {
                 // 通过Session建立链接
                 session.connect();
                 channel = (ChannelShell) session.openChannel("shell");
+                channel.connect();
                 OutputStream outputStream = channel.getOutputStream();
                 InputStream inputStream = channel.getInputStream();
                 outputStream.write((kubernetesInstallCmd+CommandConst.ENTER).getBytes(StandardCharsets.UTF_8));
@@ -90,7 +96,7 @@ public class ClusterCreateCmdExe {
                         log.debug(resp);
                         log.info("推送日志数据 key:{}");
                         logger.append(resp);
-                        //loggerService.sendMessage(key, resp);
+                        webSocketService.sendMessage(cmd.getResponseKey(), resp.getBytes(StandardCharsets.UTF_8));
                     }
                     if (channel.isClosed()) {
                         if (inputStream.available() > 0) {

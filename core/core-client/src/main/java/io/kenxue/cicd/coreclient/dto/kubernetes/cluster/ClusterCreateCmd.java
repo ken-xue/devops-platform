@@ -23,4 +23,5 @@ public class ClusterCreateCmd extends CommonCommand {
     @Size(message = "Master机器必选")
     private List<String> masterHostList;
     private List<String> slaveHostList;
+    private String responseKey;
 }

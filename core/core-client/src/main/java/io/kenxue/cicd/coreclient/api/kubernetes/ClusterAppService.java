@@ -17,11 +17,4 @@ public interface ClusterAppService {
     SingleResponse<ClusterDTO> getById(ClusterGetQry qry);
     MultiResponse<ClusterDTO> list(ClusterListQry qry);
     PageResponse<ClusterDTO> page(ClusterPageQry userPageQry);
-
-    /**
-     * 通过系统创建kubernetes集群
-     * @param clusterCreateCmd
-     * @return
-     */
-    Response create(ClusterCreateCmd clusterCreateCmd);
 }
