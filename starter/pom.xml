@@ -197,6 +197,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--代码生成器(第一次使用自行安装)see:-->
+            <plugin>
+                <groupId>io.ddd.framework</groupId>
+                <artifactId>ddd-framework-maven-plugin</artifactId>
+                <version>1.0.5-SNAPSHOT</version>
+                <configuration>
+                    <dataSource>
+                        <driverName>com.mysql.cj.jdbc.Driver</driverName>
+                        <url>jdbc:mysql://127.0.0.1:3306/ddd_framework</url>
+                        <username>root</username>
+                        <password>123456</password>
+                    </dataSource>
+                    <config>
+                        <absolutePath>/Users/biaoyang/IdeaProjects/cicd-platform/</absolutePath>
+                        <tablePrefixes>sys_,biz_</tablePrefixes>
+                        <moduleName>code</moduleName>
+                        <basePackageName>io.ddd.framework</basePackageName>
+                        <tableNames>sys_test,sys_code</tableNames>
+                        <excludeFields>id,uuid,creator,modifier,gmt_create,gmt_modified,deleted</excludeFields>
+                        <author>麦奇</author>
+                        <email>biaogejiushibiao@outlook.com</email>
+                    </config>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
