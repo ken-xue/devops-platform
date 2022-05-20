@@ -1,19 +1,26 @@
-package io.kenxue.cicd.application.machine.terminal;
+package io.kenxue.cicd.application.common.websocket;
 
+import io.kenxue.cicd.application.common.websocket.Constant;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import java.net.URI;
 import java.util.Map;
 import java.util.UUID;
 
 public class WebSocketInterceptor implements HandshakeInterceptor {
+
     /**
-     * @Description: Handler处理前调用
-     * @Param: [serverHttpRequest, serverHttpResponse, webSocketHandler, map]
-     * @return: boolean
+     * 前置调用
+     * @param serverHttpRequest
+     * @param serverHttpResponse
+     * @param webSocketHandler
+     * @param map
+     * @return
+     * @throws Exception
      */
     @Override
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
@@ -21,8 +28,15 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
             //生成一个UUID
             String uuid = UUID.randomUUID().toString().replace("-","");
-            //将uuid放到websocketsession中
-            map.put(ConstantPool.USER_UUID_KEY, uuid);
+            //将uuid放到WebsocketSession中
+            map.put(Constant.USER_UUID_KEY, uuid);
+            //获取路径的第一个前缀作为其对应的socket处理器key
+            String path = request.getURI().getPath();
+            int start = path.indexOf('/',1)+1;
+            int index = path.indexOf('/', start);
+            int last = index == -1 ? path.length() : index;
+            String processorKey = path.substring(start, last);
+            map.put(Constant.PROCESSOR_NAME,processorKey);
             return true;
         } else {
             return false;

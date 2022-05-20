@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * kubernetes集群
  * @author mikey
- * @date 2022-05-13 23:03:20
+ * @date 2022-05-20 14:09:32
  */
 @Data
 @Accessors(chain = true)
@@ -30,8 +30,4 @@ public class ClusterGetQry extends CommonCommand {
      * 集群配置文件
      */
     private String config;
-    /**
-     * 流水线快照
-     */
-    private String graphContent;
 }

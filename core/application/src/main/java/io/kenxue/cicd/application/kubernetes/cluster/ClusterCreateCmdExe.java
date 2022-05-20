@@ -78,11 +78,11 @@ public class ClusterCreateCmdExe {
                 byte[] buffer = new byte[1024];
                 while (true) {
                     while (inputStream.available() > 0) {
-                        int i = inputStream.read(buffer, 0, 1024);
-                        if (i < 0) {
+                        int read = inputStream.read(buffer, 0, 1024);
+                        if (read < 0) {
                             break;
                         }
-                        String resp = new String(buffer, 0, i);
+                        String resp = new String(buffer, 0, read);
                         if (resp.indexOf(NodeConst.MORE) >= 0) {
                             outputStream.write((NodeConst.BLANK).getBytes());
                             outputStream.flush();

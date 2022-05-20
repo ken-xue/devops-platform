@@ -1,5 +1,7 @@
 package io.kenxue.cicd.application.pipeline.logger.node.service;
 
+import io.kenxue.cicd.application.common.websocket.WebSocket;
+import io.kenxue.cicd.application.common.websocket.WebSocketService;
 import io.kenxue.cicd.application.pipeline.pipeline.command.PipelineExecuteCmdExe;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
@@ -23,7 +25,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 @Slf4j
 @Service
-public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLoggerSocketService {
+@WebSocket("logger")
+public class PipelineNodeExecuteLoggerSocketServiceImpl implements WebSocketService {
 
     //存放ssh连接信息的map,key=执行记录uuid+&+节点uuid
     private static volatile Map<String, Queue<WebSocketSession>> webSocketConnectionPool = new ConcurrentHashMap<>(2 << 4);
@@ -58,10 +61,10 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
             NodeLogger loggerDO = nodeExecuteLoggerRepository.getByLoggerUUIDAndNodeUUID(loggerUUID, nodeUUID);
             try {
                 session.sendMessage(new TextMessage(Optional.ofNullable(loggerDO).map(v -> v.getLogger()).orElse("Not Found Node Execute Logger...\r\n")));
+                session.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            close(session);
             return;
         }
         //1.2 如果在执行则将将之前已经执行的日志返回且现在执行的日志同步（将当前连接加入）
@@ -84,42 +87,61 @@ public class PipelineExecuteLoggerSocketServiceImpl implements PipelineExecuteLo
     }
 
     @Override
-    public void sendMessage(String key, String message) {
+    public void sendMessage(String key, byte[] message) {
         Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
-        if (webSocketSessions == null||webSocketSessions.isEmpty()){
-            log.info("当前 key:{} socket 无连接实例,无需推送",key);
+        if (webSocketSessions == null || webSocketSessions.isEmpty()) {
+            log.info("当前 key:{} socket 无连接实例,无需推送", key);
             return;
         }
         log.info("推送节点日志信息,客户端实例个数:{}个", webSocketSessions.size());
         for (WebSocketSession conn : webSocketSessions) {
             synchronized (conn) {
                 try {
-                    conn.sendMessage(new TextMessage(message.getBytes()));
+                    conn.sendMessage(new TextMessage(message));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
+
     /**
      * 关闭连接
+     * @param session
+     */
+    @Override
+    public void close(WebSocketSession session) {
+        String key = String.valueOf(session.getAttributes().get("key"));
+        Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
+        if (webSocketSessions == null || webSocketSessions.isEmpty()) {
+            log.info("当前 key:{} socket 无连接实例,无需关闭连接", key);
+            return;
+        }
+        webSocketSessions.remove(session);
+        try {
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通过key移除全部连接
      * @param key
      */
     @Override
     public void close(String key) {
         Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
-        if (webSocketSessions == null||webSocketSessions.isEmpty()){
-            log.info("当前 key:{} socket 无连接实例,无需关闭连接",key);
+        if (webSocketSessions == null || webSocketSessions.isEmpty()) {
+            log.info("当前 key:{} socket 无连接实例,无需关闭连接", key);
             return;
         }
         for (WebSocketSession conn : webSocketSessions) {
-            close(conn);
+            try {
+                conn.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    @Override
-    public void close(WebSocketSession session) {
-        log.info("close session:{}", session);
-    }
-
 }

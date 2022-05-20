@@ -1,11 +1,13 @@
-package io.kenxue.cicd.application.pipeline.logger.node.service;
+package io.kenxue.cicd.application.common.websocket;
 
 import org.springframework.web.socket.WebSocketSession;
 
+import java.io.IOException;
+
 /**
- * @Description: 流水节点执行日志传输服务
+ * @Description: WebSocket的业务逻辑
  */
-public interface PipelineExecuteLoggerSocketService {
+public interface WebSocketService {
     /**
      * @Description: 初始化ssh连接
      */
@@ -19,7 +21,7 @@ public interface PipelineExecuteLoggerSocketService {
     /**
      * @Description: 数据写回前端 
      */
-    void sendMessage(String key, String message);
+    void sendMessage(String key, byte[] buffer);
 
     /**
      * @Description: 关闭连接

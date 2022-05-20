@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * kubernetes集群
  * @author mikey
- * @date 2022-05-13 23:03:20
+ * @date 2022-05-20 14:09:32
  */
 @Data
 @TableName("kubernetes_cluster")

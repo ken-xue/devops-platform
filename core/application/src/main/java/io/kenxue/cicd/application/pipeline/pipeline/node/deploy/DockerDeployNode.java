@@ -14,8 +14,7 @@ public class DockerDeployNode extends AbstractNode {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("hello");
-//        return null;
+        return null;
     }
 
     @Override

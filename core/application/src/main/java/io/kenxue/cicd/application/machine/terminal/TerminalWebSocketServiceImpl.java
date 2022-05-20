@@ -4,6 +4,9 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import io.kenxue.cicd.application.common.websocket.Constant;
+import io.kenxue.cicd.application.common.websocket.WebSocket;
+import io.kenxue.cicd.application.common.websocket.WebSocketService;
 import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +27,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @Description: WebSSH业务逻辑实现
+ * websocket service具体实现
  */
 @Service
 @Slf4j
-public class WebSSHServiceImpl implements WebSSHService {
+@WebSocket("terminal")
+public class TerminalWebSocketServiceImpl implements WebSocketService {
 
     //存放ssh连接信息的map
     private static Map<String, Object> sshMap = new ConcurrentHashMap<>();
@@ -52,7 +56,7 @@ public class WebSSHServiceImpl implements WebSSHService {
         SSHConnectInfo sshConnectInfo = new SSHConnectInfo();
         sshConnectInfo.setJSch(jSch);
         sshConnectInfo.setWebSocketSession(session);
-        String uuid = String.valueOf(session.getAttributes().get(ConstantPool.USER_UUID_KEY));
+        String uuid = String.valueOf(session.getAttributes().get(Constant.USER_UUID_KEY));
         //将这个ssh连接信息放入map中
         sshMap.put(uuid, sshConnectInfo);
         //启动线程异步处理
@@ -83,7 +87,7 @@ public class WebSSHServiceImpl implements WebSSHService {
      */
     @Override
     public void recvHandle(String buffer, WebSocketSession session) {
-        String userId = String.valueOf(session.getAttributes().get(ConstantPool.USER_UUID_KEY));
+        String userId = String.valueOf(session.getAttributes().get(Constant.USER_UUID_KEY));
         String command = buffer;
         SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
         if (sshConnectInfo != null) {
@@ -97,19 +101,35 @@ public class WebSSHServiceImpl implements WebSSHService {
     }
 
     @Override
-    public void sendMessage(WebSocketSession session, byte[] buffer) throws IOException {
-        session.sendMessage(new TextMessage(buffer));
+    public void sendMessage(String key, byte[] buffer) {
+        SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(key);
+        try {
+            sshConnectInfo.getWebSocketSession().sendMessage(new TextMessage(buffer));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void close(WebSocketSession session) {
-        String userId = String.valueOf(session.getAttributes().get(ConstantPool.USER_UUID_KEY));
-        SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
+        String uuid = (String) session.getAttributes().get(Constant.USER_UUID_KEY);
+        SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(uuid);
         if (sshConnectInfo != null) {
             //断开连接
             if (sshConnectInfo.getChannel() != null) sshConnectInfo.getChannel().disconnect();
             //map中移除
-            sshMap.remove(userId);
+            sshMap.remove(uuid);
+        }
+    }
+
+    @Override
+    public void close(String key) {
+        SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(key);
+        if (sshConnectInfo != null) {
+            //断开连接
+            if (sshConnectInfo.getChannel() != null) sshConnectInfo.getChannel().disconnect();
+            //map中移除
+            sshMap.remove(key);
         }
     }
 
@@ -150,7 +170,7 @@ public class WebSSHServiceImpl implements WebSSHService {
             int i = 0;
             //如果没有数据来，线程会一直阻塞在这个地方等待数据。
             while ((i = inputStream.read(buffer)) != -1) {
-                sendMessage(webSocketSession, Arrays.copyOfRange(buffer, 0, i));
+                sendMessage((String) webSocketSession.getAttributes().get(Constant.USER_UUID_KEY), Arrays.copyOfRange(buffer, 0, i));
             }
 
         } finally {

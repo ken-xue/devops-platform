@@ -1,12 +1,14 @@
 package io.kenxue.cicd.application.pipeline.pipeline.handler;
 
+import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;
-import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
+import io.kenxue.cicd.application.common.websocket.WebSocketService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.Resource;
 
@@ -20,16 +22,13 @@ import javax.annotation.Resource;
 public class PipelineRefreshEventHandler implements EventHandlerI<Response, PipelineNodeRefreshEvent> {
 
     @Resource
-    private PipelineExecuteSocketService pipelineExecuteSocketService;
+    @Qualifier("pipelineExecuteSocketServiceImpl")
+    private WebSocketService webSocketService;
 
     public Response execute(PipelineNodeRefreshEvent event) {
-
-//        log.error("Handling Event:{}",event);
-
-        pipelineExecuteSocketService.sendMessage(event.getUuid(),
-                PushNodeExecuteStatusDTO.builder().edges(event.getEdges()).nodes(event.getData()).build());
+        byte[] bytes = JSON.toJSONString(PushNodeExecuteStatusDTO.builder().edges(event.getEdges()).nodes(event.getData()).build()).getBytes();
+        webSocketService.sendMessage(event.getUuid(),bytes);
         //加队列执行
-
         return Response.success();
     }
 }

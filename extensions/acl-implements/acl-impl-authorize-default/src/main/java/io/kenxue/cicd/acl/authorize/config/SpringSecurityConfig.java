@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -40,12 +41,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      * 需要放行的URL
      */
     private static final String[] AUTH_WHITELIST = {
+            "/ws/**",//开放websocket接口
             "/sys/user/add",//注册接口
             "/captcha/get",//注册接口
             "/v2/api-docs",
-            "/terminal",
-            "/pipeline",
-            "/logger",
             "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",
