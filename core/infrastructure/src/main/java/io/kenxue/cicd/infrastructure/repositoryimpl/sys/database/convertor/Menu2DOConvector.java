@@ -1,6 +1,7 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor;
 
 import io.kenxue.cicd.domain.domain.sys.Menu;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.MenuDO;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2021-12-03 17:22:00
  */
 @Component
-public class Menu2DOConvector implements Convector<Menu,MenuDO>{
+public class Menu2DOConvector implements Convector<Menu,MenuDO> {
 
     @Override
     public MenuDO toDO(Menu menu) {

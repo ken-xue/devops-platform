@@ -1,6 +1,7 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor;
 
 import io.kenxue.cicd.domain.domain.sys.Role;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.RoleDO;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2021-12-03 17:27:04
  */
 @Component
-public class Role2DOConvector implements Convector<Role,RoleDO>{
+public class Role2DOConvector implements Convector<Role,RoleDO> {
     
     public RoleDO toDO(Role role) {
         return Role2DOMapStruct.INSTANCE.toDO(role);

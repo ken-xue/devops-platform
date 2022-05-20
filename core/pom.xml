@@ -65,6 +65,11 @@
                 <artifactId>infrastructure</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>io.kenxue.cicd</groupId>
+                <artifactId>share-dataobject</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

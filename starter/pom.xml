@@ -201,11 +201,11 @@
             <plugin>
                 <groupId>io.ddd.framework</groupId>
                 <artifactId>ddd-framework-maven-plugin</artifactId>
-                <version>1.0.5-SNAPSHOT</version>
+                <version>1.0.0</version>
                 <configuration>
                     <dataSource>
                         <driverName>com.mysql.cj.jdbc.Driver</driverName>
-                        <url>jdbc:mysql://127.0.0.1:3306/ddd_framework</url>
+                        <url>jdbc:mysql://127.0.0.1:3306/cicd-platform</url>
                         <username>root</username>
                         <password>123456</password>
                     </dataSource>

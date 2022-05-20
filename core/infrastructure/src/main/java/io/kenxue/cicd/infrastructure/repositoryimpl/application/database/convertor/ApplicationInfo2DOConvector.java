@@ -3,7 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.conver
 import io.kenxue.cicd.domain.domain.application.ApplicationInfo;
 import io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.ApplicationInfoDO;
 import org.springframework.stereotype.Component;
-import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import java.util.List;
 /**
  * 应用

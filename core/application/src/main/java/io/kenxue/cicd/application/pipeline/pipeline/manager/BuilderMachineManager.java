@@ -40,6 +40,7 @@ public class BuilderMachineManager implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        builderMachineLoader.loadAll().forEach(m-> add(m.getIp(),m));
+        List<MachineInfo> machineInfos = builderMachineLoader.loadAll();
+        machineInfos.forEach(m-> add(m.getIp(),m));
     }
 }

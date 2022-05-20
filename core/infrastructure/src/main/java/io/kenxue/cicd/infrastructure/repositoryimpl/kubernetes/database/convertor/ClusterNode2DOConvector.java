@@ -3,7 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.database.convert
 import io.kenxue.cicd.domain.domain.kubernetes.ClusterNode;
 import io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.database.dataobject.ClusterNodeDO;
 import org.springframework.stereotype.Component;
-import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import java.util.List;
 /**
  * kubernetes集群节点

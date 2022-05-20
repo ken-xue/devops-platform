@@ -3,7 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database
 import io.kenxue.cicd.domain.domain.middleware.Jenkins;
 import io.kenxue.cicd.infrastructure.repositoryimpl.middleware.jenkins.database.dataobject.JenkinsDO;
 import org.springframework.stereotype.Component;
-import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import java.util.List;
 /**
  * 基建中间件Jenkins

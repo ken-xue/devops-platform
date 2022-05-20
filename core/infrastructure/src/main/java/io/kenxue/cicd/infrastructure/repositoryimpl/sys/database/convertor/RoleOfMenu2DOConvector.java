@@ -1,6 +1,7 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor;
 
 import io.kenxue.cicd.domain.domain.sys.RoleOfMenu;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.RoleOfMenuDO;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2021-12-03 17:39:58
  */
 @Component
-public class RoleOfMenu2DOConvector implements Convector<RoleOfMenu, RoleOfMenuDO>{
+public class RoleOfMenu2DOConvector implements Convector<RoleOfMenu, RoleOfMenuDO> {
     
     public RoleOfMenuDO toDO(RoleOfMenu roleOfMenu) {
         return RoleOfMenu2DOMapStruct.INSTANCE.toDO(roleOfMenu);

@@ -1,13 +1,14 @@
 package io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor;
 
 import io.kenxue.cicd.domain.domain.sys.User;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.UserDO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class User2DOConvector implements Convector<User,UserDO>{
+public class User2DOConvector implements Convector<User,UserDO> {
 
     public UserDO toDO(User user) {
         return User2DOMapStruct.INSTANCE.toDO(user);

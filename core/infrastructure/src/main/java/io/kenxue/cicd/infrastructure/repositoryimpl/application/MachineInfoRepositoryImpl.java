@@ -66,16 +66,16 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
 
     @Override
     public List<MachineInfo> list(MachineInfoListQry qry) {
-
         QueryWrapper<MachineInfoDO> qw = new QueryWrapper<>();
         Optional.ofNullable(qry.getName()).map(v->qw.like("name",v).or().like("ip",v));
-
         Optional.ofNullable(qry.getGroupUuid()).map(v->{
             Set<String> groupSet = machineOfGroupMapper.selectList(new QueryWrapper<MachineOfGroupDO>().eq("group_uuid", v)).stream().map(g -> g.getMachineUuid()).collect(Collectors.toSet());
             qw.in("uuid",groupSet);
             return true;
         });
-        return machineInfo2DOConvector.toDomainList(machineInfoMapper.selectList(qw));
+        List<MachineInfoDO> list = machineInfoMapper.selectList(qw);
+        List<MachineInfo> machineInfos = machineInfo2DOConvector.toDomainList(list);
+        return machineInfos;
     }
 
     @Override

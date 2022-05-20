@@ -1,4 +1,4 @@
-package io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor;
+package io.kenxue.cicd.infrastructure.common.convector;
 
 import java.util.List;
 

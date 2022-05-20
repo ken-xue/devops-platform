@@ -3,7 +3,7 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.convertor
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.dataobject.PipelineExecuteLoggerDO;
 import org.springframework.stereotype.Component;
-import io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.convertor.Convector;
+import io.kenxue.cicd.infrastructure.common.convector.Convector;
 import java.util.List;
 /**
  * 流水线执行记录
