@@ -213,7 +213,7 @@
                         <absolutePath>/Users/biaoyang/IdeaProjects/cicd-platform/</absolutePath>
                         <tablePrefixes>sys_,biz_</tablePrefixes>
                         <moduleName>code</moduleName>
-                        <basePackageName>io.ddd.framework</basePackageName>
+                        <basePackageName>io.kenxue.cicd</basePackageName>
                         <tableNames>sys_test,sys_code</tableNames>
                         <excludeFields>id,uuid,creator,modifier,gmt_create,gmt_modified,deleted</excludeFields>
                         <author>麦奇</author>
