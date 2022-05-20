@@ -44,6 +44,7 @@
         <mapper resource="mybatis/machine/MachineOfGroupMapper.xml"></mapper>
 <!--        middleware-->
         <mapper resource="mybatis/middleware/JenkinsMapper.xml"></mapper>
+        <mapper resource="mybatis/middleware/ZookeeperMapper.xml"></mapper>
 <!--        kubernetes-->
         <mapper resource="mybatis/kubernetes/ClusterNodeMapper.xml"></mapper>
         <mapper resource="mybatis/kubernetes/ClusterMapper.xml"></mapper>
