@@ -5,6 +5,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import io.kenxue.cicd.application.common.websocket.WebSocketService;
 import io.kenxue.cicd.application.kubernetes.cluster.assembler.Cluster2DTOAssembler;
+import io.kenxue.cicd.application.machine.util.MachineUtil;
 import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.kubernetes.cluster.ClusterCreateCmd;
@@ -13,8 +14,10 @@ import io.kenxue.cicd.domain.domain.machine.MachineInfo;
 import io.kenxue.cicd.domain.factory.kubernetes.ClusterFactory;
 import io.kenxue.cicd.domain.repository.kubernetes.ClusterRepository;
 import io.kenxue.cicd.domain.repository.machine.MachineInfoRepository;
-import io.kenxue.cicd.sharedataboject.pipeline.constant.CommandConst;
+import io.kenxue.cicd.sharedataboject.common.command.CommandConst;
+import io.kenxue.cicd.sharedataboject.machine.enums.LsbReleaseEnum;
 import io.kenxue.cicd.sharedataboject.pipeline.constant.NodeConst;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +30,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 
+import static io.kenxue.cicd.application.common.util.JschUtil.getSession;
+
 /**
  * kubernetes集群
  * @author mikey
@@ -35,6 +40,8 @@ import java.util.Properties;
 @Component
 @Slf4j
 public class ClusterCreateCmdExe {
+
+    public static final String CLUSTER_INSTALL_RESPONSE_TIP = "\r\n[当前主机(%s)正在安装(%s)节点]\r\n";
 
     @Resource
     private ClusterRepository clusterRepository;
@@ -56,30 +63,24 @@ public class ClusterCreateCmdExe {
         List<MachineInfo> slaveMachineInfo = machineInfoRepository.getByUuid(cmd.getSlaveHostList());
         //3.获取jsch连接实例安装
         StringBuilder logger = new StringBuilder();
-        JSch jsch = new JSch();
         masterMachineInfo.forEach(machineInfo -> {
            log.info("安装master节点:{}",machineInfo);
             Session session = null;
             ChannelShell channel = null;
             try {
-                session = jsch.getSession(machineInfo.getAccessUsername(), machineInfo.getIp(), machineInfo.getPort());
-                // 设置密码
-                session.setPassword(machineInfo.getAccessPassword());
-                Properties config = new Properties();
-                config.put("StrictHostKeyChecking", "no");
-                // 为Session对象设置properties
-                session.setConfig(config);
-                // 设置timeout时间
-                session.setTimeout(50000);
-                // 通过Session建立链接
-                session.connect();
+                //获取机器发行版
+                LsbReleaseEnum release = MachineUtil.getRelease(machineInfo);
+                session = getSession(machineInfo);
                 channel = (ChannelShell) session.openChannel("shell");
                 channel.connect();
                 OutputStream outputStream = channel.getOutputStream();
                 InputStream inputStream = channel.getInputStream();
-                outputStream.write((kubernetesInstallCmd+CommandConst.ENTER).getBytes(StandardCharsets.UTF_8));
+                String exeCmd = String.format(kubernetesInstallCmd,release.getName())+CommandConst.ENTER;
+                outputStream.write((exeCmd).getBytes(StandardCharsets.UTF_8));
                 outputStream.write(CommandConst.EXIT.getBytes(StandardCharsets.UTF_8));
                 outputStream.flush();
+
+                webSocketService.sendMessage(cmd.getResponseKey(), String.format(CLUSTER_INSTALL_RESPONSE_TIP,machineInfo.getIp(),"master").getBytes(StandardCharsets.UTF_8));
 
                 byte[] buffer = new byte[1024];
                 while (true) {
@@ -117,6 +118,8 @@ public class ClusterCreateCmdExe {
         slaveMachineInfo.forEach(machineInfo -> {
             log.info("安装slave节点:{}",machineInfo);
             // TODO: 2022/5/19
+            webSocketService.sendMessage(cmd.getResponseKey(), String.format(CLUSTER_INSTALL_RESPONSE_TIP,machineInfo.getIp(),"slave").getBytes(StandardCharsets.UTF_8));
+
         });
         //4.保存集群记录
         Cluster cluster = ClusterFactory.getCluster();
@@ -125,9 +128,5 @@ public class ClusterCreateCmdExe {
         clusterRepository.create(cluster);
 
         return Response.success();
-    }
-
-    public void executeShell(){
-
     }
 }

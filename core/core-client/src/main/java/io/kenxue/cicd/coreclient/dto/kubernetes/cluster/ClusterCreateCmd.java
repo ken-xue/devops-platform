@@ -20,6 +20,7 @@ public class ClusterCreateCmd extends CommonCommand {
     private String name;
     @NotBlank(message = "请选择集群版本")
     private String version;
+    private String runtime;
     @Size(message = "Master机器必选")
     private List<String> masterHostList;
     private List<String> slaveHostList;

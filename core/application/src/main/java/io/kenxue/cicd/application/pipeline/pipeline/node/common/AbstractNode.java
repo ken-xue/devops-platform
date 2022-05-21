@@ -5,7 +5,7 @@ import io.kenxue.cicd.application.common.websocket.WebSocketService;
 import io.kenxue.cicd.application.pipeline.pipeline.manager.ChannelManager;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
-import io.kenxue.cicd.sharedataboject.pipeline.constant.CommandConst;
+import io.kenxue.cicd.sharedataboject.common.command.CommandConst;
 import io.kenxue.cicd.sharedataboject.pipeline.constant.NodeConst;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.cicd.sharedataboject.pipeline.node.Node;
