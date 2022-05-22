@@ -27,7 +27,7 @@ public class PipelineExecuteSocketServiceImpl implements WebSocketService {
         URI uri = session.getUri();
         String key = uri.getQuery();
         Queue<WebSocketSession> queue = webSocketConnectionPool.getOrDefault(key, new ConcurrentLinkedQueue<>());
-        log.error("加入连接池 key:{} queue:{}", key, queue);
+        log.info("加入连接池 key:{} queue:{}", key, queue);
         queue.offer(session);
         webSocketConnectionPool.put(key, queue);
         session.getAttributes().put("key", key);

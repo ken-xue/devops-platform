@@ -23,7 +23,7 @@ public class EventBus implements EventBusI {
      */
     ExecutorService defaultExecutor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() + 1,
             Runtime.getRuntime().availableProcessors() + 1,
-            0L,TimeUnit.MILLISECONDS,
+            10L,TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(1000));
 
     @Resource

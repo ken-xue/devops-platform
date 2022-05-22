@@ -36,4 +36,8 @@ public class PipelineExecuteLoggerDTO extends CommonDTO {
      * 最终执行状态
      */
     private String finalStatus;
+    /**
+     * 触发方式
+     */
+    private String targetWay;
 }

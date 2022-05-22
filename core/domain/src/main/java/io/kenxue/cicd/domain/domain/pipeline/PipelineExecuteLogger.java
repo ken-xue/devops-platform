@@ -38,4 +38,8 @@ public class PipelineExecuteLogger extends CommonEntity {
      * 最终执行状态
      */
     private String finalStatus;
+    /**
+     * 触发方式
+     */
+    private String targetWay;
 }

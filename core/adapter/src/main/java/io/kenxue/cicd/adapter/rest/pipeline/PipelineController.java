@@ -3,9 +3,11 @@ package io.kenxue.cicd.adapter.rest.pipeline;
 import io.kenxue.cicd.adapter.common.annotation.Permissions;
 import io.kenxue.cicd.adapter.rest.common.BasicController;
 import io.kenxue.cicd.coreclient.api.application.ApplicationPipelineAppService;
+import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.*;
 import io.kenxue.cicd.sharedataboject.common.group.Insert;
+import io.kenxue.cicd.sharedataboject.pipeline.enums.PipelineTargetEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -51,6 +53,8 @@ public class PipelineController extends BasicController {
     @Permissions("application:applicationpipeline:execute")
     @ApiOperation(value = "运行",httpMethod = "GET")
     public Response execute(@RequestBody @Valid PipelineExecuteCmd pipelineExecuteCmd) {
+        PipelineTargetEnum hand = PipelineTargetEnum.HAND;
+        pipelineExecuteCmd.setTargetWay(hand).setTargetUser(UserThreadContext.get());
         return applicationPipelineAppService.execute(pipelineExecuteCmd);
     }
 

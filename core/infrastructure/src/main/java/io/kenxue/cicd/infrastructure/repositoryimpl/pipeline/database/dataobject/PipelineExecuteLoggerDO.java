@@ -36,4 +36,8 @@ public class PipelineExecuteLoggerDO extends CommonEntity {
      * 流水线快照
      */
     private String graphContent;
+    /**
+     * 触发方式
+     */
+    private String targetWay;
 }

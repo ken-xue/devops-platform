@@ -1,6 +1,7 @@
 package io.kenxue.cicd.coreclient.dto.pipeline.pipeline;
 
 import io.kenxue.cicd.coreclient.dto.common.command.CommonCommand;
+import io.kenxue.cicd.sharedataboject.pipeline.enums.PipelineTargetEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -16,4 +17,8 @@ import javax.validation.constraints.NotNull;
 public class PipelineExecuteCmd extends CommonCommand {
     @NotNull(message = "流水线Id不能为空")
     private Long id;
+    //触发方式
+    private PipelineTargetEnum targetWay;
+    //手动触发时记录触发人
+    private String targetUser;
 }

@@ -37,10 +37,7 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * 流水线
@@ -51,8 +48,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class PipelineExecuteCmdExe implements DisposableBean {
-
-    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 3, 20L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+    /**
+     * 默认线程池
+     */
+    ExecutorService defaultExecutor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() + 1,
+            Runtime.getRuntime().availableProcessors() + 1,
+            10L,TimeUnit.SECONDS,
+            new LinkedBlockingQueue<>(1000));
 
     //当前正在执行的节点 k=记录uuid+"&"+节点uuid
     private static volatile ConcurrentHashMap<String, NodeLogger> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
@@ -84,9 +86,9 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
         PipelineExecuteContext context = buildContext(pipeline);
 
-        context.setLogger(logger(pipeline));
+        context.setLogger(logger(pipeline,cmd));
 
-        executor.submit(() -> {
+        defaultExecutor.submit(() -> {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -103,9 +105,10 @@ public class PipelineExecuteCmdExe implements DisposableBean {
      *
      * @param pipeline
      */
-    private PipelineExecuteLogger logger(Pipeline pipeline) {
+    private PipelineExecuteLogger logger(Pipeline pipeline,PipelineExecuteCmd cmd) {
         PipelineExecuteLogger logger = PipelineExecuteLoggerFactory.getPipelineExecuteLogger();
-        logger.create(UserThreadContext.get());
+        logger.create(cmd.getTargetUser());
+        logger.setTargetWay(cmd.getTargetWay().getDesc());
         logger.setPipelineUuid(pipeline.getUuid());
         logger.setExecuteStartTime(new Date());
         logger.setGraphContent(JSON.toJSONString(pipeline.getGraph()));
@@ -208,7 +211,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             sources.forEach(sce -> {
                 String next = sce.replace("source-", "");
                 List<String> list = context.getTargetLineMap().getOrDefault(next, Collections.emptyList());
-                list.forEach(v -> executor.submit(() -> execute(context, context.getTargetMap().get(v))));
+                list.forEach(v -> defaultExecutor.submit(() -> execute(context, context.getTargetMap().get(v))));
             });
 
         } catch (Exception e) {
@@ -264,8 +267,8 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
     @Override
     public void destroy() {
-        if (!executor.isShutdown()) {
-            executor.shutdown();
+        if (!defaultExecutor.isShutdown()) {
+            defaultExecutor.shutdown();
         }
     }
 

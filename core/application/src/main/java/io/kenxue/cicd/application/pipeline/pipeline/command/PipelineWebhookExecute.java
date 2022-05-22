@@ -5,6 +5,7 @@ import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineExecuteCmd;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineWebhookExecuteCmd;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineRepository;
+import io.kenxue.cicd.sharedataboject.pipeline.enums.PipelineTargetEnum;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,7 +20,12 @@ public class PipelineWebhookExecute {
     public Response execute(PipelineWebhookExecuteCmd cmd) {
 
         Pipeline pipeline = pipelineRepository.getByUUID(cmd.getUuid());
-
-        return pipelineExecuteCmdExe.execute(new PipelineExecuteCmd().setId(pipeline.getId()));
+        PipelineTargetEnum webHook = PipelineTargetEnum.WEB_HOOK;
+        return pipelineExecuteCmdExe.execute(
+                new PipelineExecuteCmd()
+                        .setId(pipeline.getId())
+                        .setTargetUser(webHook.name())
+                        .setTargetWay(webHook)
+        );
     }
 }

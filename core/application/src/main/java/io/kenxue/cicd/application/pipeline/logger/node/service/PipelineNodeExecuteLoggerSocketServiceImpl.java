@@ -76,7 +76,7 @@ public class PipelineNodeExecuteLoggerSocketServiceImpl implements WebSocketServ
             }
         }
         Queue<WebSocketSession> queue = webSocketConnectionPool.getOrDefault(key, new ConcurrentLinkedQueue<>());
-        log.error("加入连接池 key:{} queue:{}", key, queue);
+        log.info("加入连接池 key:{} queue:{}", key, queue);
         queue.offer(session);
         webSocketConnectionPool.put(key, queue);
     }

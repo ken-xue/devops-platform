@@ -10,5 +10,6 @@
             <result property="executeStartTime" column="execute_start_time"/>
             <result property="executeEndTime" column="execute_end_time"/>
             <result property="finalStatus" column="final_status"/>
+            <result property="targetWay" column="target_way"/>
     </resultMap>
 </mapper>
