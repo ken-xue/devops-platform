@@ -1,6 +1,7 @@
 package io.kenxue.cicd.coreclient.dto.kubernetes.clusternode;
 
 import io.kenxue.cicd.coreclient.dto.common.command.CommonDTO;
+import io.kenxue.cicd.sharedataboject.kubernetes.enums.KubernetesNodeEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.Date;
@@ -23,9 +24,9 @@ public class ClusterNodeDTO extends CommonDTO {
     /**
      * 节点类型(主/从节点)
      */
-    private String type;
+    private KubernetesNodeEnum type;
     /**
-     * 流水线快照
+     * 机器uuid
      */
-    private String graphContent;
+    private String machineUuid;
 }

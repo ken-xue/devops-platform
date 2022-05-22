@@ -25,7 +25,7 @@ public class ClusterNodeDO extends CommonEntity {
      */
     private String type;
     /**
-     * 流水线快照
+     * 机器uuid
      */
-    private String graphContent;
+    private String machineUuid;
 }

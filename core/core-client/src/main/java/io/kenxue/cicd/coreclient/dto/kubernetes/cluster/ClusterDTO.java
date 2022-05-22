@@ -1,9 +1,12 @@
 package io.kenxue.cicd.coreclient.dto.kubernetes.cluster;
 
 import io.kenxue.cicd.coreclient.dto.common.command.CommonDTO;
+import io.kenxue.cicd.coreclient.dto.kubernetes.clusternode.ClusterNodeDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.Date;
+import java.util.List;
+
 /**
  * kubernetes集群
  * @author mikey
@@ -28,4 +31,14 @@ public class ClusterDTO extends CommonDTO {
      * 集群配置文件
      */
     private String config;
+
+    /**
+     * 机器master节点
+     */
+    private List<ClusterNodeDTO> masterNodeList;
+
+    /**
+     * 集群work节点
+     */
+    private List<ClusterNodeDTO> workNodeList;
 }

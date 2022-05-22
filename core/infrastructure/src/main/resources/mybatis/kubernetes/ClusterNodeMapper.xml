@@ -7,6 +7,6 @@
             <result property="clusterUuid" column="cluster_uuid"/>
             <result property="name" column="name"/>
             <result property="type" column="type"/>
-            <result property="graphContent" column="graph_content"/>
+            <result property="machineUuid" column="machine_uuid"/>
     </resultMap>
 </mapper>
