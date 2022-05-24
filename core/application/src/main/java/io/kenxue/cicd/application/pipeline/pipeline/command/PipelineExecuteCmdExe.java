@@ -4,12 +4,10 @@ import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.application.common.event.EventBusI;
 import io.kenxue.cicd.application.pipeline.pipeline.manager.PipelineNodeManager;
 import io.kenxue.cicd.application.pipeline.pipeline.node.common.PipelineExecuteContext;
-import io.kenxue.cicd.coreclient.context.UserThreadContext;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PipelineExecuteCmd;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;
-import io.kenxue.cicd.domain.domain.application.ApplicationConfig;
 import io.kenxue.cicd.domain.domain.application.ApplicationInfo;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.domain.pipeline.Pipeline;
@@ -17,7 +15,6 @@ import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineNodeInfo;
 import io.kenxue.cicd.domain.factory.pipeline.NodeExecuteLoggerFactory;
 import io.kenxue.cicd.domain.factory.pipeline.PipelineExecuteLoggerFactory;
-import io.kenxue.cicd.domain.repository.application.ApplicationConfigRepository;
 import io.kenxue.cicd.domain.repository.application.ApplicationInfoRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import io.kenxue.cicd.domain.repository.pipeline.PipelineNodeInfoRepository;
@@ -82,6 +79,10 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
         Pipeline pipeline = pipelineRepository.getById(cmd.getId());
 
+        pipeline.setLatestTriggerTime(new Date());
+
+        pipelineRepository.update(pipeline);
+
         Assert.isTrue(Objects.nonNull(pipeline),"请先保存流水线");
 
         PipelineExecuteContext context = buildContext(pipeline);
@@ -138,6 +139,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
             PipelineNodeInfo nodeInfo = nodeInfoRepository.getByNodeId(node.getId());
             if (Objects.isNull(nodeInfo)) {
                 log.error("node : {},config node info data is null", node);
+//                throw new RuntimeException(String.format("节点%s配置为空",node.getName()));
             } else {
                 context.setAttributes(node.getName(), nodeInfo);
             }

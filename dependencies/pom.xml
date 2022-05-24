@@ -33,6 +33,7 @@
         <spring.websocket.version>5.1.9.RELEASE</spring.websocket.version>
         <pipeline.version>1.0.0</pipeline.version>
         <guava.version>31.1-jre</guava.version>
+        <minio.version>8.3.3</minio.version>
     </properties>
 
     <dependencyManagement>
@@ -163,6 +164,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

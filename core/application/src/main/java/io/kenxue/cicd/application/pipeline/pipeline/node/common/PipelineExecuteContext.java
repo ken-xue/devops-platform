@@ -1,6 +1,5 @@
 package io.kenxue.cicd.application.pipeline.pipeline.node.common;
 
-import io.kenxue.cicd.domain.domain.application.ApplicationConfig;
 import io.kenxue.cicd.domain.domain.application.ApplicationInfo;
 import io.kenxue.cicd.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.cicd.sharedataboject.pipeline.context.ExecuteContext;

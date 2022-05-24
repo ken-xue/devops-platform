@@ -36,6 +36,10 @@ public class Pipeline extends CommonEntity {
      */
     private String pipelineName;
     /**
+     * 分支
+     */
+    private String branch;
+    /**
      * 应用类型
      */
     private String pipelineContext;
@@ -51,6 +55,10 @@ public class Pipeline extends CommonEntity {
      * 触发方式
      */
     private String triggerWay;
+    /**
+     * 最新触发时间
+     */
+    private Date latestTriggerTime;
     /**
      * 编译流程图
      */

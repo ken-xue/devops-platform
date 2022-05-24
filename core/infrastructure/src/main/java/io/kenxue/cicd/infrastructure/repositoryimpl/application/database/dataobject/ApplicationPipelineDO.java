@@ -3,6 +3,9 @@ package io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataob
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.kenxue.cicd.domain.common.CommonEntity;
 import lombok.Data;
+
+import java.util.Date;
+
 /**
  * 流水线
  * @author mikey
@@ -31,4 +34,12 @@ public class ApplicationPipelineDO extends CommonEntity {
      * 触发方式
      */
     private String triggerWay;
+    /**
+     * 最新触发时间
+     */
+    private Date latestTriggerTime;
+    /**
+     * 分支
+     */
+    private String branch;
 }

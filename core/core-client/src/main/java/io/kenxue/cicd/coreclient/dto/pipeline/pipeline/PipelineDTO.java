@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * 流水线
@@ -42,4 +43,12 @@ public class PipelineDTO extends CommonDTO {
      * 触发方式
      */
     private String triggerWay;
+    /**
+     * 最新触发时间
+     */
+    private Date latestTriggerTime;
+    /**
+     * 分支
+     */
+    private String branch;
 }

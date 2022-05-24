@@ -8,6 +8,8 @@
             <result property="pipelineName" column="pipeline_name"/>
             <result property="pipelineContext" column="pipeline_context"/>
             <result property="description" column="description"/>
-            <result property="trigger" column="trigger_way"/>
+            <result property="triggerWay" column="trigger_way"/>
+            <result property="latestTriggerTime" column="latest_trigger_time"/>
+            <result property="branch" column="branch"></result>
     </resultMap>
 </mapper>
