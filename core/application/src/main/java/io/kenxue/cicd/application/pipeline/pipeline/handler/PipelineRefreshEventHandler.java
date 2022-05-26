@@ -3,7 +3,7 @@ package io.kenxue.cicd.application.pipeline.pipeline.handler;
 import com.alibaba.fastjson.JSON;
 import io.kenxue.cicd.application.common.event.EventHandler;
 import io.kenxue.cicd.application.common.event.EventHandlerI;
-import io.kenxue.cicd.application.common.websocket.WebSocketService;
+import io.kenxue.cicd.application.common.socket.service.WebSocketService;
 import io.kenxue.cicd.coreclient.dto.common.response.Response;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.PushNodeExecuteStatusDTO;
 import io.kenxue.cicd.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefreshEvent;

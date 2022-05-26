@@ -12,9 +12,9 @@ import java.util.concurrent.ExecutorService;
  */
 public interface EventHandlerI<R extends Response, E extends EventI> {
 
-    default public ExecutorService getExecutor(){
+    default ExecutorService getExecutor(){
         return null;
     }
 
-    public R execute(E e);
+    R execute(E e);
 }

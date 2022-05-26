@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.pipeline.pipeline.service;
 
-import io.kenxue.cicd.application.common.websocket.WebSocket;
-import io.kenxue.cicd.application.common.websocket.WebSocketService;
+import io.kenxue.cicd.application.common.socket.handler.WebSocket;
+import io.kenxue.cicd.application.common.socket.service.WebSocketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;

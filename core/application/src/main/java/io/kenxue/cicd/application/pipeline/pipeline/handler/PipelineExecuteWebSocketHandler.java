@@ -1,6 +1,6 @@
 //package io.kenxue.cicd.application.pipeline.pipeline.handler;
 //
-//import io.kenxue.cicd.application.common.websocket.Constant;
+//import io.kenxue.cicd.application.common.websocket.constant.Constant;
 //import io.kenxue.cicd.application.pipeline.pipeline.socket.PipelineExecuteSocketService;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.stereotype.Component;

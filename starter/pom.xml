@@ -211,10 +211,10 @@
                     </dataSource>
                     <config>
                         <absolutePath>/Users/biaoyang/IdeaProjects/cicd-platform/</absolutePath>
-                        <tablePrefixes>sys_,biz_</tablePrefixes>
-                        <moduleName>code</moduleName>
+                        <tablePrefixes>middleware_,biz_</tablePrefixes>
+                        <moduleName>middleware</moduleName>
                         <basePackageName>io.kenxue.cicd</basePackageName>
-                        <tableNames>sys_test,sys_code</tableNames>
+                        <tableNames>middleware_minio</tableNames>
                         <excludeFields>id,uuid,creator,modifier,gmt_create,gmt_modified,deleted</excludeFields>
                         <author>麦奇</author>
                         <email>biaogejiushibiao@outlook.com</email>

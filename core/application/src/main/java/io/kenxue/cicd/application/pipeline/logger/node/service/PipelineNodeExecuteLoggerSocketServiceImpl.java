@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.pipeline.logger.node.service;
 
-import io.kenxue.cicd.application.common.websocket.WebSocket;
-import io.kenxue.cicd.application.common.websocket.WebSocketService;
+import io.kenxue.cicd.application.common.socket.handler.WebSocket;
+import io.kenxue.cicd.application.common.socket.service.WebSocketService;
 import io.kenxue.cicd.application.pipeline.pipeline.command.PipelineExecuteCmdExe;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;

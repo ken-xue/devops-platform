@@ -1,7 +1,7 @@
 package io.kenxue.cicd.application.pipeline.pipeline.node.common;
 
 import com.jcraft.jsch.ChannelShell;
-import io.kenxue.cicd.application.common.websocket.WebSocketService;
+import io.kenxue.cicd.application.common.socket.service.WebSocketService;
 import io.kenxue.cicd.application.pipeline.pipeline.manager.ChannelManager;
 import io.kenxue.cicd.domain.domain.pipeline.NodeLogger;
 import io.kenxue.cicd.domain.repository.pipeline.NodeExecuteLoggerRepository;
