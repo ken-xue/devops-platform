@@ -1,1 +1,0 @@
-package io.kenxue.cicd.infrastructure.common;

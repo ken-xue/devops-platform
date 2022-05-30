@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.mapper.LogMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.LogDO" id="logMap">
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.mapper.LogMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.dataobject.LogDO" id="logMap">
             <result property="username" column="username"/>
             <result property="operation" column="operation"/>
             <result property="method" column="method"/>

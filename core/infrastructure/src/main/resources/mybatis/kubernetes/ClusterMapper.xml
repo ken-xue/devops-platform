@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.database.mapper.ClusterMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.kubernetes.database.dataobject.ClusterDO" id="clusterMap">
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.kubernetes.database.mapper.ClusterMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.kubernetes.database.dataobject.ClusterDO" id="clusterMap">
             <result property="name" column="name"/>
             <result property="version" column="version"/>
             <result property="secretKey" column="secret_key"/>

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.mapper.ApplicationInfoMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject.ApplicationInfoDO" id="applicationInfoMap">
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.application.database.mapper.ApplicationInfoMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.application.database.dataobject.ApplicationInfoDO" id="applicationInfoMap">
             <result property="applicationName" column="application_name"/>
             <result property="applicationType" column="application_type"/>
             <result property="repository" column="repository"/>

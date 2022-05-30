@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>acl-implements</artifactId>
-        <groupId>io.kenxue.cicd</groupId>
+        <groupId>io.kenxue.devops</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -28,15 +28,15 @@
             <artifactId>jjwt</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>domain</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>infrastructure</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl</artifactId>
         </dependency>
         <dependency>
@@ -48,7 +48,7 @@
             <artifactId>kaptcha</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>core-client</artifactId>
         </dependency>
     </dependencies>

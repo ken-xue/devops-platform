@@ -10,11 +10,11 @@
     </settings>
     <typeAliases>
         <!--项目DataObject对应的包名-->
-        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject"/>
-        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.application.database.dataobject"/>
-        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.jenkins.database.dataobject"/>
-        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.dataobject"/>
-        <package name="io.kenxue.cicd.infrastructure.repositoryimpl.project.database.dataobject"/>
+        <package name="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.dataobject"/>
+        <package name="io.kenxue.devops.infrastructure.repositoryimpl.application.database.dataobject"/>
+        <package name="io.kenxue.devops.infrastructure.repositoryimpl.jenkins.database.dataobject"/>
+        <package name="io.kenxue.devops.infrastructure.repositoryimpl.pipeline.database.dataobject"/>
+        <package name="io.kenxue.devops.infrastructure.repositoryimpl.project.database.dataobject"/>
     </typeAliases>
     <mappers>
 <!--        sys-->
@@ -45,6 +45,7 @@
 <!--        middleware-->
         <mapper resource="mybatis/middleware/JenkinsMapper.xml"></mapper>
         <mapper resource="mybatis/middleware/ZookeeperMapper.xml"></mapper>
+        <mapper resource="mybatis/middleware/MinioMapper.xml"></mapper>
 <!--        kubernetes-->
         <mapper resource="mybatis/kubernetes/ClusterNodeMapper.xml"></mapper>
         <mapper resource="mybatis/kubernetes/ClusterMapper.xml"></mapper>

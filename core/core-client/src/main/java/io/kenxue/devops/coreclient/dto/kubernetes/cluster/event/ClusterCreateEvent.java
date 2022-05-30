@@ -1,0 +1,16 @@
+package io.kenxue.devops.coreclient.dto.kubernetes.cluster.event;
+
+import io.kenxue.devops.coreclient.dto.common.event.DomainEventI;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+/**
+ * kubernetes集群
+ * @author mikey
+ * @date 2022-05-20 14:09:32
+ */
+@Data
+@AllArgsConstructor
+public class ClusterCreateEvent implements DomainEventI {
+    private String uuid;
+}

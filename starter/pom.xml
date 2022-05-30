@@ -3,20 +3,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.kenxue.cicd</groupId>
+    <groupId>io.kenxue.devops</groupId>
     <artifactId>starter</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>starter</name>
 
     <properties>
-        <cicd-platform-version>0.0.1-SNAPSHOT</cicd-platform-version>
+        <devops-platform-version>0.0.1-SNAPSHOT</devops-platform-version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.kenxue.cicd</groupId>
+                <groupId>io.kenxue.devops</groupId>
                 <artifactId>dependencies</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
                 <type>pom</type>
@@ -43,34 +43,46 @@
         </dependency>
         <!--    工程    -->
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl</artifactId>
-            <version>${cicd-platform-version}</version>
+            <version>${devops-platform-version}</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>adapter</artifactId>
-            <version>${cicd-platform-version}</version>
+            <version>${devops-platform-version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>swagger-annotations</artifactId>
+                    <groupId>io.swagger</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>application</artifactId>
-            <version>${cicd-platform-version}</version>
+            <version>${devops-platform-version}</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>core-client</artifactId>
-            <version>${cicd-platform-version}</version>
+            <version>${devops-platform-version}</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>domain</artifactId>
-            <version>${cicd-platform-version}</version>
+            <version>${devops-platform-version}</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>infrastructure</artifactId>
-            <version>${cicd-platform-version}</version>
+            <version>${devops-platform-version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -115,36 +127,41 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <dependency>
-            <groupId>com.offbytwo.jenkins</groupId>
-            <artifactId>jenkins-client</artifactId>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.8.1</version>
         </dependency>
         <!--缺省组件-->
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl-impl-authorize-default</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl-impl-database-default</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl-impl-event-default</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl-impl-cached-default</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.kenxue.devops</groupId>
+            <artifactId>acl-impl-obs-default</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>cicd-platform</finalName>
+        <finalName>devops-platform</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -168,7 +185,7 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>2.3.7.RELEASE</version>
                     <configuration>
-                        <mainClass>io.kenxue.cicd.Application</mainClass>
+                        <mainClass>io.kenxue.devops.Application</mainClass>
                     </configuration>
                     <executions>
                         <execution>
@@ -192,7 +209,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>io.kenxue.cicd.Application</mainClass>
+                            <mainClass>io.kenxue.devops.Application</mainClass>
                         </configuration>
                     </execution>
                 </executions>
@@ -205,15 +222,15 @@
                 <configuration>
                     <dataSource>
                         <driverName>com.mysql.cj.jdbc.Driver</driverName>
-                        <url>jdbc:mysql://127.0.0.1:3306/cicd-platform</url>
+                        <url>jdbc:mysql://127.0.0.1:3306/devops-platform</url>
                         <username>root</username>
                         <password>123456</password>
                     </dataSource>
                     <config>
-                        <absolutePath>/Users/biaoyang/IdeaProjects/cicd-platform/</absolutePath>
+                        <absolutePath>/Users/biaoyang/IdeaProjects/devops-platform/</absolutePath>
                         <tablePrefixes>middleware_,biz_</tablePrefixes>
                         <moduleName>middleware</moduleName>
-                        <basePackageName>io.kenxue.cicd</basePackageName>
+                        <basePackageName>io.kenxue.devops</basePackageName>
                         <tableNames>middleware_minio</tableNames>
                         <excludeFields>id,uuid,creator,modifier,gmt_create,gmt_modified,deleted</excludeFields>
                         <author>麦奇</author>

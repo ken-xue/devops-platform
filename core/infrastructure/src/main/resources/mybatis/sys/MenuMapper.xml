@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.mapper.MenuMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.MenuDO" id="menuMap">
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.mapper.MenuMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.dataobject.MenuDO" id="menuMap">
             <result property="menuParentUuid" column="menu_parent_uuid"/>
             <result property="menuName" column="menu_name"/>
             <result property="menuUrl" column="menu_url"/>

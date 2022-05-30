@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>acl-implements</artifactId>
-        <groupId>io.kenxue.cicd</groupId>
+        <groupId>io.kenxue.devops</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -18,7 +18,7 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>io.kenxue.cicd</groupId>
+            <groupId>io.kenxue.devops</groupId>
             <artifactId>acl</artifactId>
         </dependency>
         <dependency>

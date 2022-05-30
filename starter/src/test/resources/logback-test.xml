@@ -33,7 +33,7 @@
     </root>
 
     <!--应用日志-->
-    <logger name="io.kenxue.cicd" level="DEBUG"/>
+    <logger name="io.kenxue.devops" level="DEBUG"/>
 
     <!--数据库日志-->
     <logger name="com.apache.ibatis" level="TRACE"/>

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.mapper.PipelineNodeInfoMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.pipeline.database.dataobject.PipelineNodeInfoDO" id="pipelineNodeInfoMap">
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.pipeline.database.mapper.PipelineNodeInfoMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.pipeline.database.dataobject.PipelineNodeInfoDO" id="pipelineNodeInfoMap">
             <result property="nodeUuid" column="node_uuid"/>
             <result property="info" column="info"/>
     </resultMap>

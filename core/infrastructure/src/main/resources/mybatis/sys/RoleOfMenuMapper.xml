@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.mapper.RoleOfMenuMapper">
-    <resultMap type="io.kenxue.cicd.infrastructure.repositoryimpl.sys.database.dataobject.RoleOfMenuDO" id="roleOfMenuMap">
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.mapper.RoleOfMenuMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.sys.database.dataobject.RoleOfMenuDO" id="roleOfMenuMap">
             <result property="roleUuid" column="role_uuid"/>
             <result property="menuUuid" column="menu_uuid"/>
     </resultMap>

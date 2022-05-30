@@ -1,0 +1,1 @@
+package io.kenxue.devops.sharedataboject.kubernetes;
