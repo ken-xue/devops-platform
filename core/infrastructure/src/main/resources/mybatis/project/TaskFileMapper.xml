@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.kenxue.devops.infrastructure.repositoryimpl.project.database.mapper.TaskFileMapper">
+    <resultMap type="io.kenxue.devops.infrastructure.repositoryimpl.project.database.dataobject.TaskFileDO" id="taskFileMap">
+            <result property="taskUuid" column="task_uuid"/>
+            <result property="fileName" column="file_name"/>
+            <result property="url" column="url"/>
+    </resultMap>
+</mapper>

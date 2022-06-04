@@ -81,3 +81,5 @@ MIT [LICENSE](./LICENSE)
 ![img.png](doc/image/pipeline-logger.png)
 
 ![img.png](doc/image/minio-create.png)
+
+![img.png](doc/image/project-task.png)
