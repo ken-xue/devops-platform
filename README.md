@@ -54,11 +54,32 @@ create database `devops-platform` default charset utf8mb4
 use `devops-platform`
 source /Users/biaoyang/IdeaProjects/devops-platform/doc/script/DDL.sql
 ```
-4.编译并运行
+
+4.配置对象存储地址
+
+```yaml
+# minio访问地址
+minio.url=http://192.168.100.21:30001/
+# 用户名
+minio.accessKey=minioadmin
+# 密码
+minio.secretKey=minioadmin
+# 配置构建服务器
+mc config host add minio http://192.168.100.21:30001 minioadmin minioadmin
+```
+
+5.编译并运行
 ```bash
 cd devops-platform
 mvn clean install
 ```
+
+6.构建服务器配置环境
+
+- minio客户端mc (需配置好连接服务器)
+- maven
+- git
+- jre
 
 ## 项目文档
 

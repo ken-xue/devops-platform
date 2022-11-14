@@ -2,6 +2,7 @@ package io.kenxue.devops.application.pipeline.pipeline.command;
 
 import com.alibaba.fastjson.JSON;
 import io.kenxue.devops.application.common.event.EventBusI;
+import io.kenxue.devops.application.pipeline.pipeline.engine.EngineI;
 import io.kenxue.devops.application.pipeline.pipeline.manager.PipelineNodeManager;
 import io.kenxue.devops.application.pipeline.pipeline.node.common.PipelineExecuteContext;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
@@ -44,17 +45,7 @@ import java.util.concurrent.*;
  */
 @Slf4j
 @Service
-public class PipelineExecuteCmdExe implements DisposableBean {
-    /**
-     * 默认线程池
-     */
-    ExecutorService defaultExecutor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() + 1,
-            Runtime.getRuntime().availableProcessors() + 1,
-            10L,TimeUnit.SECONDS,
-            new LinkedBlockingQueue<>(1000));
-
-    //当前正在执行的节点 k=记录uuid+"&"+节点uuid
-    private static volatile ConcurrentHashMap<String, NodeLogger> executingNodeMap = new ConcurrentHashMap<>(2 << 4);
+public class PipelineExecuteCmdExe {
 
     @Resource
     private PipelineExecuteLoggerRepository loggerRepository;
@@ -63,11 +54,9 @@ public class PipelineExecuteCmdExe implements DisposableBean {
     @Resource
     private PipelineNodeInfoRepository nodeInfoRepository;
     @Resource
-    private PipelineNodeManager pipelineNodeManager;
-    @Resource
-    private EventBusI eventBus;
-    @Resource
     private ApplicationInfoRepository applicationInfoRepository;
+    @Resource
+    private EngineI engine;
 
     /**
      * 流水线执行入口
@@ -89,14 +78,7 @@ public class PipelineExecuteCmdExe implements DisposableBean {
 
         context.setLogger(logger(pipeline,cmd));
 
-        defaultExecutor.submit(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            execute(context, context.getStart());
-        });
+        engine.execute(context);
 
         return SingleResponse.of(context.getLogger());
     }
@@ -173,108 +155,5 @@ public class PipelineExecuteCmdExe implements DisposableBean {
         context.setApplication(application);
 
         return context;
-    }
-
-
-    /**
-     * 执行流水线
-     *
-     * @param context
-     * @param node
-     */
-    public void execute(PipelineExecuteContext context, Nodes node) {
-
-        //判断是否可执行
-        if (!executable(context, node)) {
-            return;
-        }
-
-        try {
-            log.info("执行的节点：{}", node.getName());
-            //执行结果
-            Result result = new DefaultResult();
-            //变更状态//进行中
-            node.refreshStatus(NodeExecuteStatus.LOADING);
-            //加入缓存
-            NodeLogger logger = NodeExecuteLoggerFactory.getNodeExecuteLogger().setExecuteStartTime(new Date());
-            context.setAttributes(node.getName()+"logger",logger);
-            executingNodeMap.put(String.format("%s&%s", context.getLogger().getUuid(), node.getId()), logger);
-            //发送事件
-            eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getSourceLineMap(), NodeExecuteStatus.LOADING));
-            //执行节点
-            context.setAttributes(node.getName() + "logger-uuid", context.getLogger().getUuid());
-            context.setAttributes(node.getName() + "node-uuid", node.getId());
-            Result ret = pipelineNodeManager.get(node.getName()).execute(context);
-            result.add(node.getName(), ret);
-            //执行成功
-            node.refreshStatus(NodeExecuteStatus.SUCCESS);
-            //获取下一个执行的路线
-            List<String> sources = node.getPoints().getSources();
-            sources.forEach(sce -> {
-                String next = sce.replace("source-", "");
-                List<String> list = context.getTargetLineMap().getOrDefault(next, Collections.emptyList());
-                list.forEach(v -> defaultExecutor.submit(() -> execute(context, context.getTargetMap().get(v))));
-            });
-
-        } catch (Exception e) {
-            //执行失败
-            node.refreshStatus(NodeExecuteStatus.FAILED);
-            context.getLogger().setFinalStatus(PipelineBuildResultEnum.FAILED.getDesc());//要全部节点通过才算最终执行成功
-            log.error("execute error , cur node : {}", node);
-            e.printStackTrace();
-        }
-        //执行完成移除出缓存
-        executingNodeMap.remove(String.format("%s&%s", context.getLogger().getUuid(), node.getId()));
-        //更新日志
-        PipelineExecuteLogger logger = context.getLogger();
-        context.getGraph().setNodes(context.getNodes());
-        logger.setGraphContent(JSON.toJSONString(context.getGraph()));
-        loggerRepository.updateByUuid(logger);
-        //推送节点状态和所有输出的边
-        eventBus.publish(new PipelineNodeRefreshEvent(context.getLogger().getUuid(), node, context.getTargetLineMap()));
-    }
-
-    /**
-     * 判断是否可执行当前节点（检查当前节点是否所有输入节点都已经执行完成）
-     *
-     * @param node 当前节点
-     * @return
-     */
-    private synchronized boolean executable(PipelineExecuteContext context, Nodes node) {
-        try {
-            log.info("检查是否所有输入节点都已经执行完成:{}", node.getName());
-            if (NodeExecuteStatus.SUCCESS.getName().equals(node.getData().getNodeState())) return false;
-            //判断当前节点的所有前置节点是否已经执行完成
-            List<String> targets = node.getPoints().getTargets();
-            for (String t : targets) {
-                String targetUUID = t.replace("target-", "");
-                List<String> sourceUUIDList = context.getSourceLineMap().getOrDefault(targetUUID, Collections.emptyList());
-                for (String sourceUUID : sourceUUIDList) {
-                    Nodes sourceNode = context.getSourceMap().get(sourceUUID);
-                    if (Objects.nonNull(sourceNode) && (Objects.isNull(sourceNode.getData().getNodeState()) ||
-                            StringUtils.isBlank(sourceNode.getData().getNodeState()) ||
-                            NodeExecuteStatus.LOADING.getName().equals(sourceNode.getData().getNodeState()) ||
-                            NodeExecuteStatus.FAILED.getName().equals(sourceNode.getData().getNodeState()))) {
-                        log.info("输入节点:{} 未执行完成，放弃执行当前节点 {}", sourceNode, node);
-                        return false;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public void destroy() {
-        if (!defaultExecutor.isShutdown()) {
-            defaultExecutor.shutdown();
-        }
-    }
-
-    public NodeLogger getExecuteNode(String key) {
-        return executingNodeMap.get(key);
     }
 }

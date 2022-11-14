@@ -22,6 +22,10 @@ public class ChannelManager {
     @SneakyThrows
     public ChannelShell getChannelShell(){
         Session session = sessionManager.get();
-        return (ChannelShell) session.openChannel("shell");
+        ChannelShell shell = (ChannelShell) session.openChannel("shell");
+        shell.setPty(true);
+        shell.connect();
+        return shell;
     }
+
 }

@@ -37,16 +37,10 @@ public abstract class AbstractNode implements Node {
         logger.setLoggerUuid(loggerUuid);
         logger.setNodeUuid(nodeUuid);
         String key = String.format("%s&%s", loggerUuid, nodeUuid);
-        ChannelShell channel;
-        InputStream in = null;
-        OutputStream os = null;
-        int returnCode = -1;
-        try {
-            channel = channelManager.getChannelShell();
-            in = channel.getInputStream();
-            channel.setPty(true);
-            channel.connect();
-            os = channel.getOutputStream();
+
+        int ret = -1;
+        ChannelShell channel = channelManager.getChannelShell();
+        try (InputStream in = channel.getInputStream(); OutputStream os = channel.getOutputStream()){
             //拼接命令
             StringBuilder cmdsb = new StringBuilder();
             for (String cmd : commands) {
@@ -74,7 +68,7 @@ public abstract class AbstractNode implements Node {
                     if (log.isDebugEnabled()) {
                         log.debug(resp);
                     }
-                    log.info("推送日志数据 key:{}", key);
+                    log.debug("推送日志数据 key:{}", key);
                     logger.append(resp);
                     loggerService.sendMessage(key, resp.getBytes(StandardCharsets.UTF_8));
                 }
@@ -82,22 +76,23 @@ public abstract class AbstractNode implements Node {
                     if (in.available() > 0) {
                         continue;
                     }
-                    log.info("exit-status: " + channel.getExitStatus());
+                    log.debug("exit-status: " + channel.getExitStatus());
                     break;
                 }
             }
             //主动释放当前socket连接
             loggerService.close(key);
+            channel.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                os.close();
-                in.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            channel.disconnect();
         }
-        return returnCode;
+        return ret;
+    }
+
+    public String cmd(String ...cmd){
+        StringBuilder sb = new StringBuilder();
+        for (String c:cmd)sb.append(c);
+        return sb.toString();
     }
 }

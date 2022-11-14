@@ -22,6 +22,8 @@ public class PipelineExecuteSocketServiceImpl implements WebSocketService {
     //存放ssh连接信息的map
     private static volatile Map<String, Queue<WebSocketSession>> webSocketConnectionPool = new ConcurrentHashMap<>(2 << 4);
 
+    private Queue<WebSocketSession> empty = new ConcurrentLinkedQueue<>();
+
     @Override
     public void initConnection(WebSocketSession session) {
         URI uri = session.getUri();
@@ -40,7 +42,7 @@ public class PipelineExecuteSocketServiceImpl implements WebSocketService {
 
     @Override
     public void sendMessage(String key, byte[] message) {
-        Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.get(key);
+        Queue<WebSocketSession> webSocketSessions = webSocketConnectionPool.getOrDefault(key, empty);
         for (WebSocketSession conn : webSocketSessions) {
             synchronized (conn) {
                 try {

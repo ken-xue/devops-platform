@@ -36,11 +36,14 @@ public class NodeExecuteLoggerRepositoryImpl implements NodeExecuteLoggerReposit
     private ObjectStorageService objectStorageService;
 
     public void create(NodeLogger nodeLogger){
-            nodeExecuteLoggerMapper.insert(nodeExecuteLogger2DOConvector.toDO(nodeLogger));
+        //保存正文到obs
+        objectStorageService.setString(BucketEnum.PIPELINE_NODE_LOGGER.getName(), nodeLogger.getUuid(),nodeLogger.getLogger());
+        //保存到数据库
+        nodeExecuteLoggerMapper.insert(nodeExecuteLogger2DOConvector.toDO(nodeLogger));
     }
 
     public void update(NodeLogger nodeLogger){
-            nodeExecuteLoggerMapper.updateById(nodeExecuteLogger2DOConvector.toDO(nodeLogger));
+        nodeExecuteLoggerMapper.updateById(nodeExecuteLogger2DOConvector.toDO(nodeLogger));
     }
 
     public NodeLogger getById(Long id){
@@ -73,7 +76,7 @@ public class NodeExecuteLoggerRepositoryImpl implements NodeExecuteLoggerReposit
         Optional.ofNullable(logger).map(v->{
             String content = objectStorageService.getString(BucketEnum.PIPELINE_NODE_LOGGER.getName(), v.getUuid());
             v.setLogger(content);
-            return null;
+            return v;
         });
         return logger;
     }

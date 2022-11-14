@@ -214,7 +214,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--代码生成器(第一次使用自行安装)see:-->
+            <!--代码生成器(第一次使用自行安装)see:https://github.com/ken-xue/ddd-framework-maven-plugin-->
             <plugin>
                 <groupId>io.ddd.framework</groupId>
                 <artifactId>ddd-framework-maven-plugin</artifactId>

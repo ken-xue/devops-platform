@@ -3,6 +3,7 @@ package io.kenxue.devops.application.pipeline.logger.node.service;
 import io.kenxue.devops.application.common.socket.handler.WebSocket;
 import io.kenxue.devops.application.common.socket.service.WebSocketService;
 import io.kenxue.devops.application.pipeline.pipeline.command.PipelineExecuteCmdExe;
+import io.kenxue.devops.application.pipeline.pipeline.engine.PipelineEngine;
 import io.kenxue.devops.domain.domain.pipeline.NodeLogger;
 import io.kenxue.devops.domain.repository.pipeline.NodeExecuteLoggerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,8 @@ public class PipelineNodeExecuteLoggerSocketServiceImpl implements WebSocketServ
     private PipelineExecuteCmdExe pipelineExecuteCmdExe;
     @Resource
     private NodeExecuteLoggerRepository nodeExecuteLoggerRepository;
+    @Resource
+    private PipelineEngine engine;
 
     @Override
     public void initConnection(WebSocketSession session) {
@@ -54,7 +57,7 @@ public class PipelineNodeExecuteLoggerSocketServiceImpl implements WebSocketServ
 
         session.getAttributes().put("key", key);
 
-        NodeLogger logger = pipelineExecuteCmdExe.getExecuteNode(key);
+        NodeLogger logger = engine.getExecuteNode(key);
 
         //1.1 如果不在执行则将从数据库查询出执行记录日志返回
         if (Objects.isNull(logger)) {

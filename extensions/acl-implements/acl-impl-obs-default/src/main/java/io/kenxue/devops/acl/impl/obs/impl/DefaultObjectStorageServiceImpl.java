@@ -31,7 +31,7 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService, In
                 PutObjectArgs.builder()
                         .bucket(bucket)
                         .object(key)
-                        .stream(inputStream,0,0)
+                        .stream(inputStream,context.getBytes().length,-1)
                         .build());
     }
 

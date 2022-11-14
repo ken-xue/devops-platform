@@ -73,6 +73,7 @@ public class MachineInfoRepositoryImpl implements MachineInfoRepository {
             qw.in("uuid",groupSet);
             return true;
         });
+        qw.eq("deleted",false);
         List<MachineInfoDO> list = machineInfoMapper.selectList(qw);
         List<MachineInfo> machineInfos = machineInfo2DOConvector.toDomainList(list);
         return machineInfos;
