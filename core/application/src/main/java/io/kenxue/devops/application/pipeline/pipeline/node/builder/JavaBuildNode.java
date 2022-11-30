@@ -39,10 +39,13 @@ public class JavaBuildNode extends AbstractNode {
         PipelineNodeInfo nodeInfo = (PipelineNodeInfo) context.getAttributes(getName());
         JavaBuildNodeConfig javaBuildNodeConfig = JSON.parseObject(nodeInfo.getInfo(), JavaBuildNodeConfig.class);
         //需要打包的文件路径
-        StringBuilder packageCmd = new StringBuilder("tar -czvf package.tar.gz ");
+        String packageName = "package.tar.gz";
+        StringBuilder packageCmd = new StringBuilder("tar -czvf ").append(packageName).append(" ");
         javaBuildNodeConfig.getPackagePaths().forEach(path-> packageCmd.append(path).append(" "));
         //git仓库名
         String repositoryName = StringUtil.getRepositoryName(repository);
+        String uploadPath = "minio/pipeline-node-execute-result-bucket/" +DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyy-MM-dd-HH-mm-ss")+"/";
+        defaultResult.add("target",uploadPath+packageName);
         shell(logger, context
                 , cmd("mkdir -p /home/admin/", context.getLogger().getUuid())
                 , cmd("cd /home/admin/",context.getLogger().getUuid())
@@ -53,9 +56,7 @@ public class JavaBuildNode extends AbstractNode {
                 , "mvn -v"
                 , javaBuildNodeConfig.getBuildScript()
                 , packageCmd.toString()
-                , cmd("mc cp /home/admin/",context.getLogger().getUuid(),"/",repositoryName
-                        ,"/package.tar.gz minio/pipeline-node-execute-result-bucket/",
-                        DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyy-MM-dd-HH-mm-ss"),"/"
+                , cmd("mc cp /home/admin/",context.getLogger().getUuid(),"/",repositoryName,"/package.tar.gz ",uploadPath
                         ," && ",cmd("rm -rf /home/admin/",context.getLogger().getUuid())," && exit")//上传构建文件到文件服务器
         );
         logger.create();

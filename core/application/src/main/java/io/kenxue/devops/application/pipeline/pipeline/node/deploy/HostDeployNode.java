@@ -21,6 +21,14 @@ public class HostDeployNode implements Node {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //获取配置的主机
+
+        //获取构建文件的位置
+
+        //拉取构建文件
+
+        //运行构建文件
+
         return null;
     }
 
