@@ -7,10 +7,13 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
+import sun.misc.IOUtils;
 
 import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * 统一对象存储接口
@@ -22,6 +25,27 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService, In
 
     @Resource
     private MinioClient minioClient;
+
+    @SneakyThrows
+    @Override
+    public void set(String bucket, String key, InputStream inputStream) {
+        minioClient.putObject(
+                PutObjectArgs.builder()
+                        .bucket(bucket)
+                        .object(key)
+                        .stream(inputStream,inputStream.available(),-1)
+                        .build());
+    }
+
+    @SneakyThrows
+    @Override
+    public InputStream get(String bucket, String key) {
+        InputStream inputStream = minioClient.getObject(GetObjectArgs.builder()
+                .bucket(bucket)
+                .object(key)
+                .build());
+        return inputStream;
+    }
 
     @SneakyThrows
     @Override

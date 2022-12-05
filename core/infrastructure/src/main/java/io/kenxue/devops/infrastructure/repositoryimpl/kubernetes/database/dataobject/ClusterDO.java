@@ -24,8 +24,16 @@ public class ClusterDO extends CommonEntity {
      * 秘钥
      */
     private String secretKey;
+
+    private String accessUrl;
     /**
      * 集群配置文件
      */
     private String config;
+
+    private String username;
+
+    private String password;
+
+    private String accessWay;
 }

@@ -5,6 +5,7 @@ import io.kenxue.devops.coreclient.dto.kubernetes.clusternode.ClusterNodeDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -27,11 +28,20 @@ public class ClusterDTO extends CommonDTO {
      * 秘钥
      */
     private String secretKey;
+
+    private String accessUrl;
     /**
      * 集群配置文件
      */
     private String config;
 
+    private byte[] configBytes;
+
+    private String username;
+
+    private String password;
+
+    private String accessWay;
     /**
      * 机器master节点
      */

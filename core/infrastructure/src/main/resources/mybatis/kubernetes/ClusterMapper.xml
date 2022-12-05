@@ -8,5 +8,9 @@
             <result property="version" column="version"/>
             <result property="secretKey" column="secret_key"/>
             <result property="config" column="config"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="accessWay" column="access_way"/>
+            <result property="accessUrl" column="access_url"/>
     </resultMap>
 </mapper>

@@ -1,5 +1,6 @@
 package io.kenxue.devops.application.kubernetes.cluster.service;
 
+import io.kenxue.devops.application.kubernetes.cluster.command.ClusterImportCmdExe;
 import io.kenxue.devops.coreclient.api.kubernetes.ClusterAppService;
 import io.kenxue.devops.coreclient.dto.kubernetes.cluster.*;
 import io.kenxue.devops.application.kubernetes.cluster.command.ClusterAddCmdExe;
@@ -35,6 +36,8 @@ public class ClusterAppServiceImpl implements ClusterAppService {
     private ClusterPageQryExe clusterPageQryExe;
     @Resource
     private ClusterDeleteCmdExe clusterDeleteCmdExe;
+    @Resource
+    private ClusterImportCmdExe clusterImportCmdExe;
 
     public Response add(ClusterAddCmd clusterAddCmd) {
         return  clusterAddCmdExe.execute(clusterAddCmd);
@@ -58,5 +61,15 @@ public class ClusterAppServiceImpl implements ClusterAppService {
 
     public PageResponse<ClusterDTO> page(ClusterPageQry clusterPageQry) {
         return clusterPageQryExe.execute(clusterPageQry);
+    }
+
+    /**
+     * 导入kubernetes集群
+     * @param cmd
+     * @return
+     */
+    @Override
+    public Response importing(ClusterImportCmd cmd) {
+        return clusterImportCmdExe.execute(cmd);
     }
 }

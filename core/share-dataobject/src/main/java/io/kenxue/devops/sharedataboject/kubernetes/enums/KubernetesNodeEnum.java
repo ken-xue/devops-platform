@@ -11,7 +11,7 @@ public enum KubernetesNodeEnum {
         this.desc = desc;
     }
 
-    public String getUuid() {
+    public String getDesc() {
         return desc;
     }
 }

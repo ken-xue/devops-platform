@@ -17,4 +17,11 @@ public interface ClusterAppService {
     SingleResponse<ClusterDTO> getById(ClusterGetQry qry);
     MultiResponse<ClusterDTO> list(ClusterListQry qry);
     PageResponse<ClusterDTO> page(ClusterPageQry userPageQry);
+
+    /**
+     * 导入kubernetes集群
+     * @param cmd
+     * @return
+     */
+    Response importing(ClusterImportCmd cmd);
 }
