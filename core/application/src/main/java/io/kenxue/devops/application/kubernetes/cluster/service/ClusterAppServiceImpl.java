@@ -1,14 +1,12 @@
 package io.kenxue.devops.application.kubernetes.cluster.service;
 
 import io.kenxue.devops.application.kubernetes.cluster.command.ClusterImportCmdExe;
+import io.kenxue.devops.application.kubernetes.cluster.command.query.*;
 import io.kenxue.devops.coreclient.api.kubernetes.ClusterAppService;
 import io.kenxue.devops.coreclient.dto.kubernetes.cluster.*;
 import io.kenxue.devops.application.kubernetes.cluster.command.ClusterAddCmdExe;
 import io.kenxue.devops.application.kubernetes.cluster.command.ClusterDeleteCmdExe;
 import io.kenxue.devops.application.kubernetes.cluster.command.ClusterUpdateCmdExe;
-import io.kenxue.devops.application.kubernetes.cluster.command.query.ClusterGetQryExe;
-import io.kenxue.devops.application.kubernetes.cluster.command.query.ClusterListQryExe;
-import io.kenxue.devops.application.kubernetes.cluster.command.query.ClusterPageQryExe;
 import io.kenxue.devops.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.devops.coreclient.dto.common.response.PageResponse;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
@@ -32,6 +30,10 @@ public class ClusterAppServiceImpl implements ClusterAppService {
     private ClusterGetQryExe clusterGetQryExe;
     @Resource
     private ClusterListQryExe clusterListQryExe;
+    @Resource
+    private ClusterPodListQryExe clusterPodListQryExe;
+    @Resource
+    private PodDescribeQryExe podDescribeQryExe;
     @Resource
     private ClusterPageQryExe clusterPageQryExe;
     @Resource
@@ -71,5 +73,15 @@ public class ClusterAppServiceImpl implements ClusterAppService {
     @Override
     public Response importing(ClusterImportCmd cmd) {
         return clusterImportCmdExe.execute(cmd);
+    }
+
+    @Override
+    public Response podList(ClusterPodListQry qry) {
+        return clusterPodListQryExe.execute(qry);
+    }
+
+    @Override
+    public Response describe(ClusterPodDescribeQry qry) {
+        return podDescribeQryExe.execute(qry);
     }
 }

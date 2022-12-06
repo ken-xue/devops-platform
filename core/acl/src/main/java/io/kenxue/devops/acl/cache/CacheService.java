@@ -17,5 +17,7 @@ public interface CacheService<K,V> {
      * @param expire 过期时间
      * @param timeUnit 过期时间单位
      */
-    void set(K k, V v, Long expire,TimeUnit timeUnit);
+    default void set(K k, V v, Long expire,TimeUnit timeUnit){
+        throw new RuntimeException("not implements");
+    }
 }

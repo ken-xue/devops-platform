@@ -43,6 +43,10 @@ public class ClusterDTO extends CommonDTO {
 
     private String accessWay;
     /**
+     * 用于集群访问的机器节点
+     */
+    private String machineUuid;
+    /**
      * 机器master节点
      */
     private List<ClusterNodeDTO> masterNodeList;

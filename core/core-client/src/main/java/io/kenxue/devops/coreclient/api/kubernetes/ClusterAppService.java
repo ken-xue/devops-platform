@@ -24,4 +24,13 @@ public interface ClusterAppService {
      * @return
      */
     Response importing(ClusterImportCmd cmd);
+
+    /**
+     * pod列表
+     * @param clusterPodListQry
+     * @return
+     */
+    Response podList(ClusterPodListQry clusterPodListQry);
+
+    Response describe(ClusterPodDescribeQry qry);
 }

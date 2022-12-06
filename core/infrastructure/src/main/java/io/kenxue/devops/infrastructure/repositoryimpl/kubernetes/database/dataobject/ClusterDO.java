@@ -36,4 +36,9 @@ public class ClusterDO extends CommonEntity {
     private String password;
 
     private String accessWay;
+
+    /**
+     * 用于集群访问终端的机器节点
+     */
+    private String machineUuid;
 }

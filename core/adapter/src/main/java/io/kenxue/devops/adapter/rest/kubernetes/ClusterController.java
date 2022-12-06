@@ -8,6 +8,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.kubernetes.cluster.*;
 import io.kenxue.devops.sharedataboject.kubernetes.enums.AccessWayEnum;
+import io.kenxue.devops.sharedataboject.util.FileUtil;
 import org.apache.commons.io.IOUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.http.HttpRequest;
@@ -54,11 +55,7 @@ public class ClusterController extends BasicController {
                               @RequestParam(value = "info",required = false) String info) throws IOException {
         ClusterDTO clusterDTO = JSONObject.parseObject(info, ClusterDTO.class);
         if (AccessWayEnum.valueOf(clusterDTO.getAccessWay())==AccessWayEnum.CONFIG_FILE){
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            IOUtils.copy(file.getInputStream(), baos);
-            byte[] bytes = baos.toByteArray();
-            clusterDTO.setConfigBytes(bytes);
-//            clusterDTO.setConfigStream(file.getInputStream());
+            clusterDTO.setConfigBytes(FileUtil.of(file.getInputStream()));
         }
         ClusterImportCmd cmd = ClusterImportCmd.builder().info(clusterDTO).build();
         return clusterAppService.importing(cmd);
@@ -76,6 +73,20 @@ public class ClusterController extends BasicController {
     @ApiOperation(value = "列表",httpMethod = "GET")
     public Response page(@ModelAttribute @Valid ClusterPageQry clusterPageQry){
         return clusterAppService.page(clusterPageQry);
+    }
+
+    @GetMapping("/pod/list")
+    @Permissions("kubernetes:cluster:list")
+    @ApiOperation(value = "列表",httpMethod = "GET")
+    public Response pod(@ModelAttribute @Valid ClusterPodListQry clusterPodListQry){
+        return clusterAppService.podList(clusterPodListQry);
+    }
+
+    @GetMapping("/pod/describe")
+    @Permissions("kubernetes:cluster:list")
+    @ApiOperation(value = "列表",httpMethod = "GET")
+    public Response describe(@ModelAttribute @Valid ClusterPodDescribeQry qry){
+        return clusterAppService.describe(qry);
     }
 
     @GetMapping("/list")

@@ -12,5 +12,6 @@
             <result property="password" column="password"/>
             <result property="accessWay" column="access_way"/>
             <result property="accessUrl" column="access_url"/>
+            <result property="machineUuid" column="machine_uuid"/>
     </resultMap>
 </mapper>

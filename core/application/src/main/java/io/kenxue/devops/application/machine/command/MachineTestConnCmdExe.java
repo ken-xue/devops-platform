@@ -29,21 +29,8 @@ public class MachineTestConnCmdExe {
 
         MachineInfo machineInfo = machineInfo2DTOAssembler.toDomain(cmd.getMachineInfoDTO());
 
-        JSch jsch = new JSch();
-
-        String ip = machineInfo.getIp();
-        Integer port = machineInfo.getPort();
-        String accessUsername = machineInfo.getAccessUsername();
-
         try {
-            Session session = jsch.getSession(accessUsername, ip, port);
-            session.setPassword(machineInfo.getAccessPassword()); // 设置密码
-            Properties config = new Properties();
-            config.put("StrictHostKeyChecking", "no");
-            session.setConfig(config); // 为Session对象设置properties
-            session.setTimeout(4000); // 设置timeout时间
-            session.connect(); // 通过Session建立链接
-            session.disconnect();
+            machineInfo.testConnection();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.error(CONNECTION_ERROR.getCode(),CONNECTION_ERROR.getDesc()+e.getMessage());

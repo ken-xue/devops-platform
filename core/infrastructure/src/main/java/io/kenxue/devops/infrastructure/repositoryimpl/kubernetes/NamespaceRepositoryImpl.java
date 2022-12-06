@@ -9,6 +9,7 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.*;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +23,7 @@ import java.util.Objects;
  */
 @Component
 public class NamespaceRepositoryImpl implements NamespaceRepository {
+
 
     /**
      * 先进行测试，后面再抽取到kubernetes授权模块
@@ -44,11 +46,12 @@ public class NamespaceRepositoryImpl implements NamespaceRepository {
     public List<Namespace> list(NamespaceListQry namespaceListQry) {
         List<Namespace> namespaces = new ArrayList<>();
         try {
+
             V1NamespaceList list = api.listNamespace(null, null, null, null, null, null, null, null, null);
             list.getItems().forEach(name -> {
                 Namespace namespace = new Namespace();
                 namespace.setNamespaceName(name.getMetadata().getName());
-                namespace.setCreationTimestamp(Objects.requireNonNull(name.getMetadata().getCreationTimestamp()).toString());
+//                namespace.setCreationTimestamp(Objects.requireNonNull(name.getMetadata().getCreationTimestamp()).toString());
                 namespaces.add(namespace);
             });
         }catch (ApiException e){

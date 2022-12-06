@@ -2,6 +2,7 @@ package io.kenxue.devops.domain.domain.kubernetes;
 
 import io.kenxue.devops.domain.common.CommonEntity;
 import io.kenxue.devops.sharedataboject.kubernetes.enums.AccessWayEnum;
+import io.kenxue.devops.sharedataboject.util.FileUtil;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
@@ -54,28 +55,35 @@ public class Cluster extends CommonEntity {
 
     private String accessWay;
 
+    //集群绑定的机器
+    /**
+     * 用于集群访问终端的机器节点
+     */
+    private String machineUuid;
+
+
     public void testConnection(){
         try {
-            ApiClient client;
-            switch (AccessWayEnum.valueOf(accessWay)){
-                case CONFIG_FILE:
-                    client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(
-                            new InputStreamReader(new ByteArrayInputStream(configBytes)))).build();
-                    break;
-                case TOKEN:
-                    client = Config.fromToken(accessUrl,secretKey);
-                    break;
-                case UPWD:
-                    client = Config.fromUserPassword(accessUrl,username,password);
-                    break;
-                default:
-                    throw new RuntimeException("无法找到指定的访问方式");
-            }
+            ApiClient client = getClient();
             Configuration.setDefaultApiClient(client);
             CoreV1Api api = new CoreV1Api();
-            V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null);
-            for (V1Pod item : list.getItems()) {
-                System.out.println(item.getMetadata().getName());
+            api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null);
+        }catch (Exception e){
+            throw new RuntimeException("连接失败："+e.getMessage());
+        }
+    }
+
+    public ApiClient getClient(){
+        try {
+            switch (AccessWayEnum.valueOf(accessWay)){
+                case CONFIG_FILE:
+                    return ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new InputStreamReader(new ByteArrayInputStream(configBytes)))).build();
+                case TOKEN:
+                    return Config.fromToken(accessUrl,secretKey);
+                case UPWD:
+                    return Config.fromUserPassword(accessUrl,username,password);
+                default:
+                    throw new RuntimeException("无法找到指定的访问方式");
             }
         }catch (Exception e){
             throw new RuntimeException("连接失败："+e.getMessage());

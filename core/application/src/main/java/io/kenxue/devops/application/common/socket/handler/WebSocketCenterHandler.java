@@ -26,7 +26,7 @@ public class WebSocketCenterHandler implements WebSocketHandler {
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) {
-        log.info("用户:{},连接WebSocket", webSocketSession.getAttributes().get(Constant.USER_UUID_KEY));
+        log.info("实例:{},连接WebSocket", webSocketSession.getAttributes().get(Constant.USER_UUID_KEY));
         //调用初始化连接
         WebSocketService webSocketService = webSocketServiceHubI.get((String) webSocketSession.getAttributes().get(Constant.PROCESSOR_NAME));
         webSocketService.initConnection(webSocketSession);
@@ -67,7 +67,7 @@ public class WebSocketCenterHandler implements WebSocketHandler {
      */
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) {
-        log.info("用户:{}断开WebSocket连接", webSocketSession.getAttributes().get(Constant.USER_UUID_KEY));
+        log.info("实例:{}断开WebSocket连接", webSocketSession.getAttributes().get(Constant.USER_UUID_KEY));
         //调用service关闭连接
         WebSocketService webSocketService = webSocketServiceHubI.get((String) webSocketSession.getAttributes().get(Constant.PROCESSOR_NAME));
         webSocketService.close(webSocketSession);
