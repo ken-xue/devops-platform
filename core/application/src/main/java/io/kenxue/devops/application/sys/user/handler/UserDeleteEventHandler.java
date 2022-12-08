@@ -8,7 +8,7 @@ import io.kenxue.devops.coreclient.dto.sys.user.event.UserDeleteEvent;
 import io.kenxue.devops.coreclient.dto.sys.userofrole.UserOfRoleDeleteCmd;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @Slf4j
 @EventHandler

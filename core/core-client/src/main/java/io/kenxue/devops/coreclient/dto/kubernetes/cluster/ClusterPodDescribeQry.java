@@ -3,7 +3,7 @@ package io.kenxue.devops.coreclient.dto.kubernetes.cluster;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * pod desc

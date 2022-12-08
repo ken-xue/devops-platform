@@ -11,7 +11,9 @@ import io.kenxue.devops.sharedataboject.util.FileUtil;
 import io.kubernetes.client.openapi.ApiClient;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
+
+import java.io.InputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +39,13 @@ public class ClusterCacheManager implements CacheService<Long,ApiClient> {
             return cache.get(key, () -> {
                 Cluster cluster = clusterRepository.getById(key);
                 if (cluster.getConfigBytes()==null||cluster.getConfigBytes().length==0){//尝试去obs拉取配置文件
-                    cluster.setConfigBytes(FileUtil.of(obs.get(BucketEnum.KUBERNETES_CONFIG_FILE.getName(), cluster.getConfig())));
+                    try {
+                        InputStream inputStream = obs.get(BucketEnum.KUBERNETES_CONFIG_FILE.getName(), cluster.getConfig());
+                        cluster.setConfigBytes(FileUtil.of(inputStream));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        throw new RuntimeException("集群配置文件拉取异常:"+e.getMessage());
+                    }
                 }
                 return cluster.getClient();
             });

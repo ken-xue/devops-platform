@@ -3,8 +3,7 @@ package io.kenxue.devops.acl.authorize.util;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
-
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @Author: 麦奇

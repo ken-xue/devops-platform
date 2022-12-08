@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.project.TaskFileRepository;
 import io.kenxue.devops.domain.domain.project.TaskFile;
 import io.kenxue.devops.coreclient.dto.project.taskfile.TaskFileDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 任务文件
  * @author 麦奇

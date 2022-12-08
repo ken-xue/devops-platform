@@ -7,19 +7,19 @@ import io.kenxue.devops.coreclient.api.sys.MenuAppService;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.sys.menu.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 /**
  * 菜单表
  * @author mikey
  * @date 2021-11-17 14:43:50
  */
 @RestController
-@Api(tags = "菜单表模块",description = "包含新增/列表/删除")
+@Tag(name = "菜单表模块",description = "包含新增/列表/删除")
 @RequestMapping("sys/menu")
 public class MenuController extends BasicController {
     @Resource
@@ -27,7 +27,7 @@ public class MenuController extends BasicController {
 
     @Log("添加菜单")
     @PostMapping("/add")
-    @ApiOperation(value = "添加",httpMethod = "POST")
+    @Operation(summary = "添加",method = "POST")
     @Permissions("sys:menu:add")
     public Response add(@RequestBody @Valid MenuAddCmd menuAddCmd) {
         return menuAppService.add(menuAddCmd);
@@ -36,21 +36,21 @@ public class MenuController extends BasicController {
     @Log("删除菜单")
     @DeleteMapping("/delete")
     @Permissions("sys:menu:delete")
-    @ApiOperation(value = "删除",httpMethod = "DELETE")
+    @Operation(summary = "删除",method = "DELETE")
     public Response delete(@RequestBody @Valid MenuDeleteCmd menuDeleteCmd){
         return menuAppService.delete(menuDeleteCmd);
     }
 
     @GetMapping("/page")
     @Permissions("sys:menu:page")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response page(@ModelAttribute @Valid MenuPageQry menuPageQry){
         return menuAppService.page(menuPageQry);
     }
 
     @GetMapping("/list")
     @Permissions("sys:menu:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response list(@ModelAttribute @Valid MenuListQry menuListQry){
         return menuAppService.list(menuListQry);
     }
@@ -60,7 +60,7 @@ public class MenuController extends BasicController {
      * @return
      */
     @GetMapping("/auth")
-    @ApiOperation(value = "菜单权限",httpMethod = "GET")
+    @Operation(summary = "菜单权限",method = "GET")
     public Response auth(){
         String userId = UserThreadContext.get();
         return menuAppService.getAuthMenu(new AuthMenuGetQry().setUserId(userId));
@@ -68,14 +68,14 @@ public class MenuController extends BasicController {
 
     @GetMapping("/select")
     @Permissions("sys:menu:select")
-    @ApiOperation(value = "下拉框",httpMethod = "GET")
+    @Operation(summary = "下拉框",method = "GET")
     public Response select(MenuGetSelectQry menuGetSelectQry){
         return menuAppService.select(menuGetSelectQry);
     }
 
     @GetMapping("/info")
     @Permissions("sys:menu:info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
+    @Operation(summary = "详情",method = "GET")
     public Response info(@ModelAttribute @Valid MenuGetQry menuGetQry){
         return menuAppService.getById(menuGetQry);
     }
@@ -83,7 +83,7 @@ public class MenuController extends BasicController {
     @Log("修改菜单")
     @PutMapping("/update")
     @Permissions("sys:menu:update")
-    @ApiOperation(value = "更新",httpMethod = "POST")
+    @Operation(summary = "更新",method = "POST")
     public Response update(@RequestBody MenuUpdateCmd menuUpdateCmd){
         return menuAppService.update(menuUpdateCmd);
     }

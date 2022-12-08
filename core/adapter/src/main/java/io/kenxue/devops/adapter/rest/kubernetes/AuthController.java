@@ -1,6 +1,6 @@
 package io.kenxue.devops.adapter.rest.kubernetes;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 @RestController
-@Api(tags = "k8s授权模块",description = "授权登录k8s")
+@Tag(name = "k8s授权模块",description = "授权登录k8s")
 @RequestMapping("kubernetes/auth")
 public class AuthController {
 }

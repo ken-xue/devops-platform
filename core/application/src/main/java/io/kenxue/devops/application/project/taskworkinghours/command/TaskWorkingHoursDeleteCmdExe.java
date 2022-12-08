@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.project.TaskWorkingHoursRepository;
 import io.kenxue.devops.domain.domain.project.TaskWorkingHours;
 import io.kenxue.devops.coreclient.dto.project.taskworkinghours.TaskWorkingHoursDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 工时
  * @author 麦奇

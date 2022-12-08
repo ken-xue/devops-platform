@@ -5,11 +5,10 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.kubernetes.namespace.NamespaceAddCmd;
 import io.kenxue.devops.coreclient.dto.kubernetes.namespace.NamespaceDeleteCmd;
 import io.kenxue.devops.coreclient.dto.kubernetes.namespace.NamespaceListQry;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +18,7 @@ import javax.validation.Valid;
  * @Description:
  */
 @RestController
-@Api(tags = "k8s命名空间(namespace)管理",description = "namespace")
+@Tag(name = "k8s命名空间(namespace)管理",description = "namespace")
 @RequestMapping("kubernetes/namespace")
 public class NamespaceController {
 

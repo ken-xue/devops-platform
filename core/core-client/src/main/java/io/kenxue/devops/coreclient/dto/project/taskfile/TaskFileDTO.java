@@ -3,7 +3,7 @@ package io.kenxue.devops.coreclient.dto.project.taskfile;
 import io.kenxue.devops.coreclient.dto.common.command.CommonDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Date;
 /**
@@ -14,10 +14,10 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class TaskFileDTO extends CommonDTO {
-    @ApiModelProperty(value = "任务uuid")
+    @Schema(description = "任务uuid")
     private String taskUuid;
-    @ApiModelProperty(value = "文件名称")
+    @Schema(description = "文件名称")
     private Date fileName;
-    @ApiModelProperty(value = "文件路径")
+    @Schema(description = "文件路径")
     private Date url;
 }

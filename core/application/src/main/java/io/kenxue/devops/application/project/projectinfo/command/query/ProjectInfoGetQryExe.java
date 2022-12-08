@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.domain.project.ProjectOfUser;
 import io.kenxue.devops.domain.repository.project.ProjectInfoRepository;
 import io.kenxue.devops.domain.repository.project.ProjectOfUserRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.middleware.zookeeper.ZookeeperListQry;
 import io.kenxue.devops.domain.domain.middleware.Zookeeper;
 import io.kenxue.devops.domain.repository.middleware.zookeeper.ZookeeperRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 基建中间件zk

@@ -15,7 +15,7 @@ import io.kenxue.devops.domain.repository.machine.MachineOfGroupRepository;
 import io.kenxue.devops.sharedataboject.machine.enums.GroupEnum;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

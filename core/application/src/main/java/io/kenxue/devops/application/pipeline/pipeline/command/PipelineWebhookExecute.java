@@ -8,7 +8,7 @@ import io.kenxue.devops.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.devops.sharedataboject.pipeline.enums.PipelineTargetEnum;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @Service
 public class PipelineWebhookExecute {

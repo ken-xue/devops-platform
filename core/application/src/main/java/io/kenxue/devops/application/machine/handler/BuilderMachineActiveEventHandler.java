@@ -8,7 +8,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.machine.event.BuilderMachineActiveEvent;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author 麦奇

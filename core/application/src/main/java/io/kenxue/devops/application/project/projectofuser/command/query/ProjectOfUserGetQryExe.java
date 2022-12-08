@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.project.projectofuser.ProjectOfUserGetQry;
 import io.kenxue.devops.domain.repository.project.ProjectOfUserRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 项目关联用户
  * @author mikey

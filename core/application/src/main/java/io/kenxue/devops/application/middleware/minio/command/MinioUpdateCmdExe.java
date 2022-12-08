@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.middleware.minio.MinioUpdateCmd;
 import io.kenxue.devops.domain.repository.middleware.MinioRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * minio实例
  * @author 麦奇

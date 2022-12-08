@@ -6,52 +6,32 @@ import io.kenxue.devops.acl.authorize.filter.JWTLoginFilter;
 import io.kenxue.devops.acl.authorize.handler.CustomAuthenticationEntryPoint;
 import io.kenxue.devops.acl.authorize.impl.AuthenticationProviderImpl;
 import io.kenxue.devops.acl.cache.CacheService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-    @Bean
-    public AuthenticationManager configAuthenticationManager() throws Exception{
-        return authenticationManager();
-    }
-    /**
-     * 需要放行的URL
-     */
-    private static final String[] AUTH_WHITELIST = {
-            "/ws/**",//开放websocket接口
-            "/sys/user/add",//注册接口
-            "/captcha/get",//注册接口
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/ok"
-    };
+@EnableMethodSecurity
+public class SpringSecurityConfig {
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -60,39 +40,71 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private AccessDeniedHandler customAccessDeniedHandler;
     @Resource
-    private LogoutSuccessHandler customLogoutSuccessHandler;
-    @Resource
     private AuthorizeService authorizeService;
     @Resource
     @Qualifier("authCachedImpl")
     private CacheService cacheService;
 
-    // 设置 HTTP 验证规则
-    
-    protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated()  // 所有请求需要身份认证
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint("Basic realm=devops-platform"))
-                .accessDeniedHandler(customAccessDeniedHandler) // 自定义访问失败处理器
-                .and()
-                .addFilter(new JWTLoginFilter(authenticationManager(),authorizeService,cacheService))
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(),cacheService))
-                .logout() // 默认注销行为为logout，可以通过下面的方式来修改
-                .logoutUrl("/logout")
-                .logoutSuccessHandler(customLogoutSuccessHandler)
-                .permitAll();
+    @Resource
+    private AuthenticationConfiguration auth;
+
+    CorsConfigurationSource configurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
+        corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
+        corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
+        corsConfiguration.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
     }
 
-    // 该方法是登录的时候会进入
-    
-    public void configure(AuthenticationManagerBuilder auth) {
-        // 使用自定义身份验证组件
-        auth.authenticationProvider(new AuthenticationProviderImpl(userDetailsService, bCryptPasswordEncoder));
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.cors().configurationSource(configurationSource()).and()
+                // 基于 token，不需要 csrf
+                .csrf().disable()
+                // 基于 token，不需要 session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()// 放开权限
+                // 下面开始设置权限
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/ws/**",//开放websocket接口
+
+//                                "/",
+//                                "/error",
+//                                "/swagger-ui.html",
+//                                "/swagger-ui/",
+//                                "/*.html",
+//                                "/favicon.ico",
+//                                "/*/*.html",
+//                                "/*/*.css",
+//                                "/*/*.js",
+//                                "/swagger-resources/**",
+//                                "/v3/api-docs/**",
+
+                                "/sys/user/add",//注册接口
+                                "/captcha/get",//注册接口
+                                "/v3/api-docs/*",
+                                "/swagger-resources",
+                                "/swagger-resources/**",
+                                "/configuration/ui",
+                                "/configuration/security",
+                                "/swagger-ui.html",
+                                "/webjars/**",
+                                "/ok").anonymous()
+                        .anyRequest().authenticated()
+                )
+                // 设置 jwtAuthError 处理认证失败、鉴权失败
+                .exceptionHandling()
+                .authenticationEntryPoint((new CustomAuthenticationEntryPoint("Basic realm=devops-platform")))
+                .accessDeniedHandler(customAccessDeniedHandler)
+                .and()
+                .authenticationProvider(new AuthenticationProviderImpl(userDetailsService, bCryptPasswordEncoder))
+
+                // 添加 JWT 过滤器
+                .addFilter(new JWTLoginFilter(auth.getAuthenticationManager(),authorizeService,cacheService))
+                .addFilter(new JWTAuthenticationFilter(auth.getAuthenticationManager(),cacheService))
+                .build();
     }
 }
 

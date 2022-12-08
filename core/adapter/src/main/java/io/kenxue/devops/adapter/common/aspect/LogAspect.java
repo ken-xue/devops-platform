@@ -7,6 +7,7 @@ import io.kenxue.devops.coreclient.api.sys.LogAppService;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 import io.kenxue.devops.coreclient.dto.sys.log.LogAddCmd;
 import io.kenxue.devops.coreclient.dto.sys.log.LogDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,8 +17,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.Objects;

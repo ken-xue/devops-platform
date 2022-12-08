@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.middleware.minio.MinioListQry;
 import io.kenxue.devops.domain.domain.middleware.Minio;
 import io.kenxue.devops.domain.repository.middleware.MinioRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * minio实例

@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.project.taskworkinghours.TaskWorkingHours
 import io.kenxue.devops.domain.domain.project.TaskWorkingHours;
 import io.kenxue.devops.domain.repository.project.TaskWorkingHoursRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 工时

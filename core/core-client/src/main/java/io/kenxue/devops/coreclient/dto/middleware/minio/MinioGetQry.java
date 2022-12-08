@@ -3,7 +3,7 @@ package io.kenxue.devops.coreclient.dto.middleware.minio;
 import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * minio实例
  * @author 麦奇
@@ -14,16 +14,16 @@ import io.swagger.annotations.ApiModelProperty;
 public class MinioGetQry extends CommonCommand {
 
     private Long id;
-    @ApiModelProperty(value = "uri")
+    @Schema(description = "uri")
     private String uri;
-    @ApiModelProperty(value = "访问用户名")
+    @Schema(description = "访问用户名")
     private String username;
-    @ApiModelProperty(value = "访问密码或秘钥")
+    @Schema(description = "访问密码或秘钥")
     private String password;
-    @ApiModelProperty(value = "别名")
+    @Schema(description = "别名")
     private String name;
-    @ApiModelProperty(value = "备注")
+    @Schema(description = "备注")
     private String remark;
-    @ApiModelProperty(value = "访问端口")
+    @Schema(description = "访问端口")
     private Integer port;
 }

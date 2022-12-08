@@ -2,10 +2,11 @@ package io.kenxue.devops.acl.authorize.handler;
 
 import io.kenxue.devops.acl.authorize.util.ResponseUtil;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import static io.kenxue.devops.coreclient.exception.code.AuthErrorCode.NEED_LOGIN;
 
 /**

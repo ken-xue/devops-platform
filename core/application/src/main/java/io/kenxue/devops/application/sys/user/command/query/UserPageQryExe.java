@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.domain.sys.User;
 import io.kenxue.devops.domain.repository.sys.UserRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @Component
 public class UserPageQryExe {

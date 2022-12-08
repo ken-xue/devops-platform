@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.common.response.PageResponse;
 import io.kenxue.devops.domain.repository.machine.MachineInfoRepository;
 import org.springframework.stereotype.Component;
 import io.kenxue.devops.domain.domain.machine.MachineInfo;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.dto.common.page.Page;
 /**
  * 服务器节点

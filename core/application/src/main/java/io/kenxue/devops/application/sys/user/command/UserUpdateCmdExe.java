@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.repository.sys.UserOfRoleRepository;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 @Component

@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.pipeline.PipelineExecuteLoggerReposito
 import io.kenxue.devops.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.devops.coreclient.dto.pipeline.pipelineexecutelogger.PipelineExecuteLoggerDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 流水线执行记录
  * @author mikey

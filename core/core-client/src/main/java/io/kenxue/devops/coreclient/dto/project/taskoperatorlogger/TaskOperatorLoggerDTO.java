@@ -3,7 +3,7 @@ package io.kenxue.devops.coreclient.dto.project.taskoperatorlogger;
 import io.kenxue.devops.coreclient.dto.common.command.CommonDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Date;
 /**
@@ -14,10 +14,10 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class TaskOperatorLoggerDTO extends CommonDTO {
-    @ApiModelProperty(value = "项目名称")
+    @Schema(description = "项目名称")
     private String taskUuid;
-    @ApiModelProperty(value = "操作人")
+    @Schema(description = "操作人")
     private String userUuid;
-    @ApiModelProperty(value = "内容")
+    @Schema(description = "内容")
     private String content;
 }

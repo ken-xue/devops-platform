@@ -5,29 +5,17 @@ import io.kenxue.devops.adapter.common.annotation.Permissions;
 import io.kenxue.devops.adapter.rest.common.BasicController;
 import io.kenxue.devops.coreclient.api.kubernetes.ClusterAppService;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
-import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.kubernetes.cluster.*;
 import io.kenxue.devops.sharedataboject.kubernetes.enums.AccessWayEnum;
 import io.kenxue.devops.sharedataboject.util.FileUtil;
-import org.apache.commons.io.IOUtils;
-import org.checkerframework.checker.units.qual.C;
-import org.springframework.http.HttpRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.io.ByteArrayOutputStream;
+import jakarta.annotation.Resource;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * kubernetes集群
@@ -35,7 +23,7 @@ import java.util.List;
  * @date 2022-05-13 23:03:20
  */
 @RestController
-@Api(tags = "kubernetes集群模块",description = "包含新增/列表/删除")
+@Tag(name = "kubernetes集群模块",description = "包含新增/列表/删除")
 @RequestMapping("kubernetes/cluster")
 public class ClusterController extends BasicController {
     @Resource
@@ -43,14 +31,14 @@ public class ClusterController extends BasicController {
 
     @PostMapping("/add")
     @Permissions("kubernetes:cluster:add")
-    @ApiOperation(value = "添加",httpMethod = "POST")
+    @Operation(summary = "添加",method = "POST")
     public Response add(@RequestBody @Valid ClusterAddCmd clusterAddCmd) {
         return clusterAppService.add(clusterAddCmd);
     }
 
     @PostMapping("/import")
     @Permissions("kubernetes:cluster:add")
-    @ApiOperation(value = "导入",httpMethod = "POST")
+    @Operation(summary = "导入",method = "POST")
     public Response importing(@RequestParam(value = "file",required = false) MultipartFile file,
                               @RequestParam(value = "info",required = false) String info) throws IOException {
         ClusterDTO clusterDTO = JSONObject.parseObject(info, ClusterDTO.class);
@@ -63,49 +51,49 @@ public class ClusterController extends BasicController {
 
     @DeleteMapping("/delete")
     @Permissions("kubernetes:cluster:delete")
-    @ApiOperation(value = "删除",httpMethod = "DELETE")
+    @Operation(summary = "删除",method = "DELETE")
     public Response delete(@RequestBody @Valid ClusterDeleteCmd clusterDeleteCmd){
         return clusterAppService.delete(clusterDeleteCmd);
     }
 
     @GetMapping("/page")
     @Permissions("kubernetes:cluster:page")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response page(@ModelAttribute @Valid ClusterPageQry clusterPageQry){
         return clusterAppService.page(clusterPageQry);
     }
 
     @GetMapping("/pod/list")
     @Permissions("kubernetes:cluster:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response pod(@ModelAttribute @Valid ClusterPodListQry clusterPodListQry){
         return clusterAppService.podList(clusterPodListQry);
     }
 
     @GetMapping("/pod/describe")
     @Permissions("kubernetes:cluster:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response describe(@ModelAttribute @Valid ClusterPodDescribeQry qry){
         return clusterAppService.describe(qry);
     }
 
     @GetMapping("/list")
     @Permissions("kubernetes:cluster:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response list(@ModelAttribute @Valid ClusterListQry clusterListQry){
         return clusterAppService.list(clusterListQry);
     }
 
     @GetMapping("/info")
     @Permissions("kubernetes:cluster:info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
+    @Operation(summary = "详情",method = "GET")
     public Response info(@ModelAttribute @Valid ClusterGetQry clusterGetQry){
         return clusterAppService.getById(clusterGetQry);
     }
 
     @PutMapping("/update")
     @Permissions("kubernetes:cluster:update")
-    @ApiOperation(value = "更新",httpMethod = "PUT")
+    @Operation(summary = "更新",method = "PUT")
     public Response update(@RequestBody ClusterUpdateCmd clusterUpdateCmd){
         return clusterAppService.update(clusterUpdateCmd);
     }

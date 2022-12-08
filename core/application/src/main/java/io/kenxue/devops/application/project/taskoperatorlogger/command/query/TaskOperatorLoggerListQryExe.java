@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.project.taskoperatorlogger.TaskOperatorLo
 import io.kenxue.devops.domain.domain.project.TaskOperatorLogger;
 import io.kenxue.devops.domain.repository.project.TaskOperatorLoggerRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 项目任务操作日志

@@ -6,7 +6,7 @@ import io.kenxue.devops.sharedataboject.pipeline.node.Node;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

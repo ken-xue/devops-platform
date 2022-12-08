@@ -2,8 +2,12 @@ package io.kenxue.devops.acl.authorize.filter;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.gson.io.GsonSerializer;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import io.kenxue.devops.acl.authorize.AuthorizeService;
 import io.kenxue.devops.acl.authorize.config.JWTConfig;
 import io.kenxue.devops.acl.authorize.constant.Constant;
@@ -13,6 +17,9 @@ import io.kenxue.devops.acl.cache.CacheService;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.sys.user.UserDTO;
 import io.kenxue.devops.coreclient.exception.BizException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,9 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,11 +85,13 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             // 设置过期时间
             calendar.add(Calendar.MINUTE, JWTConfig.getJwtTokenExpireTime());// 50分钟
             Date time = calendar.getTime();
+            Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(Constant.SIGNING_KEY));
             token = Jwts.builder()
                     .setSubject(auth.getName())
                     .setIssuedAt(now)//签发时间
                     .setExpiration(time)//过期时间
-                    .signWith(SignatureAlgorithm.HS512, Constant.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
+                    .signWith(key,SignatureAlgorithm.HS512) //采用什么算法是可以自己选择的，不一定非要采用HS512
+                    .serializeToJsonWith(new GsonSerializer<>(new Gson()))
                     .compact();
             // 生成token end
             // 登录成功后，返回token到header里面

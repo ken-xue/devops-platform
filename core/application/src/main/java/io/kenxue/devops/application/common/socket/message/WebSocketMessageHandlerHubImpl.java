@@ -3,9 +3,10 @@ package io.kenxue.devops.application.common.socket.message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @Service
+@Lazy
 public class WebSocketMessageHandlerHubImpl implements WebSocketMessageHandlerHubI, InitializingBean {
 
     private final ConcurrentHashMap<String, WebSocketMessageHandlerI> webSocketServiceHub = new ConcurrentHashMap<>(2<<4);

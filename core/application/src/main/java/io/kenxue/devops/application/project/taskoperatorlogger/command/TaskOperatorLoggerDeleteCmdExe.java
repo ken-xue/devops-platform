@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.project.TaskOperatorLoggerRepository;
 import io.kenxue.devops.domain.domain.project.TaskOperatorLogger;
 import io.kenxue.devops.coreclient.dto.project.taskoperatorlogger.TaskOperatorLoggerDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 项目任务操作日志
  * @author 麦奇

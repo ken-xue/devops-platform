@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.sys.menu.MenuGetQry;
 import io.kenxue.devops.domain.repository.sys.MenuRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 菜单表

@@ -9,10 +9,10 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
+        <spring-boot.version>3.0.0</spring-boot.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.io.version>2.5</commons.io.version>
         <commons.configuration.version>1.10</commons.configuration.version>
@@ -20,19 +20,21 @@
         <joda.time.version>2.9.9</joda.time.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
         <fastjson.version>1.2.72</fastjson.version>
-        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
+        <mybatis.plus.version>3.5.2.7-SNAPSHOT</mybatis.plus.version>
         <aspectjweaver.version>1.9.6</aspectjweaver.version>
-        <jwt.version>0.7.0</jwt.version>
+        <jwt.version>0.11.5</jwt.version>
         <arthas.version>3.4.8</arthas.version>
         <commons.lang3.version>3.1</commons.lang3.version>
-        <springfox.swagger>2.7.0</springfox.swagger>
+        <springfox.swagger>3.0.0</springfox.swagger>
         <k8s.client.java.version>10.0.0</k8s.client.java.version>
         <jsch.version>0.1.55</jsch.version>
         <jenkins.client.version>0.3.8</jenkins.client.version>
         <netty.version>4.1.36.Final</netty.version>
-        <spring.websocket.version>5.1.9.RELEASE</spring.websocket.version>
+        <spring.websocket.version>6.0.2</spring.websocket.version>
         <pipeline.version>1.0.0</pipeline.version>
         <guava.version>31.1-jre</guava.version>
+        <druid.version>1.2.14</druid.version>
+        <springdoc.version>1.6.13</springdoc.version>
     </properties>
 
     <dependencyManagement>
@@ -73,21 +75,33 @@
                 <version>${commons.io.version}</version>
                 <type>jar</type>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+<!--            暂时还不支持springboot3-->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${springfox.swagger}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${springfox.swagger}</version>
-            </dependency>
+
+            <!--            jwt-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
+                <artifactId>jjwt-api</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-gson</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
@@ -142,18 +156,11 @@
                 <artifactId>jenkins-client</artifactId>
                 <version>${jenkins.client.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--&lt;!&ndash;                NOT YET FINALIZED NOR RELEASED !!!&ndash;&gt;-->
-<!--                <groupId>org.jenkins-ci.lib</groupId>-->
-<!--                <artifactId>java-client-api</artifactId>-->
-<!--                <version>0.4.0</version>-->
-<!--            </dependency>-->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-websocket</artifactId>
@@ -164,6 +171,26 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <!-- 下载mybatis-plus SNAPSHOT 版本所需仓库 -->
+        <repository>
+            <id>ossrh</id>
+            <name>OSS Snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
 </project>

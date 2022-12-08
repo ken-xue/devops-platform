@@ -8,7 +8,7 @@ import io.kenxue.devops.domain.repository.sys.MenuRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

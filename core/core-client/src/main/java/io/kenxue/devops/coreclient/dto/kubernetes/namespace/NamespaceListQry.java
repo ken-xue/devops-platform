@@ -3,7 +3,7 @@ package io.kenxue.devops.coreclient.dto.kubernetes.namespace;
 import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Created with IntelliJ IDEA.

@@ -11,7 +11,7 @@ import io.kenxue.devops.domain.repository.kubernetes.ClusterNodeRepository;
 import io.kenxue.devops.domain.repository.kubernetes.ClusterRepository;
 import io.kenxue.devops.sharedataboject.kubernetes.enums.KubernetesNodeEnum;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 

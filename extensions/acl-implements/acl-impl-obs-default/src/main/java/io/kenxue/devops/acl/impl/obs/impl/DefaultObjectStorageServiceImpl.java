@@ -7,13 +7,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
-import sun.misc.IOUtils;
 
-import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * 统一对象存储接口
@@ -23,8 +19,11 @@ import java.io.OutputStream;
 @Service
 public class DefaultObjectStorageServiceImpl implements ObjectStorageService, InitializingBean {
 
-    @Resource
-    private MinioClient minioClient;
+    private final MinioClient minioClient;
+
+    public DefaultObjectStorageServiceImpl(MinioClient minioClient) {
+        this.minioClient = minioClient;
+    }
 
     @SneakyThrows
     @Override

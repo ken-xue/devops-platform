@@ -10,7 +10,7 @@ import io.kenxue.devops.domain.factory.sys.RoleOfMenuFactory;
 import io.kenxue.devops.domain.repository.sys.RoleRepository;
 import io.kenxue.devops.domain.repository.sys.RoleOfMenuRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 角色表
  * @author mikey

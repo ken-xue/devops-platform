@@ -5,24 +5,19 @@ import io.kenxue.devops.adapter.rest.common.BasicController;
 import io.kenxue.devops.coreclient.api.project.TaskWorkingHoursAppService;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.project.taskworkinghours.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import javax.annotation.Resource;
-import javax.validation.Valid;
+
 /**
  * 工时
  * @author 麦奇
  * @date 2022-06-04 00:21:17
  */
 @RestController
-@Api(tags = "工时模块",description = "包含新增/列表/删除")
+@Tag(name = "工时模块",description = "包含新增/列表/删除")
 @RequestMapping("project/taskworkinghours")
 public class TaskWorkingHoursController extends BasicController {
     @Resource
@@ -30,51 +25,42 @@ public class TaskWorkingHoursController extends BasicController {
 
     @PostMapping("/add")
     @Permissions("project:taskworkinghours:add")
-    @ApiOperation(value = "添加",httpMethod = "POST")
+    @Operation(summary = "添加",method = "POST")
     public Response add(@RequestBody @Valid TaskWorkingHoursAddCmd cmd) {
         return taskWorkingHoursAppService.add(cmd);
     }
 
     @DeleteMapping("/delete")
     @Permissions("project:taskworkinghours:delete")
-    @ApiOperation(value = "删除",httpMethod = "DELETE")
+    @Operation(summary = "删除",method = "DELETE")
     public Response delete(@RequestBody @Valid TaskWorkingHoursDeleteCmd cmd){
         return taskWorkingHoursAppService.delete(cmd);
     }
 
     @GetMapping("/page")
     @Permissions("project:taskworkinghours:page")
-    @ApiOperation(value = "列表",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 2000, message = "OK", response = TaskWorkingHoursDTO.class)
-    })
+    @Operation(summary = "列表",method = "GET")
     public Response page(@ModelAttribute @Valid TaskWorkingHoursPageQry qry){
         return taskWorkingHoursAppService.page(qry);
     }
 
     @GetMapping("/list")
     @Permissions("project:taskworkinghours:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 2000, message = "OK", response = TaskWorkingHoursDTO.class)
-    })
+    @Operation(summary = "列表",method = "GET")
     public Response list(@ModelAttribute @Valid TaskWorkingHoursListQry qry){
         return taskWorkingHoursAppService.list(qry);
     }
 
     @GetMapping("/info")
     @Permissions("project:taskworkinghours:info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 2000, message = "OK", response = TaskWorkingHoursDTO.class)
-    })
+    @Operation(summary = "详情",method = "GET")
     public Response info(@ModelAttribute @Valid TaskWorkingHoursGetQry qry){
         return taskWorkingHoursAppService.getById(qry);
     }
 
     @PutMapping("/update")
     @Permissions("project:taskworkinghours:update")
-    @ApiOperation(value = "更新",httpMethod = "PUT")
+    @Operation(summary = "更新",method = "PUT")
     public Response update(@RequestBody TaskWorkingHoursUpdateCmd cmd){
         return taskWorkingHoursAppService.update(cmd);
     }

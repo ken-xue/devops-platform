@@ -1,9 +1,8 @@
 package io.kenxue.devops.acl.authorize.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
-import javax.validation.constraints.NotBlank;
 
 /**
  * @Author: 麦奇

@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.kubernetes.cluster.ClusterListQry;
 import io.kenxue.devops.domain.domain.kubernetes.Cluster;
 import io.kenxue.devops.domain.repository.kubernetes.ClusterRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * kubernetes集群

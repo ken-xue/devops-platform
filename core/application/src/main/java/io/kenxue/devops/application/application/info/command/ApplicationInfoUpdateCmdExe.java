@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.application.applicationinfo.ApplicationInfoUpdateCmd;
 import io.kenxue.devops.domain.repository.application.ApplicationInfoRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 应用
  * @author mikey

@@ -1,15 +1,18 @@
 package io.kenxue.devops.application.pipeline.pipeline.loader;
 
 import io.kenxue.devops.application.common.loader.Loader;
+import io.kenxue.devops.application.pipeline.pipeline.node.builder.JavaBuildNode;
 import io.kenxue.devops.sharedataboject.pipeline.node.Node;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PipelineNodeLoader implements Loader<String,Node> {
 
     @Resource
@@ -27,7 +30,9 @@ public class PipelineNodeLoader implements Loader<String,Node> {
 
     @Override
     public List<Node> loadAll() {
-        return applicationContext.getBeansOfType(Node.class).values().stream().collect(Collectors.toList());
+        List<Node> nodeList = applicationContext.getBeansOfType(Node.class).values().stream().collect(Collectors.toList());
+        log.info("all node : {}",nodeList);
+        return nodeList;
     }
 
     @Override

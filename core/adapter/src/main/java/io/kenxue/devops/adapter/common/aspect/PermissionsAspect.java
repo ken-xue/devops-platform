@@ -12,7 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.List;
 

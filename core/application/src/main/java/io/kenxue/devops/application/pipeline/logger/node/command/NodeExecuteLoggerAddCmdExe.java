@@ -8,7 +8,7 @@ import io.kenxue.devops.domain.domain.pipeline.NodeLogger;
 import io.kenxue.devops.coreclient.dto.pipeline.nodeexecutelogger.NodeExecuteLoggerAddCmd;
 import io.kenxue.devops.sharedataboject.common.obs.BucketEnum;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 /**
  * 节点执行记录

@@ -5,7 +5,7 @@ import io.kenxue.devops.sharedataboject.common.obs.BucketEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.UUID;
 
 @SpringBootTest

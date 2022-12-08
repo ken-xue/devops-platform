@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.sys.roleofmenu.RoleOfMenuListQry;
 import io.kenxue.devops.domain.domain.sys.RoleOfMenu;
 import io.kenxue.devops.domain.repository.sys.RoleOfMenuRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

@@ -8,7 +8,7 @@ import io.kenxue.devops.coreclient.dto.sys.log.LogGetQry;
 import io.kenxue.devops.domain.repository.sys.LogRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 系统日志

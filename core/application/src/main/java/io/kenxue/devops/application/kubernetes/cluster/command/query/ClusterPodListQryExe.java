@@ -12,7 +12,7 @@ import io.kubernetes.client.openapi.models.V1PodList;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

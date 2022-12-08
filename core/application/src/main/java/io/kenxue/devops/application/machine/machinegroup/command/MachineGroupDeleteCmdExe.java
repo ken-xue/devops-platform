@@ -7,7 +7,7 @@ import io.kenxue.devops.domain.domain.machine.MachineGroup;
 import io.kenxue.devops.coreclient.dto.machine.machinegroup.MachineGroupDeleteCmd;
 import io.kenxue.devops.sharedataboject.machine.enums.GroupEnum;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

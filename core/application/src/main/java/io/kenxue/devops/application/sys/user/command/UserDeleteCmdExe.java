@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.domain.sys.User;
 import io.kenxue.devops.coreclient.dto.sys.user.UserDeleteCmd;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @Author: 麦奇

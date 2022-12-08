@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
@@ -32,8 +32,6 @@ public class PipelineNodeExecuteLoggerSocketServiceImpl implements WebSocketServ
     //存放ssh连接信息的map,key=执行记录uuid+&+节点uuid
     private static volatile Map<String, Queue<WebSocketSession>> webSocketConnectionPool = new ConcurrentHashMap<>(2 << 4);
 
-    @Resource
-    private PipelineExecuteCmdExe pipelineExecuteCmdExe;
     @Resource
     private NodeExecuteLoggerRepository nodeExecuteLoggerRepository;
     @Resource

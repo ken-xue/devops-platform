@@ -7,7 +7,7 @@ import io.kenxue.devops.domain.domain.pipeline.Pipeline;
 import io.kenxue.devops.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.devops.coreclient.dto.pipeline.pipeline.PipelineAddCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 /**
  * 流水线

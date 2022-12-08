@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.repository.kubernetes.ClusterRepository;
 import io.kenxue.devops.domain.repository.machine.MachineInfoRepository;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static io.kenxue.devops.coreclient.exception.code.SSHErrorCode.CONNECTION_ERROR;
 

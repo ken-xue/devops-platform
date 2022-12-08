@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.pipeline.pipeline.PipelineGetQry;
 import io.kenxue.devops.domain.repository.pipeline.PipelineRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 流水线

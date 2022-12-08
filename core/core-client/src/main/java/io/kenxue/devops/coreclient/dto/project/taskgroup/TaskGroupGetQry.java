@@ -4,7 +4,7 @@ import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * 任务组
  * @author 麦奇
@@ -15,8 +15,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class TaskGroupGetQry extends CommonCommand {
 
     private Long id;
-    @ApiModelProperty(value = "项目uuid")
+    @Schema(description = "项目uuid")
     private String projectUuid;
-    @ApiModelProperty(value = "任务组名")
+    @Schema(description = "任务组名")
     private String groupName;
 }

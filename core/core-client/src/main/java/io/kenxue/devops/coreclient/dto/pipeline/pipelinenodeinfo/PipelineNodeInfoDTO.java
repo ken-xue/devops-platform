@@ -5,7 +5,7 @@ import io.kenxue.devops.sharedataboject.common.group.Insert;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 流水线节点详情

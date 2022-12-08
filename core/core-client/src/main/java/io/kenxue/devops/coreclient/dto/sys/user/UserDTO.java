@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.sys.role.RoleDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Set;
 

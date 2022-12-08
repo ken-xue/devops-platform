@@ -4,7 +4,7 @@ import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * 任务关联用户
  * @author 麦奇
@@ -15,8 +15,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class TaskOfUserGetQry extends CommonCommand {
 
     private Long id;
-    @ApiModelProperty(value = "项目uuid")
+    @Schema(description = "项目uuid")
     private String taskUuid;
-    @ApiModelProperty(value = "用户uuid")
+    @Schema(description = "用户uuid")
     private String userUuid;
 }

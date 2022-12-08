@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.middleware.zookeeper.ZookeeperReposito
 import io.kenxue.devops.domain.domain.middleware.Zookeeper;
 import io.kenxue.devops.coreclient.dto.middleware.zookeeper.ZookeeperDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 基建中间件zk
  * @author steakliu

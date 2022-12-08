@@ -19,7 +19,7 @@ import io.kubernetes.client.util.KubeConfig;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;

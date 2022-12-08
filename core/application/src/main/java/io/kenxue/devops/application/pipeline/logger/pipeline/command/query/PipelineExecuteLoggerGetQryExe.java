@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.pipeline.pipelineexecutelogger.PipelineExecuteLoggerGetQry;
 import io.kenxue.devops.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 流水线执行记录
  * @author mikey

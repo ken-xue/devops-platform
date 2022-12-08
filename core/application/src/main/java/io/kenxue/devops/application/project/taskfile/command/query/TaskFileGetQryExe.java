@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.project.taskfile.TaskFileGetQry;
 import io.kenxue.devops.domain.repository.project.TaskFileRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 任务文件
  * @author 麦奇

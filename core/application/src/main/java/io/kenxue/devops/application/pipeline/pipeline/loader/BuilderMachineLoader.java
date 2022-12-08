@@ -7,7 +7,7 @@ import io.kenxue.devops.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.devops.sharedataboject.machine.enums.GroupEnum;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

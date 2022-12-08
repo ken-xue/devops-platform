@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.project.task.TaskUpdateCmd;
 import io.kenxue.devops.domain.repository.project.TaskRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 项目任务
  * @author 麦奇

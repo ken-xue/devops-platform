@@ -5,24 +5,19 @@ import io.kenxue.devops.adapter.rest.common.BasicController;
 import io.kenxue.devops.coreclient.api.middleware.MinioAppService;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.middleware.minio.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import javax.annotation.Resource;
-import javax.validation.Valid;
+
 /**
  * minio实例
  * @author 麦奇
  * @date 2022-05-25 23:50:28
  */
 @RestController
-@Api(tags = "minio实例模块",description = "包含新增/列表/删除")
+@Tag(name = "minio实例模块",description = "包含新增/列表/删除")
 @RequestMapping("middleware/minio")
 public class MinioController extends BasicController {
     @Resource
@@ -30,51 +25,42 @@ public class MinioController extends BasicController {
 
     @PostMapping("/add")
     @Permissions("middleware:minio:add")
-    @ApiOperation(value = "添加",httpMethod = "POST")
+    @Operation(summary = "添加",method = "POST")
     public Response add(@RequestBody @Valid MinioAddCmd cmd) {
         return minioAppService.add(cmd);
     }
 
     @DeleteMapping("/delete")
     @Permissions("middleware:minio:delete")
-    @ApiOperation(value = "删除",httpMethod = "DELETE")
+    @Operation(summary = "删除",method = "DELETE")
     public Response delete(@RequestBody @Valid MinioDeleteCmd cmd){
         return minioAppService.delete(cmd);
     }
 
     @GetMapping("/page")
     @Permissions("middleware:minio:page")
-    @ApiOperation(value = "列表",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 2000, message = "OK", response = MinioDTO.class)
-    })
+    @Operation(summary = "列表",method = "GET")
     public Response page(@ModelAttribute @Valid MinioPageQry qry){
         return minioAppService.page(qry);
     }
 
     @GetMapping("/list")
     @Permissions("middleware:minio:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 2000, message = "OK", response = MinioDTO.class)
-    })
+    @Operation(summary = "列表",method = "GET")
     public Response list(@ModelAttribute @Valid MinioListQry qry){
         return minioAppService.list(qry);
     }
 
     @GetMapping("/info")
     @Permissions("middleware:minio:info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 2000, message = "OK", response = MinioDTO.class)
-    })
+    @Operation(summary = "详情",method = "GET")
     public Response info(@ModelAttribute @Valid MinioGetQry qry){
         return minioAppService.getById(qry);
     }
 
     @PutMapping("/update")
     @Permissions("middleware:minio:update")
-    @ApiOperation(value = "更新",httpMethod = "PUT")
+    @Operation(summary = "更新",method = "PUT")
     public Response update(@RequestBody MinioUpdateCmd cmd){
         return minioAppService.update(cmd);
     }

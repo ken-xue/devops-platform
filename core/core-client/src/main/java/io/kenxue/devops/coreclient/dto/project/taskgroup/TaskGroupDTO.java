@@ -4,7 +4,7 @@ import io.kenxue.devops.coreclient.dto.common.command.CommonDTO;
 import io.kenxue.devops.coreclient.dto.project.task.TaskDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Date;
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class TaskGroupDTO extends CommonDTO {
-    @ApiModelProperty(value = "项目uuid")
+    @Schema(description = "项目uuid")
     private String projectUuid;
-    @ApiModelProperty(value = "任务组名")
+    @Schema(description = "任务组名")
     private String groupName;
 
     /**

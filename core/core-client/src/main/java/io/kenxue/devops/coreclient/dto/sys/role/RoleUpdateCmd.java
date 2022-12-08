@@ -2,7 +2,7 @@ package io.kenxue.devops.coreclient.dto.sys.role;
 
 import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 /**
  * 角色表
  * @author mikey

@@ -8,7 +8,7 @@ import io.kenxue.devops.coreclient.dto.sys.roleofmenu.RoleOfMenuGetQry;
 import io.kenxue.devops.domain.repository.sys.RoleOfMenuRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 角色关联菜单表

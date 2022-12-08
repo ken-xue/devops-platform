@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.machine.MachineInfoListQry;
 import io.kenxue.devops.domain.domain.machine.MachineInfo;
 import io.kenxue.devops.domain.repository.machine.MachineInfoRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 服务器节点

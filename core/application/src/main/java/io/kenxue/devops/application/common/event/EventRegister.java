@@ -5,7 +5,7 @@ import io.kenxue.devops.coreclient.dto.common.event.EventI;
 import io.kenxue.devops.coreclient.exception.EventException;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.lang.reflect.Method;
 
 @Component

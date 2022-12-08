@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.kenxue.devops.coreclient.dto.common.page.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 

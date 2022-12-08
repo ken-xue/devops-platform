@@ -2,7 +2,7 @@ package io.kenxue.devops.coreclient.dto.sys.roleofmenu;
 
 import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import lombok.experimental.Accessors;
 /**
  * 角色关联菜单表

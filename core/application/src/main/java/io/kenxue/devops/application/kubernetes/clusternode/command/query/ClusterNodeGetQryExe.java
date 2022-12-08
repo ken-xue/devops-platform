@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.kubernetes.clusternode.ClusterNodeGetQry;
 import io.kenxue.devops.domain.repository.kubernetes.ClusterNodeRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * kubernetes集群节点
  * @author mikey

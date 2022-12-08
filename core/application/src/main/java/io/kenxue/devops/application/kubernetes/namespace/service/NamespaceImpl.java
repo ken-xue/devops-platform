@@ -10,7 +10,7 @@ import io.kenxue.devops.coreclient.dto.kubernetes.namespace.NamespaceDeleteCmd;
 import io.kenxue.devops.coreclient.dto.kubernetes.namespace.NamespaceListQry;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * Created with IntelliJ IDEA.

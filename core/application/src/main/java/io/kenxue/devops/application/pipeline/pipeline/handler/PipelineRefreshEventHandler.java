@@ -10,7 +10,7 @@ import io.kenxue.devops.coreclient.dto.pipeline.pipeline.event.PipelineNodeRefre
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 流水线节点更新事件处理器

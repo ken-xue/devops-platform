@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.machine.machineofgroup.MachineOfGroupGetQ
 import io.kenxue.devops.domain.repository.machine.MachineOfGroupRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 服务器分组

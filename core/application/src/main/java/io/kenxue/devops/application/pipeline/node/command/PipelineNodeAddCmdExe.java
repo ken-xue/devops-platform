@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.application.PipelineNodeRepository;
 import io.kenxue.devops.domain.domain.pipeline.PipelineNode;
 import io.kenxue.devops.coreclient.dto.pipeline.pipelinenode.PipelineNodeAddCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 /**
  * 流水线节点类型

@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.application.applicationofuser.Application
 import io.kenxue.devops.domain.domain.application.ApplicationOfUser;
 import io.kenxue.devops.domain.repository.application.ApplicationOfUserRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 应用关联用户

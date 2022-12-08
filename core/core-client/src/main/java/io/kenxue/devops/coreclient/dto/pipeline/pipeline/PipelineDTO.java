@@ -6,7 +6,7 @@ import io.kenxue.devops.sharedataboject.pipeline.graph.Graph;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 /**

@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.domain.sys.Menu;
 import io.kenxue.devops.domain.repository.sys.MenuRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 菜单表

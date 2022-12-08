@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.middleware.jenkins.JenkinsRepository;
 import io.kenxue.devops.domain.domain.middleware.Jenkins;
 import io.kenxue.devops.coreclient.dto.middleware.jenkins.JenkinsAddCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 /**
  * 基建中间件Jenkins

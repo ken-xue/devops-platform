@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.sys.userofrole.UserOfRoleDeleteCmd;
 import io.kenxue.devops.domain.repository.sys.UserOfRoleRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.stream.Stream;
 
 /**

@@ -5,12 +5,12 @@ import io.kenxue.devops.adapter.rest.common.BasicController;
 import io.kenxue.devops.coreclient.api.application.PipelineNodeAppService;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.pipeline.pipelinenode.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 
 /**
  * 流水线节点类型
@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * @date 2022-02-26 00:19:20
  */
 @RestController
-@Api(tags = "流水线节点类型模块",description = "包含新增/列表/删除")
+@Tag(name = "流水线节点类型模块",description = "包含新增/列表/删除")
 @RequestMapping("pipeline/node")
 public class PipelineNodeTemplateController extends BasicController {
     @Resource
@@ -26,42 +26,42 @@ public class PipelineNodeTemplateController extends BasicController {
 
     @PostMapping("/add")
     @Permissions("application:pipelinenode:add")
-    @ApiOperation(value = "添加",httpMethod = "POST")
+    @Operation(summary = "添加",method = "POST")
     public Response add(@RequestBody @Valid PipelineNodeAddCmd pipelineNodeAddCmd) {
         return pipelineNodeAppService.add(pipelineNodeAddCmd);
     }
 
     @DeleteMapping("/delete")
     @Permissions("application:pipelinenode:delete")
-    @ApiOperation(value = "删除",httpMethod = "DELETE")
+    @Operation(summary = "删除",method = "DELETE")
     public Response delete(@RequestBody @Valid PipelineNodeDeleteCmd pipelineNodeDeleteCmd){
         return pipelineNodeAppService.delete(pipelineNodeDeleteCmd);
     }
 
     @GetMapping("/page")
     @Permissions("application:pipelinenode:page")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response page(@ModelAttribute @Valid PipelineNodePageQry pipelineNodePageQry){
         return pipelineNodeAppService.page(pipelineNodePageQry);
     }
 
     @GetMapping("/list")
     @Permissions("application:pipelinenode:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response list(@ModelAttribute @Valid PipelineNodeListQry pipelineNodeListQry){
         return pipelineNodeAppService.list(pipelineNodeListQry);
     }
 
     @GetMapping("/info")
     @Permissions("application:pipelinenode:info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
+    @Operation(summary = "详情",method = "GET")
     public Response info(@ModelAttribute @Valid PipelineNodeGetQry pipelineNodeGetQry){
         return pipelineNodeAppService.getById(pipelineNodeGetQry);
     }
 
     @PutMapping("/update")
     @Permissions("application:pipelinenode:update")
-    @ApiOperation(value = "更新",httpMethod = "PUT")
+    @Operation(summary = "更新",method = "PUT")
     public Response update(@RequestBody PipelineNodeUpdateCmd pipelineNodeUpdateCmd){
         return pipelineNodeAppService.update(pipelineNodeUpdateCmd);
     }

@@ -4,19 +4,18 @@ import com.jcraft.jsch.ChannelShell;
 import io.kenxue.devops.application.common.socket.service.WebSocketService;
 import io.kenxue.devops.application.pipeline.pipeline.manager.ChannelManager;
 import io.kenxue.devops.domain.domain.pipeline.NodeLogger;
-import io.kenxue.devops.domain.repository.pipeline.NodeExecuteLoggerRepository;
 import io.kenxue.devops.sharedataboject.common.command.CommandConst;
 import io.kenxue.devops.sharedataboject.pipeline.constant.NodeConst;
 import io.kenxue.devops.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.devops.sharedataboject.pipeline.node.Node;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 
-import javax.annotation.Resource;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 /**
  * 节点抽象
@@ -25,9 +24,12 @@ import java.util.Date;
 @Slf4j
 public abstract class AbstractNode implements Node {
 
+    @Lazy
     @Resource
     @Qualifier("pipelineNodeExecuteLoggerSocketServiceImpl")
     private WebSocketService loggerService;
+
+    @Lazy
     @Resource
     private ChannelManager channelManager;
 

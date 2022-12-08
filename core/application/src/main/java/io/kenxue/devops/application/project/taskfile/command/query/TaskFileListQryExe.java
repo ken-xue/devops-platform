@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.project.taskfile.TaskFileListQry;
 import io.kenxue.devops.domain.domain.project.TaskFile;
 import io.kenxue.devops.domain.repository.project.TaskFileRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 任务文件

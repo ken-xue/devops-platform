@@ -4,9 +4,9 @@ import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 任务组
@@ -16,9 +16,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @Accessors(chain = true)
 public class TaskGroupListQry extends CommonCommand {
-    @ApiModelProperty(value = "项目uuid")
+    @Schema(description = "项目uuid")
     @NotNull(message = "请传入项目uuid")
     private String projectUuid;
-    @ApiModelProperty(value = "任务组名")
+    @Schema(description = "任务组名")
     private String groupName;
 }

@@ -8,7 +8,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.domain.domain.machine.MachineInfo;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Properties;
 
 import static io.kenxue.devops.coreclient.exception.code.SSHErrorCode.CONNECTION_ERROR;

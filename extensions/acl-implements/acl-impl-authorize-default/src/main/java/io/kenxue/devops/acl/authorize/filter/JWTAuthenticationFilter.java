@@ -1,15 +1,23 @@
 package io.kenxue.devops.acl.authorize.filter;
 
 
+import com.google.gson.Gson;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.gson.io.GsonSerializer;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import io.kenxue.devops.acl.authorize.config.JWTConfig;
 import io.kenxue.devops.acl.authorize.constant.Constant;
 import io.kenxue.devops.acl.authorize.util.ResponseUtil;
-import io.kenxue.devops.acl.authorize.config.JWTConfig;
 import io.kenxue.devops.acl.cache.CacheService;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
+import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.sys.user.UserDTO;
 import io.kenxue.devops.coreclient.exception.code.AuthErrorCode;
-import io.kenxue.devops.coreclient.dto.common.response.Response;
-import io.jsonwebtoken.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,12 +25,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.security.Key;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * 自定义JWT认证过滤器
@@ -48,7 +56,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        UsernamePasswordAuthenticationToken authentication = null;
+        UsernamePasswordAuthenticationToken authentication;
         long start = System.currentTimeMillis();
         String token = request.getHeader(Constant.AUTHORIZATION);
         if (token == null || token.isEmpty()) {
@@ -86,11 +94,13 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 // 设置过期时间
                 calendar.add(Calendar.MINUTE, JWTConfig.getJwtTokenExpireTime());
                 Date time = calendar.getTime();
+                Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(Constant.SIGNING_KEY));
                 String refreshToken = Jwts.builder()
                         .setSubject(claims.getSubject())
                         .setIssuedAt(now)//签发时间
                         .setExpiration(time)//过期时间
-                        .signWith(SignatureAlgorithm.HS512, Constant.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
+                        .signWith(key,SignatureAlgorithm.HS512) //采用什么算法是可以自己选择的，不一定非要采用HS512
+                        .serializeToJsonWith(new GsonSerializer<>(new Gson()))
                         .compact();
                 // 重新生成token end
                 // 主动刷新token，并返回给前端

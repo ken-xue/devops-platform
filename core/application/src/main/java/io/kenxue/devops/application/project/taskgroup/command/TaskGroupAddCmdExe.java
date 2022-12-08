@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.project.TaskGroupRepository;
 import io.kenxue.devops.domain.domain.project.TaskGroup;
 import io.kenxue.devops.coreclient.dto.project.taskgroup.TaskGroupAddCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 任务组
  * @author 麦奇

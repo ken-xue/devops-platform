@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.pipeline.PipelineRepository;
 import io.kenxue.devops.domain.domain.pipeline.Pipeline;
 import io.kenxue.devops.coreclient.dto.pipeline.pipeline.PipelineDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 流水线
  * @author mikey

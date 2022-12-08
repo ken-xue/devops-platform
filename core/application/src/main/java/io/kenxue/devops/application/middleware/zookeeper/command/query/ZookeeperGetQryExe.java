@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.SingleResponse;
 import io.kenxue.devops.coreclient.dto.middleware.zookeeper.ZookeeperGetQry;
 import io.kenxue.devops.domain.repository.middleware.zookeeper.ZookeeperRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 基建中间件zk
  * @author steakliu

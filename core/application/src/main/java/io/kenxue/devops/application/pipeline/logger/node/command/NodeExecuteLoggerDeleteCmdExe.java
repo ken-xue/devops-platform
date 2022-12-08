@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.pipeline.NodeExecuteLoggerRepository;
 import io.kenxue.devops.domain.domain.pipeline.NodeLogger;
 import io.kenxue.devops.coreclient.dto.pipeline.nodeexecutelogger.NodeExecuteLoggerDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 节点执行记录
  * @author mikey

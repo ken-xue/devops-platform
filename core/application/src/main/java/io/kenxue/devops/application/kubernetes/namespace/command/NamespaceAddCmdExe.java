@@ -5,7 +5,7 @@ import io.kenxue.devops.coreclient.dto.kubernetes.namespace.NamespaceAddCmd;
 import io.kenxue.devops.domain.repository.kubernetes.NamespaceRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * Created with IntelliJ IDEA.

@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.project.TaskOfUserRepository;
 import io.kenxue.devops.domain.domain.project.TaskOfUser;
 import io.kenxue.devops.coreclient.dto.project.taskofuser.TaskOfUserDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 任务关联用户
  * @author 麦奇

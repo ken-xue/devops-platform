@@ -4,7 +4,7 @@ import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * 任务文件
  * @author 麦奇
@@ -15,10 +15,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class TaskFileGetQry extends CommonCommand {
 
     private Long id;
-    @ApiModelProperty(value = "任务uuid")
+    @Schema(description = "任务uuid")
     private String taskUuid;
-    @ApiModelProperty(value = "文件名称")
+    @Schema(description = "文件名称")
     private Date fileName;
-    @ApiModelProperty(value = "文件路径")
+    @Schema(description = "文件路径")
     private Date url;
 }

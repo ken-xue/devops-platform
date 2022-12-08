@@ -8,7 +8,7 @@ import io.kenxue.devops.domain.domain.pipeline.PipelineNodeInfo;
 import io.kenxue.devops.domain.repository.pipeline.PipelineNodeInfoRepository;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Objects;
 
 /**

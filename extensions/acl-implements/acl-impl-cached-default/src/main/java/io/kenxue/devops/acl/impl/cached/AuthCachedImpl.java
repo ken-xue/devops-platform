@@ -5,12 +5,12 @@ import com.google.common.cache.CacheBuilder;
 import io.kenxue.devops.acl.cache.CacheService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -25,8 +25,11 @@ public class AuthCachedImpl implements CacheService<String,Object> , Initializin
 
     private Cache<String, Object> cached;
 
-    @Resource
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+
+    public AuthCachedImpl(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @SneakyThrows
     @Override

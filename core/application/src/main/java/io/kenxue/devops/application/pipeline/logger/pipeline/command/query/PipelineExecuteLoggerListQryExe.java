@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.pipeline.pipelineexecutelogger.PipelineEx
 import io.kenxue.devops.domain.domain.pipeline.PipelineExecuteLogger;
 import io.kenxue.devops.domain.repository.pipeline.PipelineExecuteLoggerRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 流水线执行记录

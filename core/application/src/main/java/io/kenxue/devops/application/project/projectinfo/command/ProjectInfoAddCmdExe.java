@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.domain.project.ProjectInfo;
 import io.kenxue.devops.coreclient.dto.project.projectinfo.ProjectInfoAddCmd;
 import io.kenxue.devops.domain.repository.project.ProjectOfUserRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 /**
  * 项目

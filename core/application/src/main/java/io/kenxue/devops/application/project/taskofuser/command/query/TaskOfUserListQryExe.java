@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.project.taskofuser.TaskOfUserListQry;
 import io.kenxue.devops.domain.domain.project.TaskOfUser;
 import io.kenxue.devops.domain.repository.project.TaskOfUserRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 /**
  * 任务关联用户

@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.machine.MachineInfoRepository;
 import io.kenxue.devops.domain.domain.machine.MachineInfo;
 import io.kenxue.devops.coreclient.dto.machine.MachineInfoDeleteCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 服务器节点
  * @author mikey

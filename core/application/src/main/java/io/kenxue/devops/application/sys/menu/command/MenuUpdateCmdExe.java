@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.sys.menu.MenuUpdateCmd;
 import io.kenxue.devops.domain.repository.sys.MenuRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 /**
  * 菜单表
  * @author mikey

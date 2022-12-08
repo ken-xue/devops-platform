@@ -5,7 +5,7 @@ import io.kenxue.devops.application.common.event.EventBus;
 import io.kenxue.devops.coreclient.dto.common.event.EventI;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 

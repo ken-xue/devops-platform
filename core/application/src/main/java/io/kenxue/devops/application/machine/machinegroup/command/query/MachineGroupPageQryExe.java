@@ -9,7 +9,7 @@ import io.kenxue.devops.domain.domain.machine.MachineGroup;
 import io.kenxue.devops.domain.repository.machine.MachineGroupRepository;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 服务器分组

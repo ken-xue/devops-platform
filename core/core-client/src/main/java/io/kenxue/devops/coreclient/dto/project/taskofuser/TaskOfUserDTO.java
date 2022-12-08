@@ -3,7 +3,7 @@ package io.kenxue.devops.coreclient.dto.project.taskofuser;
 import io.kenxue.devops.coreclient.dto.common.command.CommonDTO;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Date;
 /**
@@ -14,8 +14,8 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class TaskOfUserDTO extends CommonDTO {
-    @ApiModelProperty(value = "项目uuid")
+    @Schema(description = "项目uuid")
     private String taskUuid;
-    @ApiModelProperty(value = "用户uuid")
+    @Schema(description = "用户uuid")
     private String userUuid;
 }

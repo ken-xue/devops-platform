@@ -6,7 +6,7 @@ import io.kenxue.devops.domain.repository.project.ProjectOfUserRepository;
 import io.kenxue.devops.domain.domain.project.ProjectOfUser;
 import io.kenxue.devops.coreclient.dto.project.projectofuser.ProjectOfUserAddCmd;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 /**
  * 项目关联用户

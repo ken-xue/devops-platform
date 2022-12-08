@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +40,7 @@ import static io.kenxue.devops.application.common.util.JschUtil.getSession;
  */
 @Slf4j
 @Component
-@WebSocketMessageHandler("minio")
+//@WebSocketMessageHandler("minio")
 public class MinioCreateCmdExe implements WebSocketMessageHandlerI {
 
     public final String CLUSTER_INSTALL_RESPONSE_TIP = String.format("%s%s%s",CommandConst.ENTER,"[当前主机(%s)正在安装(%s)节点]",CommandConst.ENTER);

@@ -6,7 +6,7 @@ import io.kenxue.devops.coreclient.dto.sys.userofrole.UserOfRoleAddCmd;
 import io.kenxue.devops.domain.domain.sys.UserOfRole;
 import io.kenxue.devops.domain.repository.sys.UserOfRoleRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 用户关联角色表

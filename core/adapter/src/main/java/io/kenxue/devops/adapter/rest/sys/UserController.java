@@ -7,17 +7,17 @@ import io.kenxue.devops.coreclient.api.sys.UserAppService;
 import io.kenxue.devops.coreclient.context.UserThreadContext;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.dto.sys.user.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 
 @RestController
-@Api(tags = "用户模块",description = "包含注册/列表/删除")
+@Tag(name = "用户模块",description = "包含注册/列表/删除")
 @RequestMapping("sys/user")
 public class UserController extends BasicController {
     @Resource
@@ -30,7 +30,7 @@ public class UserController extends BasicController {
      * @param userAddCmd
      */
     @Log("添加用户")
-    @ApiOperation(value = "添加",httpMethod = "POST")
+    @Operation(summary = "添加",method = "POST")
     @PostMapping("/add")
     public Response add(@RequestBody @Valid UserAddCmd userAddCmd) {
         userAddCmd.getUserDTO().setUserPassword(bCryptPasswordEncoder.encode(userAddCmd.getUserDTO().getUserPassword()));
@@ -44,7 +44,7 @@ public class UserController extends BasicController {
     @Log("删除用户")
     @DeleteMapping("/delete")
     @Permissions("sys:user:delete")
-    @ApiOperation(value = "删除",httpMethod = "DELETE")
+    @Operation(summary = "删除",method = "DELETE")
     public Response delete(@RequestBody @Valid UserDeleteCmd userDeleteCmd){
         return userAppService.delete(userDeleteCmd);
     }
@@ -53,7 +53,7 @@ public class UserController extends BasicController {
      */
     @GetMapping("/list")
     @Permissions("sys:user:list")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response list(@ModelAttribute UserListQry userListQry){
         return userAppService.list(userListQry);
     }
@@ -64,7 +64,7 @@ public class UserController extends BasicController {
      */
     @GetMapping("/page")
     @Permissions("sys:user:page")
-    @ApiOperation(value = "列表",httpMethod = "GET")
+    @Operation(summary = "列表",method = "GET")
     public Response page(@ModelAttribute UserPageQry userPageQry){
         return userAppService.page(userPageQry);
     }
@@ -73,7 +73,7 @@ public class UserController extends BasicController {
      */
     @GetMapping("/info")
     @Permissions("sys:user:info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
+    @Operation(summary = "详情",method = "GET")
     public Response info(@ModelAttribute UserGetQry userGetQry){
         return userAppService.getById(userGetQry);
     }
@@ -81,7 +81,7 @@ public class UserController extends BasicController {
      *详情
      */
     @GetMapping("/self/info")
-    @ApiOperation(value = "详情",httpMethod = "GET")
+    @Operation(summary = "详情",method = "GET")
     public Response self(){
         String userId = UserThreadContext.get();
         return userAppService.getInfoByUserId(new UserFullGetQry().setUserId(userId));
@@ -92,7 +92,7 @@ public class UserController extends BasicController {
     @Log("修改用户")
     @PutMapping("/update")
     @Permissions("sys:user:update")
-    @ApiOperation(value = "更新",httpMethod = "PUT")
+    @Operation(summary = "更新",method = "PUT")
     public Response update(@RequestBody UserUpdateCmd userUpdateCmd){
         userUpdateCmd.setBCryptPassword(bCryptPasswordEncoder.encode(userUpdateCmd.getUserCO().getUserPassword()));
         return userAppService.update(userUpdateCmd);

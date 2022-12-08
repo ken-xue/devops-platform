@@ -11,11 +11,11 @@ import io.kenxue.devops.domain.repository.pipeline.NodeExecuteLoggerRepository;
 import io.kenxue.devops.sharedataboject.pipeline.context.DefaultResult;
 import io.kenxue.devops.sharedataboject.pipeline.context.ExecuteContext;
 import io.kenxue.devops.sharedataboject.pipeline.context.Result;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.Date;
 

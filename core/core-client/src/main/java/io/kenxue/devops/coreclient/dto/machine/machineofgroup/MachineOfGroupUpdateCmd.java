@@ -1,7 +1,7 @@
 package io.kenxue.devops.coreclient.dto.machine.machineofgroup;
 
 import lombok.Data;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import lombok.experimental.Accessors;
 import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
 /**

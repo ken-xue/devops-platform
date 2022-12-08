@@ -7,7 +7,7 @@ import io.kenxue.devops.coreclient.dto.pipeline.pipelinenode.PipelineNodeListQry
 import io.kenxue.devops.domain.domain.pipeline.PipelineNode;
 import io.kenxue.devops.domain.repository.application.PipelineNodeRepository;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 /**

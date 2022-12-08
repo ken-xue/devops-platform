@@ -12,7 +12,7 @@ import io.kenxue.devops.domain.repository.sys.UserOfRoleRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Set;
 import java.util.stream.Collectors;
 

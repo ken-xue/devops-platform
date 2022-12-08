@@ -6,7 +6,7 @@
 //import org.springframework.stereotype.Component;
 //import org.springframework.web.socket.*;
 //
-//import javax.annotation.Resource;
+//import jakarta.annotation.Resource;
 //
 //
 ///**
