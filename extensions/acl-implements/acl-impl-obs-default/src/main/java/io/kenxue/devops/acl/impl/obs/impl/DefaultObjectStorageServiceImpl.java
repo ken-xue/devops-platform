@@ -17,7 +17,7 @@ import java.io.InputStream;
  */
 @Slf4j
 @Service
-public class DefaultObjectStorageServiceImpl implements ObjectStorageService, InitializingBean {
+public class DefaultObjectStorageServiceImpl implements ObjectStorageService {
 
     private final MinioClient minioClient;
 
@@ -76,19 +76,5 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService, In
             sb.append(resp);
         }
         return sb.toString();
-    }
-
-    /**
-     * 首次运行创建必要bucket
-     * @throws Exception e
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        for (BucketEnum bucket : BucketEnum.values()) {
-            if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucket.getName()).build())) {
-                MakeBucketArgs build = MakeBucketArgs.builder().bucket(bucket.getName()).build();
-                minioClient.makeBucket(build);
-            }
-        }
     }
 }

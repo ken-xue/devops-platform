@@ -4,6 +4,7 @@ import io.kenxue.devops.acl.authorize.AuthorizeService;
 import io.kenxue.devops.acl.authorize.filter.JWTAuthenticationFilter;
 import io.kenxue.devops.acl.authorize.filter.JWTLoginFilter;
 import io.kenxue.devops.acl.authorize.handler.CustomAuthenticationEntryPoint;
+import io.kenxue.devops.acl.authorize.handler.CustomLogoutSuccessHandler;
 import io.kenxue.devops.acl.authorize.impl.AuthenticationProviderImpl;
 import io.kenxue.devops.acl.cache.CacheService;
 import jakarta.annotation.Resource;
@@ -39,6 +40,8 @@ public class SpringSecurityConfig {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Resource
     private AccessDeniedHandler customAccessDeniedHandler;
+    @Resource
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
     @Resource
     private AuthorizeService authorizeService;
     @Resource
@@ -104,6 +107,10 @@ public class SpringSecurityConfig {
                 // 添加 JWT 过滤器
                 .addFilter(new JWTLoginFilter(auth.getAuthenticationManager(),authorizeService,cacheService))
                 .addFilter(new JWTAuthenticationFilter(auth.getAuthenticationManager(),cacheService))
+                .logout() // 默认注销行为为logout，可以通过下面的方式来修改
+                .logoutUrl("/logout")
+                .logoutSuccessHandler(customLogoutSuccessHandler)
+                .and()
                 .build();
     }
 }
