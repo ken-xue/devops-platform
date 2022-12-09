@@ -1,19 +1,19 @@
 package io.kenxue.devops.coreclient.dto.kubernetes.cluster;
 
 import io.kenxue.devops.coreclient.dto.common.command.CommonCommand;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import jakarta.validation.constraints.NotNull;
-
 /**
- * kubernetes集群
+ * kubernetes集群资源
  * @author mikey
  * @date 2022-05-20 14:09:32
  */
 @Data
 @Accessors(chain = true)
-public class ClusterPodListQry extends CommonCommand {
+public class ClusterResourceQry extends CommonCommand {
     /**
      * 集群ID
      */
@@ -23,4 +23,9 @@ public class ClusterPodListQry extends CommonCommand {
      * 命名空间
      */
     private String namespace;
+    /**
+     * 资源类型
+     */
+    @NotBlank(message = "资源类型不能为空")
+    private String resource;
 }

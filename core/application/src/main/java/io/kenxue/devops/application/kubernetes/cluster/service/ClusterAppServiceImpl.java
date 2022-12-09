@@ -31,7 +31,7 @@ public class ClusterAppServiceImpl implements ClusterAppService {
     @Resource
     private ClusterListQryExe clusterListQryExe;
     @Resource
-    private ClusterPodListQryExe clusterPodListQryExe;
+    private ClusterResourceQryExe clusterResourceQryExe;
     @Resource
     private PodDescribeQryExe podDescribeQryExe;
     @Resource
@@ -76,8 +76,8 @@ public class ClusterAppServiceImpl implements ClusterAppService {
     }
 
     @Override
-    public Response podList(ClusterPodListQry qry) {
-        return clusterPodListQryExe.execute(qry);
+    public Response resources(ClusterResourceQry qry) {
+        return clusterResourceQryExe.execute(qry);
     }
 
     @Override

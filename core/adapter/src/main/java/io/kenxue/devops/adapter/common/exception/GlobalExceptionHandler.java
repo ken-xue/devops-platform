@@ -1,6 +1,7 @@
 package io.kenxue.devops.adapter.common.exception;
 import io.kenxue.devops.coreclient.dto.common.response.Response;
 import io.kenxue.devops.coreclient.exception.BizException;
+import io.kenxue.devops.coreclient.exception.OBSException;
 import io.kenxue.devops.coreclient.exception.ZkException;
 import io.kenxue.devops.coreclient.exception.code.AuthErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -59,8 +60,8 @@ public class GlobalExceptionHandler {
 		return Response.error(500,e.getMessage());
 	}
 
-	@ExceptionHandler(RuntimeException.class)
-	public Response handleRuntimeException(Exception e){
+	@ExceptionHandler(OBSException.class)
+	public Response handleOBSException(OBSException e){
 		log.error(e.getMessage(), e);
 		return Response.error(500,e.getMessage());
 	}

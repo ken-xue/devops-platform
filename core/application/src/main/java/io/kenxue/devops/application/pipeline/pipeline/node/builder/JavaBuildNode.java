@@ -56,8 +56,9 @@ public class JavaBuildNode extends AbstractNode {
                 , "mvn -v"
                 , javaBuildNodeConfig.getBuildScript()
                 , packageCmd.toString()
-                , cmd("mc cp /home/admin/",context.getLogger().getUuid(),"/",repositoryName,"/package.tar.gz ",uploadPath
-                        ," && ",cmd("rm -rf /home/admin/",context.getLogger().getUuid())," && exit")//上传构建文件到文件服务器
+//                , cmd("mc cp /home/admin/",context.getLogger().getUuid(),"/",repositoryName,"/package.tar.gz ",uploadPath
+//                        ," && ",cmd("rm -rf /home/admin/",context.getLogger().getUuid())," && exit")//上传构建文件到文件服务器
+                ,cmd("rm -rf /home/admin/",context.getLogger().getUuid())//上传构建文件到文件服务器
         );
         logger.create();
         logger.serializable();//序列化

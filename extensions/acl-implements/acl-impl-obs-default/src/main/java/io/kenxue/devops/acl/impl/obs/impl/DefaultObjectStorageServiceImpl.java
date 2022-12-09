@@ -2,6 +2,7 @@ package io.kenxue.devops.acl.impl.obs.impl;
 
 import io.kenxue.devops.acl.impl.obs.builder.ObsBuilder;
 import io.kenxue.devops.acl.obs.ObjectStorageService;
+import io.kenxue.devops.coreclient.exception.OBSException;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
 import io.minio.MinioClient;
@@ -14,7 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Objects;
 
-import static io.kenxue.devops.coreclient.exception.code.ObsErrorCode.SYSTEM_OBS_NOT_CONFIG;
+import static io.kenxue.devops.coreclient.exception.code.OBSErrorCode.SYSTEM_OBS_NOT_CONFIG;
 
 /**
  * 统一对象存储接口
@@ -29,14 +30,15 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService {
     @Override
     public void initialize(String config) {
         log.info("old client : {}",minioClient);
-        this.minioClient = ObsBuilder.buildMinioClient(config);
-        log.info("new client : {}",minioClient);
+        MinioClient newClient = ObsBuilder.buildMinioClient(config);
+        if (Objects.nonNull(newClient))this.minioClient = newClient;
+        log.info("new client : {}", this.minioClient);
     }
 
     @SneakyThrows
     @Override
     public void set(String bucket, String key, InputStream inputStream) {
-        if (Objects.isNull(minioClient))throw new RuntimeException(SYSTEM_OBS_NOT_CONFIG.getDesc());
+        if (Objects.isNull(minioClient))throw new OBSException(SYSTEM_OBS_NOT_CONFIG);
         minioClient.putObject(
                 PutObjectArgs.builder()
                         .bucket(bucket)
@@ -48,7 +50,7 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService {
     @SneakyThrows
     @Override
     public InputStream get(String bucket, String key) {
-        if (Objects.isNull(minioClient))throw new RuntimeException(SYSTEM_OBS_NOT_CONFIG.getDesc());
+        if (Objects.isNull(minioClient))throw new OBSException(SYSTEM_OBS_NOT_CONFIG);
         InputStream inputStream = minioClient.getObject(GetObjectArgs.builder()
                 .bucket(bucket)
                 .object(key)
@@ -59,7 +61,7 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService {
     @SneakyThrows
     @Override
     public void setString(String bucket, String key, String context) {
-        if (Objects.isNull(minioClient))throw new RuntimeException(SYSTEM_OBS_NOT_CONFIG.getDesc());
+        if (Objects.isNull(minioClient))throw new OBSException(SYSTEM_OBS_NOT_CONFIG);
         InputStream inputStream = new ByteArrayInputStream(context.getBytes());
         minioClient.putObject(
                 PutObjectArgs.builder()
@@ -72,7 +74,7 @@ public class DefaultObjectStorageServiceImpl implements ObjectStorageService {
     @SneakyThrows
     @Override
     public String getString(String bucket, String key) {
-        if (Objects.isNull(minioClient))throw new RuntimeException(SYSTEM_OBS_NOT_CONFIG.getDesc());
+        if (Objects.isNull(minioClient))throw new OBSException(SYSTEM_OBS_NOT_CONFIG);
         GetObjectResponse response = minioClient.getObject(GetObjectArgs.builder()
                 .bucket(bucket)
                 .object(key)

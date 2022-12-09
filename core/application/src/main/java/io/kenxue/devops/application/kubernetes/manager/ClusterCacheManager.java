@@ -9,13 +9,12 @@ import io.kenxue.devops.domain.repository.kubernetes.ClusterRepository;
 import io.kenxue.devops.sharedataboject.common.obs.BucketEnum;
 import io.kenxue.devops.sharedataboject.util.FileUtil;
 import io.kubernetes.client.openapi.ApiClient;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
-
 import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,12 +22,13 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Service
-public class ClusterCacheManager implements CacheService<Long,ApiClient> {
+public class ClusterCacheManager implements CacheService<Long, ApiClient> {
 
     Cache<Long, ApiClient> cache = CacheBuilder.newBuilder()
             .expireAfterAccess(10, TimeUnit.MINUTES)//十分钟不访问过期
             .maximumSize(10000)//最大值
-            .build();;//id,实例
+            .build();
+    ;//id,实例
 
     @Resource
     private ClusterRepository clusterRepository;
@@ -37,29 +37,21 @@ public class ClusterCacheManager implements CacheService<Long,ApiClient> {
 
     @Override
     public ApiClient get(Long key) {
-        try {
-            return cache.get(key, () -> {
-                Cluster cluster = clusterRepository.getById(key);
-                if (cluster.getConfigBytes()==null||cluster.getConfigBytes().length==0){//尝试去obs拉取配置文件
-                    try {
-                        InputStream inputStream = obs.get(BucketEnum.KUBERNETES_CONFIG_FILE.getName(), cluster.getConfig());
-                        cluster.setConfigBytes(FileUtil.of(inputStream));
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        log.error("集群配置文件拉取异常:"+e.getMessage());
-                        throw e;
-                    }
-                }
-                return cluster.getClient();
-            });
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        ApiClient client = cache.getIfPresent(key);
+        if (Objects.isNull(client)){
+            Cluster cluster = clusterRepository.getById(key);
+            if (cluster.getConfigBytes() == null || cluster.getConfigBytes().length == 0) {//尝试去obs拉取配置文件
+                InputStream inputStream = obs.get(BucketEnum.KUBERNETES_CONFIG_FILE.getName(), cluster.getConfig());
+                cluster.setConfigBytes(FileUtil.of(inputStream));
+            }
+            ApiClient apiClient = cluster.getClient();
+            cache.put(key,apiClient);
         }
-        throw new RuntimeException("Not found cached value: " + key);
+        return client;
     }
 
     @Override
     public void set(Long s, ApiClient client) {
-        cache.put(s,client);
+        cache.put(s, client);
     }
 }

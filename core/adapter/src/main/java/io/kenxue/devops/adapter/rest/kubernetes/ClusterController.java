@@ -63,11 +63,11 @@ public class ClusterController extends BasicController {
         return clusterAppService.page(clusterPageQry);
     }
 
-    @GetMapping("/pod/list")
+    @GetMapping("/resources")
     @Permissions("kubernetes:cluster:list")
     @Operation(summary = "列表",method = "GET")
-    public Response pod(@ModelAttribute @Valid ClusterPodListQry clusterPodListQry){
-        return clusterAppService.podList(clusterPodListQry);
+    public Response resources(@ModelAttribute @Valid ClusterResourceQry qry){
+        return clusterAppService.resources(qry);
     }
 
     @GetMapping("/pod/describe")

@@ -27,11 +27,11 @@ public class ConfigUpdateCmdExe {
 
     public Response execute(ConfigUpdateCmd cmd) {
         Config config = config2DTOAssembler.toDomain(cmd.getConfigDTO());
-        configRepository.update(config);
         //更换系统OBS服务实例
         if (ConfigEnum.DEFAULT_OBS.name().equals(config.getName())){
             eventBusI.publish(new DefaultOBSUpdateEvent(cmd.getConfigDTO()));
         }
+        configRepository.update(config);
         return Response.success();
     }
 }
