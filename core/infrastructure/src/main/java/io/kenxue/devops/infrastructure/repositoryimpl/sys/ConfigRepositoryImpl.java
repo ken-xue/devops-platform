@@ -55,4 +55,12 @@ public class ConfigRepositoryImpl implements ConfigRepository {
         IPage doPage = configMapper.selectPage(new PageDTO(qry.getPageIndex(), qry.getPageSize()), qw);
         return Page.of(doPage.getCurrent(),doPage.getSize(),doPage.getTotal(),config2DOConvector.toDomainList(doPage.getRecords()));
     }
+
+    @Override
+    public Config getByName(String name) {
+        QueryWrapper<ConfigDO> qw = new QueryWrapper<>();
+        qw.eq("deleted",false);
+        qw.eq("name",name);
+        return config2DOConvector.toDomain(configMapper.selectOne(qw));
+    }
 }

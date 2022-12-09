@@ -9,6 +9,7 @@ import io.kenxue.devops.domain.repository.kubernetes.ClusterRepository;
 import io.kenxue.devops.sharedataboject.common.obs.BucketEnum;
 import io.kenxue.devops.sharedataboject.util.FileUtil;
 import io.kubernetes.client.openapi.ApiClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 集群实例缓存
  */
+@Slf4j
 @Service
 public class ClusterCacheManager implements CacheService<Long,ApiClient> {
 
@@ -44,7 +46,8 @@ public class ClusterCacheManager implements CacheService<Long,ApiClient> {
                         cluster.setConfigBytes(FileUtil.of(inputStream));
                     }catch (Exception e){
                         e.printStackTrace();
-                        throw new RuntimeException("集群配置文件拉取异常:"+e.getMessage());
+                        log.error("集群配置文件拉取异常:"+e.getMessage());
+                        throw e;
                     }
                 }
                 return cluster.getClient();

@@ -16,4 +16,7 @@ public interface ConfigRepository {
     Config getById(Long id);
     List<Config> list(ConfigListQry configListQry);
     Page<Config> page(ConfigPageQry qry);
+
+    Config getByName(String name);
+
 }

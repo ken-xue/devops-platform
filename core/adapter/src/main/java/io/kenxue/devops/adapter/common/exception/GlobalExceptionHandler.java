@@ -59,6 +59,12 @@ public class GlobalExceptionHandler {
 		return Response.error(500,e.getMessage());
 	}
 
+	@ExceptionHandler(RuntimeException.class)
+	public Response handleRuntimeException(Exception e){
+		log.error(e.getMessage(), e);
+		return Response.error(500,e.getMessage());
+	}
+
 	@ExceptionHandler(Exception.class)
 	public Response handleException(Exception e){
 		log.error(e.getMessage(), e);
