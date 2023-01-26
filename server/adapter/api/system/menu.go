@@ -78,24 +78,3 @@ func (p *SysMenuAdapter) List(c *gin.Context) {
 	}
 	response.OkWithData(list, c)
 }
-
-// Select
-// @Tags     菜单模块
-// @Summary  下拉框数据
-// @Param    data  body      cmd.MenuListQry	false	"菜单列表"
-// @Success  200   {object}  response.Response
-// @Router   /sys/menu/query [get]
-func (p *SysMenuAdapter) Select(c *gin.Context) {
-	var qry cmd.MenuSelectQry
-	err := c.ShouldBindQuery(&qry)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	list, err := menuServiceApp.Select(qry)
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	response.OkWithData(list, c)
-}

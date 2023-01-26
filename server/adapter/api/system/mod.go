@@ -5,7 +5,7 @@ import "server/application"
 type SysAdapterGroup struct {
 	SysLoginAdapter
 	SysMenuAdapter
-	SysRoleAdapter
+	RoleAdapter
 }
 
 var (

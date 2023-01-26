@@ -1,3 +1,4 @@
+use `devops-platform`;
 set @uuid=REPLACE(UUID(), '-', '');
 -- 菜单
 INSERT INTO `sys_menu` (`uuid`,`parent_uuid`, `name`, `url`, `method`, `type`, `icon`, `order`,`gmt_create`,`gmt_modified`)

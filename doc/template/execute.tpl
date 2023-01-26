@@ -10,6 +10,16 @@ import (
 	repo "server/infrastructure/repository/{{.Module}}"
 )
 
+type {{.StructName}}ExeGroup struct {
+	{{.StructName}}AddCmdExe
+	{{.StructName}}PageQryExe
+	{{.StructName}}InfoQryExe
+	{{.StructName}}DeleteCmdExe
+	{{.StructName}}UpdateCmdExe
+}
+
+var {{.StructName}}Exe = new({{.StructName}}ExeGroup)
+
 // {{.StructName}}InfoQryExe 详情
 type {{.StructName}}InfoQryExe struct{}
 
@@ -52,13 +62,3 @@ func (p *{{.StructName}}DeleteCmdExe) Execute(ids request.DeleteCmd) (err error)
 	return repo.{{.StructName}}Repo.Delete(ids)
 }
 
-
-type {{.StructName}}ExeGroup struct {
-	{{.StructName}}AddCmdExe
-	{{.StructName}}PageQryExe
-	{{.StructName}}InfoQryExe
-	{{.StructName}}DeleteCmdExe
-	{{.StructName}}UpdateCmdExe
-}
-
-var {{.StructName}}Exe = new({{.StructName}}ExeGroup)

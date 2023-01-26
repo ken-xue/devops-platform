@@ -55,13 +55,10 @@ func (service *MenuServiceApp) GetByUserUUID(uuid string) (list []system.Menu) {
 }
 
 func (service *MenuServiceApp) List(qry cmd.MenuListQry) (list []system.Menu, err error) {
-	err = infra.DB.Where("parent_uuid = ?", qry.ParentUuid).Find(&list).Error
-	checkHasChild(&list)
-	return
-}
-
-func (service *MenuServiceApp) Select(qry cmd.MenuSelectQry) (list []system.Menu, err error) {
 	db := infra.DB.Model(&system.Menu{})
+	if len(qry.ParentUuid) > 0 {
+		db.Where("parent_uuid = ?", qry.ParentUuid)
+	}
 	if len(qry.ExcludeTypes) > 0 {
 		s := strings.Split(qry.ExcludeTypes, ",")
 		db.Where("type not in ?", s)
@@ -71,6 +68,9 @@ func (service *MenuServiceApp) Select(qry cmd.MenuSelectQry) (list []system.Menu
 		db.Where("type in ?", s)
 	}
 	err = db.Find(&list).Error
+	if qry.NeedCheckHasChild {
+		checkHasChild(&list)
+	}
 	if qry.NeedRoot {
 		menu := system.Menu{}
 		menu.Name = "一级菜单"

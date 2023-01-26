@@ -32,7 +32,7 @@ func (service *{{.StructName}}ServiceApp) Page(query request.PageQuery) (pageRes
 	pageResult, err = execute.{{.StructName}}Exe.{{.StructName}}PageQryExe.Execute(query)
 	return
 }
-
+// Info 详情
 func (service *{{.StructName}}ServiceApp) Info(qry cmd.{{.StructName}}InfoQry) (ret {{.Module}}.{{.StructName}}, err error) {
 	return execute.{{.StructName}}Exe.{{.StructName}}InfoQryExe.Execute(qry)
 }

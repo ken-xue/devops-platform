@@ -11,16 +11,16 @@ export function pageMenu(data) {
   })
 }
 // 查询menu列表
-export function listMenu(uuid) {
+export function listMenu(data) {
   return request({
     url: '/sys/menu/list',
     method: 'get',
-    params: { 'parentUuid': uuid }
+    params: data
   })
 }
 export function getMenuSelect(data) {
   return request({
-    url: '/sys/menu/select',
+    url: '/sys/menu/list',
     method: 'get',
     params: data
   })

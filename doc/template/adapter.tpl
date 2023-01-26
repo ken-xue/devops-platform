@@ -16,7 +16,7 @@ type {{.StructName}}Adapter struct {
 
 var Adapter{{.StructName}} = new({{.StructName}}Adapter)
 
-// Info User
+// Info {{.Comment}}
 // @Tags     {{.Comment}}模块
 // @Summary  详情{{.Comment}}
 // @Produce   application/json
@@ -39,7 +39,7 @@ func (p *{{.StructName}}Adapter) Info(c *gin.Context) {
 	response.OkWithData(data, c)
 }
 
-// Add User
+// Add {{.Comment}}
 // @Tags     {{.Comment}}模块
 // @Summary  新增{{.Comment}}
 // @Produce   application/json
@@ -71,7 +71,7 @@ func (p *{{.StructName}}Adapter) Add(c *gin.Context) {
 	response.Ok(c)
 }
 
-// Delete User
+// Delete {{.Comment}}
 // @Tags     {{.Comment}}模块
 // @Summary  删除{{.Comment}}
 // @Produce   application/json
@@ -101,11 +101,11 @@ func (p *{{.StructName}}Adapter) Delete(c *gin.Context) {
 	response.Ok(c)
 }
 
-// Update User
+// Update {{.Comment}}
 // @Tags     {{.Comment}}模块
 // @Summary  修改{{.Comment}}
 // @Produce   application/json
-// @Param    data  body      cmd.UserUpdateCmd     true  "修改{{.Comment}}"
+// @Param    data  body      cmd.{{.StructName}}UpdateCmd     true  "修改{{.Comment}}"
 // @Success  200   {object}  response.Response
 // @Router   /{{.Module}}/{{.AllLowName}}/update [put]
 func (p *{{.StructName}}Adapter) Update(c *gin.Context) {
@@ -132,7 +132,7 @@ func (p *{{.StructName}}Adapter) Update(c *gin.Context) {
 	response.Ok(c)
 }
 
-// Page User
+// Page {{.Comment}}
 // @Tags     {{.Comment}}模块
 // @Summary  查询{{.Comment}}
 // @Produce   application/json

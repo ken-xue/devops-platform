@@ -12,8 +12,8 @@ type RoleRepository struct{}
 
 var RoleRepo = new(RoleRepository)
 
-// Insert 增
-func (service *RoleRepository) Insert(role system.Role) error {
+// Add 增
+func (service *RoleRepository) Add(role system.Role) error {
 	//设置基本信息
 	role.Create("")
 	return infra.DB.Create(&role).Error
@@ -67,8 +67,8 @@ func (service *RoleRepository) GetRoleOfUserUUID(uuid string) (userOfRoles []sys
 	return
 }
 
-func (service *RoleRepository) List(query cmd.RoleListQry) (roles []system.Role) {
-	infra.DB.Find(&roles)
+func (service *RoleRepository) List(query cmd.RoleListQry) (roles []system.Role, err error) {
+	err = infra.DB.Find(&roles).Error
 	return
 }
 
@@ -78,4 +78,10 @@ func (service *RoleRepository) AddUserOfRole(role system.UserOfRole) error {
 
 func (service *RoleRepository) DeleteUserOfRole(cmd request.DeleteCmd) error {
 	return infra.DB.Where("id in ?", cmd.Ids).Delete(&system.UserOfRole{}).Error
+}
+
+// Info 详情
+func (service *RoleRepository) Info(qry cmd.RoleInfoQry) (info system.Role, err error) {
+	infra.DB.Where("id = ?", qry.Id).First(&info)
+	return
 }

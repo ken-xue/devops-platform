@@ -18,7 +18,7 @@ import (
 
 type CodeCreateInnerCmdExe struct{}
 
-func convert(t *dev.Table) {
+func convert(t *dev.Table, c cmd.CodeCreateCmd) {
 	for i := 0; i < len(t.Columns); i++ {
 		key := t.Columns[i].DataType
 		if _, ok := typeMappingMap[key]; !ok {
@@ -28,6 +28,7 @@ func convert(t *dev.Table) {
 			t.Columns[i].AttrName = util.Case2Camel(t.Columns[i].ColumnName)
 			t.Columns[i].FirstLowName = strings.ToLower(t.Columns[i].AttrName[:1]) + t.Columns[i].AttrName[1:]
 		}
+		t.TableName = strings.Replace(t.TableName, c.IgnorePrefix, "", 1)
 		t.StructName = util.Case2Camel(t.TableName)
 		t.AllLowName = strings.ToLower(t.StructName)
 		t.FirstLowName = strings.ToLower(t.StructName[:1]) + t.StructName[1:]
@@ -40,7 +41,7 @@ func (p *CodeCreateInnerCmdExe) Execute(c cmd.CodeCreateCmd) (response any, err 
 		table, _ := repository.Repo.CodeRepository.QueryByTableName(name)
 		table.Module = c.Module
 		remove(&table)
-		convert(&table)
+		convert(&table, c)
 		logger.Log.Info(fmt.Sprintf("%#v", table))
 		for tplPath, storePath := range templates {
 			tpl := template.Must(template.ParseGlob(tplPath))
@@ -95,7 +96,7 @@ func (p *CodeCreateDownloadCmdExe) Execute(c cmd.CodeCreateCmd) (response any, e
 		table.Module = c.Module
 		//remove common field
 		remove(&table)
-		convert(&table)
+		convert(&table, c)
 		logger.Log.Info(fmt.Sprintf("%#v", table))
 		for tplPath, storePath := range templates {
 			storePath = prefix + storePath
@@ -118,6 +119,7 @@ func (p *CodeCreateDownloadCmdExe) Execute(c cmd.CodeCreateCmd) (response any, e
 	return
 }
 
+// 移除不必要的字段
 func remove(t *dev.Table) {
 	arr := make([]dev.Column, 0)
 	for _, c := range t.Columns {

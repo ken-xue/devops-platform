@@ -7,8 +7,9 @@ import (
 
 type Role struct {
 	model.CommonModel
-	Name   string `json:"name" gorm:"comment:角色名称"`
-	Remark string `json:"remark" gorm:"comment:备注"`
+	Name     string `json:"name" gorm:"comment:角色名称"`
+	Remark   string `json:"remark" gorm:"comment:备注"`
+	MenuList []Menu `json:"menuList" gorm:"-"`
 }
 
 func (Role) TableName() string {

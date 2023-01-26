@@ -33,60 +33,6 @@
       <!--页码-->
       <pagination v-show="total>0" style="padding: 0px" :total="total" :page.sync="queryParams.pageIndex"
                   :limit.sync="queryParams.pageSize" @pagination="getList"/>
-      <!-- 添加或修改对话框 -->
-      <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
-        <el-form ref="form" :model="form" :rules="rules" label-width="120px">
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="用户账号" prop="userId">
-                <el-input v-model="form.userId" placeholder="请输入用户ID"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="用户名称" prop="userName">
-                <el-input v-model="form.userName" placeholder="请输入用户名称"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="用户邮箱" prop="email">
-                <el-input v-model="form.email" placeholder="请输入用户邮箱"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="登录密码" prop="userPassword">
-                <el-input type="password" v-model="form.userPassword" placeholder="请输入密码"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="确认密码" prop="confirmPassword">
-                <el-input type="password" v-model="form.confirmPassword" placeholder="请输入确认密码"/>
-              </el-form-item>
-            </el-col>
-            <el-col :space="12">
-              <el-form-item label="用户角色" size="mini" prop="roleIdList">
-                <el-checkbox-group v-model="roleIdList">
-                  <el-checkbox v-for="role in roleList" :key="role.uuid" :label="role.uuid">{{
-                      role.roleName
-                    }}
-                  </el-checkbox>
-                </el-checkbox-group>
-              </el-form-item>
-            </el-col>
-            <el-col :span="24">
-              <el-form-item label="账号状态" prop="status">
-                <el-radio-group v-model="form.status" size="small">
-                  <el-radio-button label="0">正常</el-radio-button>
-                  <el-radio-button label="2">冻结</el-radio-button>
-                </el-radio-group>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
-        </div>
-      </el-dialog>
 
       <el-dialog title="生成代码" :visible.sync="createVisible" width="700px" append-to-body>
         <el-form ref="createForm" :model="createForm" :rules="rules" label-width="80px">
@@ -94,6 +40,13 @@
             <el-col :span="24">
               <el-form-item label="所属模块" prop="createModuleName">
                 <el-input v-model="createForm.createModuleName" placeholder="请输入所属模块"/>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item label="忽略前缀">
+                <el-input v-model="createForm.ignorePrefix" placeholder="请输入所属模块"/>
               </el-form-item>
             </el-col>
           </el-row>
@@ -161,7 +114,8 @@ export default {
       // 表单参数
       form: {},
       createForm: {
-        createModuleName: ''
+        createModuleName: '',
+        ignorePrefix: '',
       },
       // 表单校验
       rules: {
@@ -256,7 +210,8 @@ export default {
       const tableNames = this.tableNames
       download({
         'tableNames': tableNames,
-        'module': this.createForm.createModuleName
+        'module': this.createForm.createModuleName,
+        'ignorePrefix': this.createForm.ignorePrefix
       }).then(function (response) {
         debugger
         const data = response.data

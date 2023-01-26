@@ -16,7 +16,6 @@ func (s *MenuRouter) InitMenuRouter(Router *gin.RouterGroup) {
 		router.GET("/page", api.Page)        //分页
 		router.GET("/info", api.Info)        //详情
 		router.GET("/list", api.List)        //列表
-		router.GET("/select", api.Select)    //列表
 		router.PUT("/update", api.Update)    //更新
 		router.POST("/add", api.Add)         //添加
 		router.DELETE("/delete", api.Delete) //删除

@@ -347,7 +347,11 @@ export default {
     },
     // 查詢菜單子菜單
     getChild(row, treeNode, resolve) {
-      listMenu(row.uuid).then(response => {
+      listMenu({
+        'parentUuid': row.uuid,
+        'needCheckHasChild': true
+      }
+      ).then(response => {
         resolve(response.data)
       })
     },
