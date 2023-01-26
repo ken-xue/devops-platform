@@ -25,7 +25,6 @@
         <jwt.version>0.11.5</jwt.version>
         <arthas.version>3.4.8</arthas.version>
         <commons.lang3.version>3.1</commons.lang3.version>
-        <springfox.swagger>3.0.0</springfox.swagger>
         <k8s.client.java.version>10.0.0</k8s.client.java.version>
         <jsch.version>0.1.55</jsch.version>
         <jenkins.client.version>0.3.8</jenkins.client.version>
@@ -34,7 +33,7 @@
         <pipeline.version>1.0.0</pipeline.version>
         <guava.version>31.1-jre</guava.version>
         <druid.version>1.2.14</druid.version>
-        <springdoc.version>1.6.13</springdoc.version>
+        <springdoc.version>2.0.0</springdoc.version>
     </properties>
 
     <dependencyManagement>
@@ -79,10 +78,9 @@
 <!--            暂时还不支持springboot3-->
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-
             <!--            jwt-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -176,6 +174,12 @@
 <!--                <artifactId>druid-spring-boot-starter</artifactId>-->
 <!--                <version>${druid.version}</version>-->
 <!--            </dependency>-->
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.9</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>

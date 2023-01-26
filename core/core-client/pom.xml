@@ -21,14 +21,10 @@
             <groupId>io.kenxue.devops</groupId>
             <artifactId>share-dataobject</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>io.springfox</groupId>-->
-<!--			<artifactId>springfox-swagger2</artifactId>-->
-<!--		</dependency>-->
 		<!--springdoc 官方Starter-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 		</dependency>
 
 	</dependencies>

@@ -1,4 +1,4 @@
-package io.kenxue.devops.application.kubernetes.cluster.command.query;
+package io.kenxue.devops.application.kubernetes.cluster.command.query.resource;
 
 import io.kenxue.devops.application.kubernetes.manager.ClusterCacheManager;
 import io.kenxue.devops.coreclient.dto.common.response.MultiResponse;
@@ -20,10 +20,11 @@ import java.util.stream.Collectors;
 /**
  * kubernetes集群
  * @author mikey
+ * 注意这里的beanname必须和 {@link io.kenxue.devops.sharedataboject.kubernetes.enums.ResourceEnum} 相同
  * @date 2022-05-20 14:09:32
  */
-@Component
-public class ClusterPodListQryExe {
+@Component("Pod")
+public class ClusterPodListQryExe implements ClusterResourceQryI{
     @Resource
     private ClusterCacheManager cacheManager;
 

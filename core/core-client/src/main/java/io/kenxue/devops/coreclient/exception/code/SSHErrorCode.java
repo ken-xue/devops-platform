@@ -8,7 +8,7 @@ public enum SSHErrorCode implements ErrorCode{
     private Integer errCode;
     private String errDesc;
 
-    private SSHErrorCode(Integer errCode, String errDesc){
+    SSHErrorCode(Integer errCode, String errDesc){
         this.errCode = errCode;
         this.errDesc = errDesc;
     }

@@ -6,6 +6,8 @@ public enum BaseErrorCode implements ErrorCode {
 
     BIZ_ERROR(5000, "通用的业务逻辑错误"),
 
+    FUNCTION_NOT_IMPLEMENTED(4000, "功能未实现"),
+
     SYS_ERROR(8000, "未知的系统错误" );
 
     private Integer errCode;

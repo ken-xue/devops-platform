@@ -5,7 +5,10 @@
     <img src="https://img.shields.io/static/v1?label=license&message=MIT&color=green">
   </a>
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
-    <img src="https://img.shields.io/static/v1?label=JDK&message=1.8&color=red">
+    <img src="https://img.shields.io/static/v1?label=JDK&message=17&color=red">
+  </a>
+  <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
+    <img src="https://img.shields.io/static/v1?label=SpringBoot&message=3&color=green">
   </a>
   <a href="https://kubernetes.io">
     <img src="https://img.shields.io/static/v1?label=kubernetes&message=1.2x&color=blue">
@@ -14,7 +17,7 @@
     <img src="https://img.shields.io/static/v1?label=Jsch&message=0.1.55&color=red">
   </a>  
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
-    <img src="https://img.shields.io/static/v1?label=mybatis-plus&message=3.4&color=blue">
+    <img src="https://img.shields.io/static/v1?label=mybatis-plus&message=3.5&color=blue">
   </a>
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
     <img src="https://img.shields.io/static/v1?label=minio&message=8.3.3&color=red">
@@ -27,7 +30,7 @@
   <a title="GitHub Forks" target="_blank" href="https://github.com/ken-xue/devops-platform/network/members"><img alt="GitHub Forks" src="https://img.shields.io/github/forks/ken-xue/devops-platform.svg?label=Forks&style=social"></a>
 </p>
 
-<p align="center"> 中文简体  |  <a title="Englist" href="README_en.md"> English</a></p>
+<p align="center"> 中文简体  |  <a title="English" href="README_en.md"> English</a></p>
 
 
 

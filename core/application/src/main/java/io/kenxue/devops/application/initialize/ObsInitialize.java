@@ -23,16 +23,18 @@ public class ObsInitialize implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        Config config = configRepository.getByName(ConfigEnum.DEFAULT_OBS.name());
-        if (Objects.nonNull(config)){
-            try {
-                String cfg = JSONObject.toJSONString(config);
-                log.debug("cfg :{}",cfg);
-                objectStorageService.initialize(cfg);
-            } catch (Exception e){
-                log.error("初始化系统缺省OBS配置失败，请及时前往系统配置中进行配置");
-                e.printStackTrace();
+        new Thread(()->{
+            Config config = configRepository.getByName(ConfigEnum.DEFAULT_OBS.name());
+            if (Objects.nonNull(config)){
+                try {
+                    String cfg = JSONObject.toJSONString(config);
+                    log.debug("cfg :{}",cfg);
+                    objectStorageService.initialize(cfg);
+                } catch (Exception e){
+                    log.error("初始化系统缺省OBS配置失败，请及时前往系统配置中进行配置");
+                    e.printStackTrace();
+                }
             }
-        }
+        }).start();
     }
 }

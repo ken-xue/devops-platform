@@ -51,12 +51,6 @@
             <groupId>io.kenxue.devops</groupId>
             <artifactId>adapter</artifactId>
             <version>${devops-platform-version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>swagger-annotations</artifactId>
-                    <groupId>io.swagger</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.kenxue.devops</groupId>

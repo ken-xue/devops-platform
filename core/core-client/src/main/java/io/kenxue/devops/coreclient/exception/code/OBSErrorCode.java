@@ -2,8 +2,8 @@ package io.kenxue.devops.coreclient.exception.code;
 
 public enum OBSErrorCode implements ErrorCode{
 
-    SYSTEM_OBS_NOT_CONFIG(9001,"系统OBS服务未配置，请前往系统配置中进行配置"),
-    SYSTEM_OBS_INIT_ERROR(9002,"系统OBS服务初始化失败");
+    SYSTEM_OBS_NOT_CONFIG(10001,"系统OBS服务未配置，请前往系统配置中进行配置"),
+    SYSTEM_OBS_INIT_ERROR(10002,"系统OBS服务初始化失败");
 
     public int code;
     public String desc;

@@ -8,7 +8,6 @@ import io.kenxue.devops.acl.authorize.handler.CustomLogoutSuccessHandler;
 import io.kenxue.devops.acl.authorize.impl.AuthenticationProviderImpl;
 import io.kenxue.devops.acl.cache.CacheService;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +25,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Collections;
-import java.util.List;
 
 
 @Configuration
@@ -71,30 +69,20 @@ public class SpringSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()// 放开权限
                 // 下面开始设置权限
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/ws/**",//开放websocket接口
-
-//                                "/",
-//                                "/error",
-//                                "/swagger-ui.html",
-//                                "/swagger-ui/",
-//                                "/*.html",
-//                                "/favicon.ico",
-//                                "/*/*.html",
-//                                "/*/*.css",
-//                                "/*/*.js",
-//                                "/swagger-resources/**",
-//                                "/v3/api-docs/**",
-
-                                "/sys/user/add",//注册接口
-                                "/captcha/get",//注册接口
-                                "/v3/api-docs/*",
-                                "/swagger-resources",
-                                "/swagger-resources/**",
-                                "/configuration/ui",
-                                "/configuration/security",
+                        .requestMatchers("/ok",
                                 "/swagger-ui.html",
-                                "/webjars/**",
-                                "/ok").anonymous()
+                                "/swagger-ui/**",
+                                "/*.html",
+                                "/favicon.ico",
+                                "/*/*.html",
+                                "/*/*.css",
+                                "/*/*.js",
+                                "/swagger-resources/**",
+                                "/v3/api-docs/**",
+                                "/ws/**",//开放websocket接口
+                                "/sys/user/add",//注册接口
+                                "/captcha/get"//获取验证码接口
+                                ).anonymous()
                         .anyRequest().authenticated()
                 )
                 // 设置 jwtAuthError 处理认证失败、鉴权失败

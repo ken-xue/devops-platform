@@ -1,10 +1,14 @@
-package io.kenxue.devops.application.kubernetes.cluster.command.query;
+package io.kenxue.devops.application.kubernetes.cluster.command.query.resource;
 
 import io.kenxue.devops.coreclient.dto.common.response.MultiResponse;
 import io.kenxue.devops.coreclient.dto.kubernetes.cluster.ClusterResourceQry;
-import io.kenxue.devops.sharedataboject.kubernetes.enums.ResourceEnum;
 import jakarta.annotation.Resource;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
+
+;
 
 /**
  * kubernetes集群
@@ -14,16 +18,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClusterResourceQryExe {
     @Resource
-    private ClusterPodListQryExe clusterPodListQryExe;
+    private ApplicationContext ctx;
 
     public MultiResponse execute(ClusterResourceQry qry) {
 
         String resource = qry.getResource();
 
-        if (ResourceEnum.Pod.name().equals(resource)){
-            return clusterPodListQryExe.execute(qry);
-        }
+        ClusterResourceQryI exe = (ClusterResourceQryI) ctx.getBean(resource);
 
-        return MultiResponse.success();
+        if (Objects.isNull(exe))throw new RuntimeException("Function not implemented");
+
+        MultiResponse ret = exe.execute(qry);
+
+        return ret;
     }
 }
