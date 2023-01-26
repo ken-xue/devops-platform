@@ -980,7 +980,7 @@ CREATE TABLE `sys_config` (
   `editable` char(1) DEFAULT '1' COMMENT '是否可编辑',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1226,4 +1226,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-27 16:38:30
+-- Dump completed on 2022-12-10  2:02:44

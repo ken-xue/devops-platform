@@ -1,0 +1,561 @@
+definitions:
+  cmd.CaptchaResponse:
+    properties:
+      captchaId:
+        type: string
+      captchaLength:
+        type: integer
+      picPath:
+        type: string
+    type: object
+  cmd.CodeCreateCmd:
+    properties:
+      createType:
+        type: integer
+      module:
+        type: string
+      tableNames:
+        items:
+          type: string
+        type: array
+    type: object
+  cmd.Login:
+    properties:
+      captcha:
+        description: 验证码
+        type: string
+      captchaId:
+        description: 验证码ID
+        type: string
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  cmd.LoginResponse:
+    properties:
+      expiresAt:
+        type: integer
+      token:
+        type: string
+    type: object
+  cmd.MachineInfoAddCmd:
+    properties:
+      accessKey:
+        description: 服务器登陆密钥
+        type: string
+      accessPassword:
+        description: 服务器登陆密码
+        type: string
+      accessUsername:
+        description: 服务器登陆用户名
+        type: string
+      accessWay:
+        description: 访问方式
+        type: string
+      ip:
+        description: 服务器ip
+        type: string
+      name:
+        description: 服务器名
+        type: string
+      ops:
+        type: string
+      port:
+        description: 连接端口
+        type: integer
+    type: object
+  cmd.MenuListQry:
+    properties:
+      parentUuid:
+        type: string
+    type: object
+  cmd.UserAddCmd:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      ops:
+        type: string
+      password:
+        type: string
+      roleIdList:
+        items:
+          type: string
+        type: array
+      username:
+        type: string
+    type: object
+  cmd.UserUpdateCmd:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      ops:
+        type: string
+      password:
+        type: string
+      roleIdList:
+        items:
+          type: string
+        type: array
+      status:
+        type: integer
+      uuid:
+        type: string
+    type: object
+  request.DeleteCmd:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /base/user/add:
+    post:
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserAddCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加用户
+      tags:
+      - 用户模块
+  /base/user/delete:
+    delete:
+      parameters:
+      - description: 删除用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除用户
+      tags:
+      - 用户模块
+  /base/user/page:
+    get:
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 关键字
+        in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: pageIndex
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 关键字值
+        in: query
+        name: value
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 查询用户
+      tags:
+      - 用户模块
+  /base/user/update:
+    put:
+      parameters:
+      - description: 修改用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserUpdateCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 修改用户
+      tags:
+      - 用户模块
+  /captcha:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/cmd.CaptchaResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 验证码
+      tags:
+      - 登录模块
+  /dev/code/create:
+    post:
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.CodeCreateCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 生成代码
+      tags:
+      - 工具模块
+  /dev/code/delete:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除最近一次生成的代码
+      tags:
+      - 工具模块
+  /dev/code/download:
+    post:
+      parameters:
+      - description: 生成代码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.CodeCreateCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 生成代码
+      tags:
+      - 工具模块
+  /dev/code/page:
+    get:
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 关键字
+        in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: pageIndex
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 关键字值
+        in: query
+        name: value
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 查询数据库表
+      tags:
+      - 工具模块
+  /login:
+    post:
+      parameters:
+      - description: 用户名, 密码, 验证码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回包括用户信息,token,过期时间
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/cmd.LoginResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 用户登录
+      tags:
+      - 登录模块
+  /logout:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 退出登录
+      tags:
+      - 登录模块
+  /machine/machineinfo/add:
+    post:
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.MachineInfoAddCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 新增服务器节点
+      tags:
+      - 服务器节点模块
+  /machine/machineinfo/delete:
+    delete:
+      parameters:
+      - description: 删除服务器节点
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.DeleteCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除服务器节点
+      tags:
+      - 服务器节点模块
+  /machine/machineinfo/info:
+    get:
+      parameters:
+      - description: 服务器节点信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.MachineInfoAddCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 详情服务器节点
+      tags:
+      - 服务器节点模块
+  /machine/machineinfo/page:
+    get:
+      parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 关键字
+        in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: pageIndex
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 关键字值
+        in: query
+        name: value
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 查询服务器节点
+      tags:
+      - 服务器节点模块
+  /machine/machineinfo/update:
+    put:
+      parameters:
+      - description: 修改服务器节点
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserUpdateCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 修改服务器节点
+      tags:
+      - 服务器节点模块
+  /sys/menu/auth:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 验证码
+      tags:
+      - 菜单模块
+  /sys/menu/list:
+    get:
+      parameters:
+      - description: 菜单列表
+        in: body
+        name: data
+        schema:
+          $ref: '#/definitions/cmd.MenuListQry'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页
+      tags:
+      - 菜单模块
+  /sys/menu/page:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页
+      tags:
+      - 菜单模块
+  /sys/menu/query:
+    get:
+      parameters:
+      - description: 菜单列表
+        in: body
+        name: data
+        schema:
+          $ref: '#/definitions/cmd.MenuListQry'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 下拉框数据
+      tags:
+      - 菜单模块
+  /sys/role/page:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页
+      tags:
+      - 角色模块
+  /sys/user/info:
+    get:
+      parameters:
+      - description: 用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cmd.UserAddCmd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 用户信息
+      tags:
+      - 用户模块
+  /sys/user/self:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 用户信息
+      tags:
+      - 用户模块
+swagger: "2.0"

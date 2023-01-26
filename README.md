@@ -5,19 +5,19 @@
     <img src="https://img.shields.io/static/v1?label=license&message=MIT&color=green">
   </a>
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
-    <img src="https://img.shields.io/static/v1?label=JDK&message=17&color=red">
+    <img src="https://img.shields.io/static/v1?label=Go&message=1.19&color=blue">
   </a>
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
-    <img src="https://img.shields.io/static/v1?label=SpringBoot&message=3&color=green">
+    <img src="https://img.shields.io/static/v1?label=Gin&message=3&color=green">
   </a>
   <a href="https://kubernetes.io">
     <img src="https://img.shields.io/static/v1?label=kubernetes&message=1.2x&color=blue">
   </a>
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
-    <img src="https://img.shields.io/static/v1?label=Jsch&message=0.1.55&color=red">
+    <img src="https://img.shields.io/static/v1?label=viper&message=0.1.55&color=red">
   </a>  
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
-    <img src="https://img.shields.io/static/v1?label=mybatis-plus&message=3.5&color=blue">
+    <img src="https://img.shields.io/static/v1?label=Gorm&message=3.5&color=blue">
   </a>
   <a href="https://github.com/ken-xue/devops-platform/blob/master/LICENSE">
     <img src="https://img.shields.io/static/v1?label=minio&message=8.3.3&color=red">
@@ -36,11 +36,11 @@
 
 ## 项目简介
 
-> devops-platform 是一款企业级开发、效能、运维平台。打通项目立项、研发、测试、发布、运维等流程，对软件项目开发形成闭环。前后端分离开发[前端项目地址](https://github.com/ken-xue/devops-platform-vue)
+> devops-platform 是一款企业级开发、效能、运维平台。打通项目立项、研发、测试、发布、运维等流程，对软件项目开发形成闭环。
 
 ## 项目架构
 
-![image.png](doc/image/ddd-layer.png)
+todo
 
 ## 快速开始
 
@@ -73,16 +73,18 @@ mc config host add minio http://192.168.100.21:30001 minioadmin minioadmin
 
 5.编译并运行
 ```bash
-cd devops-platform
-mvn clean install
+cd devops-platform/server
+go run 
+cd web
+npm install 
+npm run dev
 ```
 
 6.构建服务器配置环境
 
 - minio客户端mc (需配置好连接服务器)
-- maven
 - git
-- jre
+- go
 
 ## 项目文档
 
