@@ -4,7 +4,7 @@
       <el-form ref="queryForm" :model="queryParams" :inline="true" label-position="left" label-width="68px">
         <el-form-item label="名称" prop="roleName">
           <el-input
-            v-model="queryParams.roleDTO.roleName"
+            v-model="queryParams.name"
             placeholder="请输入角色名称"
             clearable
             size="small"
@@ -66,7 +66,7 @@
         <el-form ref="form" :model="form" :rules="rules" label-width="120px">
           <el-row>
             <el-col :span="24">
-              <el-form-item label="名称" prop="roleName">
+              <el-form-item label="名称" prop="name">
                 <el-input
                   v-model="form.name"
                   placeholder="名称"
@@ -74,7 +74,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="24">
-              <el-form-item label="角色备注" prop="roleRemark">
+              <el-form-item label="角色备注" prop="remark">
                 <el-input
                   v-model="form.remark"
                   placeholder="备注"
@@ -149,9 +149,7 @@ export default {
       queryParams: {
         pageIndex: 1,
         pageSize: 10,
-        roleDTO: {
-          roleName: ''
-        }
+        name: '',
       },
       // 表单参数
       form: {
@@ -159,7 +157,7 @@ export default {
       },
       // 表单校验
       rules: {
-        roleName: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
+        name: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
       }
     }
   },
@@ -185,8 +183,8 @@ export default {
     reset() {
       this.form = {
         id: undefined,
-        roleName: undefined,
-        roleRemark: undefined,
+        name: undefined,
+        remark: undefined,
       }
       this.menuList = []
       this.resetForm('form')
@@ -256,7 +254,7 @@ export default {
         if (valid) {
           if (this.form.id !== undefined) {
             this.form.menuList = [].concat(this.$refs.menuListTree.getCheckedKeys(), this.$refs.menuListTree.getHalfCheckedKeys())
-            updateRole({'roleDTO':this.form}).then(response => {
+            updateRole(this.form).then(response => {
               if (response.code === 2000) {
                 this.msgSuccess('修改成功')
                 this.open = false
@@ -267,7 +265,7 @@ export default {
             })
           } else {
             this.form.menuList = [].concat(this.$refs.menuListTree.getCheckedKeys(), this.$refs.menuListTree.getHalfCheckedKeys())
-            addRole({'roleDTO':this.form}).then(response => {
+            addRole(this.form).then(response => {
               if (response.code === 2000) {
                 this.msgSuccess('新增成功')
                 this.open = false
@@ -284,7 +282,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const Ids = (row.id && [row.id]) || this.ids
-      this.$confirm('是否确认删除"' + row.roleName + '"的数据项?', '警告', {
+      this.$confirm('是否确认删除"' + row.name + '"的数据项?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

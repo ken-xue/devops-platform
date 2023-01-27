@@ -1,15 +1,14 @@
 package system
 
 import (
-	uuid "github.com/satori/go.uuid"
 	"server/infrastructure/model"
 )
 
 type Role struct {
-	model.CommonModel
-	Name     string `json:"name" gorm:"comment:角色名称"`
-	Remark   string `json:"remark" gorm:"comment:备注"`
-	MenuList []Menu `json:"menuList" gorm:"-"`
+	model.CommonModel `mapstructure:",squash"`
+	Name              string `json:"name" gorm:"comment:角色名称"`
+	Remark            string `json:"remark" gorm:"comment:备注"`
+	MenuList          []Menu `json:"menuList" gorm:"-" mapstructure:"squash"`
 }
 
 func (Role) TableName() string {
@@ -18,8 +17,8 @@ func (Role) TableName() string {
 
 type RoleOfMenu struct {
 	model.CommonModel
-	MenuUUID uuid.UUID `json:"menuUUID" gorm:"comment:MenuUUID"`
-	RoleUUID uuid.UUID `json:"roleUUID" gorm:"comment:RoleUUID"`
+	MenuUUID string `json:"menuUUID" gorm:"comment:MenuUUID"`
+	RoleUUID string `json:"roleUUID" gorm:"comment:RoleUUID"`
 }
 
 func (RoleOfMenu) TableName() string {

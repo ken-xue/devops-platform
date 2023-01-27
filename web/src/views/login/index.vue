@@ -69,7 +69,7 @@
         </el-col>
         <el-col :span="12">
           <div class="grid-content bg-purple">
-            <div style="max-width: 100%;max-height: 100%;width: 500px;height: 500px;background-color:#1890ff;">
+            <div style="max-width: 100%;max-height: 100%;width: 500px;height: 520px;background-color:#1890ff;">
               <img style="width: 100%;height:100%;" src="/img/login.png">
             </div>
           </div>
@@ -226,7 +226,7 @@ export default {
   .login-container {
     min-width: 640px;
     width: 960px;
-    height: 480px;
+    height: 520px;
     background-color: #fff;
     box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
   }

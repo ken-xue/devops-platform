@@ -27,7 +27,7 @@ func (service *MenuRepository) Delete(cmd request.DeleteCmd) error {
 
 // Update 改
 func (service *MenuRepository) Update(menu system.Menu) (err error) {
-	return infra.DB.Where("id = ?", menu.ID).First(&system.Menu{}).Updates(&menu).Error
+	return infra.DB.Where("id = ?", menu.Id).First(&system.Menu{}).Updates(&menu).Error
 }
 
 // Page 查

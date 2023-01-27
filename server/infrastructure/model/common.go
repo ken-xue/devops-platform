@@ -10,7 +10,7 @@ import (
 )
 
 type CommonModel struct {
-	ID          uint   `json:"id" gorm:"primarykey"` // 主键ID
+	Id          uint   `json:"id" gorm:"primarykey"` // 主键ID
 	UUID        string `json:"uuid" gorm:"index;comment:UUID"`
 	GmtCreate   Time   `json:"gmtCreate"`   // 创建时间
 	Creator     string `json:"creator"`     // 创建人

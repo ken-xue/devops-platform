@@ -14,8 +14,6 @@ var RoleRepo = new(RoleRepository)
 
 // Add 增
 func (service *RoleRepository) Add(role system.Role) error {
-	//设置基本信息
-	role.Create("")
 	return infra.DB.Create(&role).Error
 }
 
@@ -26,7 +24,7 @@ func (service *RoleRepository) Delete(cmd request.DeleteCmd) error {
 
 // Update 改
 func (service *RoleRepository) Update(role system.Role) (err error) {
-	return infra.DB.Where("id = ?", role.ID).First(&system.Role{}).Updates(&role).Error
+	return infra.DB.Where("id = ?", role.Id).First(&system.Role{}).Updates(&role).Error
 }
 
 // Page 查
@@ -44,14 +42,15 @@ func (service *RoleRepository) Page(query request.PageQuery) (pageResult respons
 	return
 }
 
-func (service *RoleRepository) GetById() (role system.Role, err error) {
+func (service *RoleRepository) GetById(ids []uint) (roles []system.Role, err error) {
+	err = infra.DB.Where("id in ?", ids).Find(&roles).Error
 	return
 }
 
-// GetByUserUUID 通过用户UUID获取其角色列表
-func (service *RoleRepository) GetByUserUUID(uuid string) (list []system.Role) {
+// GetByUserUuid 通过用户UUID获取其角色列表
+func (service *RoleRepository) GetByUserUuid(uuid string) (list []system.Role) {
 	//查找对应的角色
-	userOfRoles := service.GetRoleOfUserUUID(uuid)
+	userOfRoles, _ := UserOfRoleRepo.GetUserOfRoleByUserUuid(uuid)
 	roleUUIDList := make([]string, 0)
 	for _, role := range userOfRoles {
 		roleUUIDList = append(roleUUIDList, role.RoleUUID)
@@ -61,23 +60,9 @@ func (service *RoleRepository) GetByUserUUID(uuid string) (list []system.Role) {
 	return
 }
 
-// GetRoleOfUserUUID 通过用户UUID获取其角色列表
-func (service *RoleRepository) GetRoleOfUserUUID(uuid string) (userOfRoles []system.UserOfRole) {
-	infra.DB.Model(&system.UserOfRole{}).Where("user_uuid = ?", uuid).Find(&userOfRoles)
-	return
-}
-
 func (service *RoleRepository) List(query cmd.RoleListQry) (roles []system.Role, err error) {
 	err = infra.DB.Find(&roles).Error
 	return
-}
-
-func (service *RoleRepository) AddUserOfRole(role system.UserOfRole) error {
-	return infra.DB.Create(&role).Error
-}
-
-func (service *RoleRepository) DeleteUserOfRole(cmd request.DeleteCmd) error {
-	return infra.DB.Where("id in ?", cmd.Ids).Delete(&system.UserOfRole{}).Error
 }
 
 // Info 详情

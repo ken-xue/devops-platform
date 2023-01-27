@@ -15,7 +15,7 @@ database:
 captcha:
   key-long: 4
   img-width: 240
-  img-height: 40
+  img-height: 80
 
 # 加密
 encryption:

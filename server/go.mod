@@ -10,7 +10,7 @@ require (
 	github.com/goccy/go-json v0.9.11
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/gorilla/websocket v1.5.0
-	github.com/ken-xue/event-bus v0.0.0-20230124045700-f64fe38bf1bb
+	github.com/ken-xue/event-bus v0.0.3
 	github.com/minio/minio-go/v7 v7.0.45
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/mojocn/base64Captcha v1.3.5

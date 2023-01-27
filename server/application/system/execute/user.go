@@ -6,7 +6,6 @@ import (
 	"server/client/common/response"
 	"server/client/system/cmd"
 	"server/infrastructure/model/system"
-	"server/infrastructure/repository"
 	repo "server/infrastructure/repository/system"
 	"server/logger"
 	"server/util"
@@ -18,7 +17,7 @@ type UserInfoQryExe struct{}
 func (p *UserInfoQryExe) Execute(qry cmd.UserInfoQry) (user system.User, err error) {
 	user, _ = repo.UserRepo.Info(qry)
 	user.Password = "" //隐藏密码
-	roles := repo.RoleRepo.GetByUserUUID(user.UUID)
+	roles := repo.RoleRepo.GetByUserUuid(user.UUID)
 	for _, role := range roles {
 		user.RoleIdList = append(user.RoleIdList, role.UUID)
 	}
@@ -43,7 +42,7 @@ func (p *UserUpdateCmdExe) Execute(cmd cmd.UserUpdateCmd) (err error) {
 		user.Password = util.BcryptHash(user.Password)
 	}
 	//更新对应的角色
-	userOfRoles := repository.Repo.RoleRepository.GetRoleOfUserUUID(user.UUID)
+	userOfRoles, _ := repo.UserOfRoleRepo.GetUserOfRoleByUserUuid(user.UUID)
 	//已有的角色
 	hasMap := make(map[string]system.UserOfRole)
 	delMap := make(map[string]system.UserOfRole)
@@ -60,7 +59,7 @@ func (p *UserUpdateCmdExe) Execute(cmd cmd.UserUpdateCmd) (err error) {
 				UserUUID: user.UUID,
 			}
 			userOfRole.Create(cmd.Ops)
-			err = repository.Repo.RoleRepository.AddUserOfRole(userOfRole)
+			err = repo.UserOfRoleRepo.AddUserOfRole(userOfRole)
 			if err != nil {
 				logger.Log.Error(err.Error())
 			}
@@ -69,9 +68,9 @@ func (p *UserUpdateCmdExe) Execute(cmd cmd.UserUpdateCmd) (err error) {
 	//需要删除的旧角色
 	deleteIds := make([]uint, 0)
 	for _, role := range delMap {
-		deleteIds = append(deleteIds, role.ID)
+		deleteIds = append(deleteIds, role.Id)
 	}
-	repository.Repo.RoleRepository.DeleteUserOfRole(request.DeleteCmd{
+	repo.UserOfRoleRepo.DeleteUserOfRole(request.DeleteCmd{
 		Ids: deleteIds,
 	})
 	return repo.UserRepo.Update(user)
@@ -93,7 +92,7 @@ func (p *UserAddCmdExe) Execute(cmd cmd.UserAddCmd) (err error) {
 			UserUUID: user.UUID,
 		}
 		userOfRole.Create(cmd.Ops)
-		err = repository.Repo.RoleRepository.AddUserOfRole(userOfRole)
+		err = repo.UserOfRoleRepo.AddUserOfRole(userOfRole)
 		if err != nil {
 			logger.Log.Error(err.Error())
 		}

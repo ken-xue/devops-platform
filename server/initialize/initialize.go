@@ -18,4 +18,6 @@ func Init() {
 	infra.InitInfra()
 	//初始化socket服务器
 	InitSocket()
+	//注册事件处理器
+	RegisterEventHandler()
 }

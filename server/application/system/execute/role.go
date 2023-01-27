@@ -9,6 +9,7 @@ import (
 	"server/client/system/cmd"
 	"server/infrastructure/model/system"
 	repo "server/infrastructure/repository/system"
+	"server/logger"
 )
 
 // RoleInfoQryExe 详情
@@ -34,7 +35,17 @@ type RoleUpdateCmdExe struct{}
 func (p *RoleUpdateCmdExe) Execute(cmd cmd.RoleUpdateCmd) (err error) {
 	info := system.Role{}
 	mapstructure.Decode(cmd, &info)
-	return repo.RoleRepo.Update(info)
+	info.Update(cmd.Ops)
+	err = repo.RoleRepo.Update(info)
+	resp := bus.EventBus.Publish(event.RoleUpdateEvent{
+		Role: info,
+	})
+	if resp.Error != nil {
+		logger.Log.Error(err.Error())
+		err = resp.Error
+		return
+	}
+	return
 }
 
 // RoleAddCmdExe 新增
@@ -45,18 +56,30 @@ func (p *RoleAddCmdExe) Execute(cmd cmd.RoleAddCmd) (err error) {
 	info := system.Role{}
 	mapstructure.Decode(cmd, &info)
 	info.Create(cmd.Ops)
-	bus.EventBus.Publish(event.RoleAddEvent{MenuList: cmd.MenuList})
-	return repo.RoleRepo.Add(info)
+	resp := bus.EventBus.Publish(event.RoleAddEvent{MenuList: cmd.MenuList, RoleUuid: info.UUID})
+	if resp.Error != nil {
+		logger.Log.Error(err.Error())
+		err = resp.Error
+		return
+	}
+	err = repo.RoleRepo.Add(info)
+	return
 }
 
 // RoleDeleteCmdExe 删除
 type RoleDeleteCmdExe struct{}
 
 func (p *RoleDeleteCmdExe) Execute(ids request.DeleteCmd) (err error) {
+	resp := bus.EventBus.Publish(event.RoleDeleteEvent{Ids: ids.Ids})
+	if resp.Error != nil {
+		logger.Log.Error(err.Error())
+		err = resp.Error
+		return
+	}
 	return repo.RoleRepo.Delete(ids)
 }
 
-// RoleDeleteCmdExe 删除
+// RoleListQryExe 删除
 type RoleListQryExe struct{}
 
 func (p *RoleListQryExe) Execute(cmd cmd.RoleListQry) (roles []system.Role, err error) {

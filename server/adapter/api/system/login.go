@@ -83,7 +83,7 @@ func (p *SysLoginAdapter) tokenNext(c *gin.Context, user system.User) {
 	j := &util.JWT{SigningKey: []byte(config.GlobalConfig.JWT.SigningKey)} // 唯一签名
 	claims := j.CreateClaims(cmd.BaseClaims{
 		UUID:     user.UUID,
-		ID:       user.ID,
+		ID:       user.Id,
 		Username: user.Username,
 		Name:     user.Name,
 	})

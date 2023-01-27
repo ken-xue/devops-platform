@@ -17,11 +17,13 @@ type RoleAddCmd struct {
 }
 
 type RoleUpdateCmd struct {
-	cmd.Cmd
+	cmd.Cmd `mapstructure:"squash"`
 	//角色名
 	Name string `json:"name"`
 	//备注
 	Remark string `json:"remark"`
+
+	MenuList []string `json:"menuList" mapstructure:"squash"`
 }
 
 type RoleInfoQry struct {
