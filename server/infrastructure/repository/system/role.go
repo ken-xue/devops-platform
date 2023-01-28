@@ -6,6 +6,7 @@ import (
 	"server/client/system/cmd"
 	infra "server/infrastructure"
 	"server/infrastructure/model/system"
+	"server/util"
 )
 
 type RoleRepository struct{}
@@ -32,6 +33,9 @@ func (service *RoleRepository) Page(query request.PageQuery) (pageResult respons
 	limit := query.PageSize
 	offset := query.PageSize * (query.PageIndex - 1)
 	db := infra.DB.Model(&system.Role{})
+	if len(query.Name) > 0 {
+		db.Where("name like ?", util.Like(query.Name))
+	}
 	var list []system.Role
 	err = db.Count(&pageResult.Total).Error
 	if err != nil {

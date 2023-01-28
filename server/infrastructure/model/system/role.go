@@ -5,7 +5,7 @@ import (
 )
 
 type Role struct {
-	model.CommonModel `mapstructure:",squash"`
+	model.CommonModel `mapstructure:"squash"`
 	Name              string `json:"name" gorm:"comment:角色名称"`
 	Remark            string `json:"remark" gorm:"comment:备注"`
 	MenuList          []Menu `json:"menuList" gorm:"-" mapstructure:"squash"`

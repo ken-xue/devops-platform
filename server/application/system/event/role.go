@@ -2,6 +2,7 @@ package event
 
 import (
 	"reflect"
+	"server/client/system/cmd"
 	"server/infrastructure/model/system"
 )
 
@@ -25,6 +26,7 @@ func (r RoleDeleteEvent) GetHandlerName() string {
 type RoleUpdateEvent struct {
 	Ids  []uint
 	Role system.Role
+	Cmd  cmd.RoleUpdateCmd
 }
 
 func (r RoleUpdateEvent) GetHandlerName() string {

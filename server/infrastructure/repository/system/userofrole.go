@@ -20,7 +20,7 @@ func (service *UserOfRoleRepository) AddUserOfRole(userOfRole system.UserOfRole)
 }
 
 func (service *UserOfRoleRepository) HasUserByRoleUuid(uuid string) (cnt int64, err error) {
-	err = infra.DB.Where("role_uuid = ?", uuid).Count(&cnt).Error
+	err = infra.DB.Model(&system.UserOfRole{}).Where("role_uuid = ?", uuid).Count(&cnt).Error
 	return
 }
 

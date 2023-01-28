@@ -27,8 +27,8 @@ func (p *CommonModel) Create(creator string) {
 	p.GmtModified = Time(time.Now())
 }
 
-func (p *CommonModel) Update(creator string) {
-	p.Modifier = creator
+func (p *CommonModel) Update(modifier string) {
+	p.Modifier = modifier
 	p.GmtModified = Time(time.Now())
 }
 

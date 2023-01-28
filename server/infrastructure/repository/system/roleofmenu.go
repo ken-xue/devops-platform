@@ -1,6 +1,7 @@
 package system
 
 import (
+	"server/client/common/request"
 	infra "server/infrastructure"
 	"server/infrastructure/model/system"
 )
@@ -15,7 +16,11 @@ func (service *RoleOfMenuRepository) AddRoleOfMenu(roleOfMenu system.RoleOfMenu)
 }
 
 func (service *RoleOfMenuRepository) DeleteRoleOfMenu(uuid string) error {
-	return infra.DB.Where("role_uuid in ?", uuid).Delete(&system.RoleOfMenu{}).Error
+	return infra.DB.Where("role_uuid = ?", uuid).Delete(&system.RoleOfMenu{}).Error
+}
+
+func (service *RoleOfMenuRepository) DeleteByIds(cmd request.DeleteCmd) error {
+	return infra.DB.Where("id in ?", cmd.Ids).Delete(&system.RoleOfMenu{}).Error
 }
 
 func (service *RoleOfMenuRepository) GetRoleOfMenuByRoleUuid(uuid string) (roleOfMenus []system.RoleOfMenu, err error) {

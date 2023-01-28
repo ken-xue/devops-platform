@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { MessageBox, Message, Notification } from 'element-ui'
 import store from '@/store'
 import { getToken, setToken } from '@/utils/auth'
 
@@ -61,8 +61,9 @@ service.interceptors.response.use(
       } else if (response.config.responseType == 'blob'){//文件下载
         return response
       } else {
-        Message({
-          message: res.message || 'Error',
+        Notification({
+          title: '成功',
+          message: res.message,
           type: 'error',
           duration: 5 * 1000
         })
@@ -73,7 +74,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log('err ' + error) // for debug
     Message({
       message: error.message,
       type: 'error',

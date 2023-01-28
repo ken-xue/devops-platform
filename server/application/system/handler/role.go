@@ -38,8 +38,11 @@ func (p RoleDeleteEventHandler) Execute(event bus.Event) (re bus.Response) {
 	}
 	for _, role := range roles {
 		//如果该角色还关联人，不给予删除
-		if has, _ := repo.UserOfRoleRepo.HasUserByRoleUuid(role.UUID); has > 0 {
-			return bus.Response{}
+		has, _ := repo.UserOfRoleRepo.HasUserByRoleUuid(role.UUID)
+		if has > 0 {
+			return bus.Response{
+				Error: errors.New("该角色还存在关联的用户，不给予删除"),
+			}
 		}
 		repo.RoleOfMenuRepo.DeleteRoleOfMenu(role.UUID)
 	}
@@ -73,14 +76,14 @@ func (p RoleUpdateEventHandler) Execute(event bus.Event) (resp bus.Response) {
 		NeedDel[menu.MenuUUID] = menu.Id
 	}
 	NeedAdd := make(map[string]system.RoleOfMenu)
-	for _, menu := range e.Role.MenuList {
-		delete(NeedDel, menu.UUID)
-		if _, ok := Has[menu.UUID]; ok {
+	for _, menuUuid := range e.Cmd.MenuList {
+		delete(NeedDel, menuUuid)
+		if _, ok := Has[menuUuid]; ok {
 			continue
 		}
-		NeedAdd[menu.UUID] = system.RoleOfMenu{
-			RoleUUID: e.Role.UUID,
-			MenuUUID: menu.UUID,
+		NeedAdd[menuUuid] = system.RoleOfMenu{
+			RoleUUID: role.UUID,
+			MenuUUID: menuUuid,
 		}
 	}
 	//新增的添加
@@ -92,8 +95,13 @@ func (p RoleUpdateEventHandler) Execute(event bus.Event) (resp bus.Response) {
 	for _, id := range NeedDel {
 		Ids = append(Ids, id)
 	}
-	repo.UserOfRoleRepo.DeleteUserOfRole(request.DeleteCmd{
+	err = repo.RoleOfMenuRepo.DeleteByIds(request.DeleteCmd{
 		Ids: Ids,
 	})
+	if err != nil {
+		logger.Log.Error(err.Error())
+		resp.Error = err
+		return
+	}
 	return
 }

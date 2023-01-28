@@ -259,6 +259,10 @@ export default {
                 this.msgSuccess('修改成功')
                 this.open = false
                 this.getList()
+                //如果更改的是当前用户的角色需要刷新全局菜单数据
+                setTimeout(() => {
+                  this.$router.go(0)
+                }, 1000)
               } else {
                 this.msgError(response.msg)
               }
@@ -275,7 +279,6 @@ export default {
               }
             })
           }
-          this.$router.go(0)
         }
       })
     },

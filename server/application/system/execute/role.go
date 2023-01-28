@@ -35,10 +35,12 @@ type RoleUpdateCmdExe struct{}
 func (p *RoleUpdateCmdExe) Execute(cmd cmd.RoleUpdateCmd) (err error) {
 	info := system.Role{}
 	mapstructure.Decode(cmd, &info)
+	info.Id = cmd.Cmd.Id
 	info.Update(cmd.Ops)
 	err = repo.RoleRepo.Update(info)
 	resp := bus.EventBus.Publish(event.RoleUpdateEvent{
 		Role: info,
+		Cmd:  cmd,
 	})
 	if resp.Error != nil {
 		logger.Log.Error(err.Error())
@@ -72,7 +74,7 @@ type RoleDeleteCmdExe struct{}
 func (p *RoleDeleteCmdExe) Execute(ids request.DeleteCmd) (err error) {
 	resp := bus.EventBus.Publish(event.RoleDeleteEvent{Ids: ids.Ids})
 	if resp.Error != nil {
-		logger.Log.Error(err.Error())
+		logger.Log.Error(resp.Error.Error())
 		err = resp.Error
 		return
 	}
